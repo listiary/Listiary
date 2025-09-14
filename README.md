@@ -1,6 +1,6 @@
 ## *Listiary - Nested Lists Wiki*  
 
-<img width="650" height="120" alt="listiary-wiki-logo-cropped" src="https://github.com/user-attachments/assets/02d3faff-e4cf-49f8-a771-c7b8fbb483e0" />
+<img width="650" height="150" alt="listiary-wiki-logo-cropped" src="https://github.com/user-attachments/assets/02d3faff-e4cf-49f8-a771-c7b8fbb483e0" />
 
 _Simplifying the world, one list at a time_
 <!-- World simplified, one list at a time -->
