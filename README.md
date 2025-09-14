@@ -1,7 +1,7 @@
 ## *Listiary - Nested Lists Wiki*  
 
 <p align="center">
-<img width="585" height="135" alt="listiary-wiki-logo-cropped" src="https://github.com/user-attachments/assets/02d3faff-e4cf-49f8-a771-c7b8fbb483e0" />
+<img width="520" height="120" alt="listiary-wiki-logo-cropped" src="https://github.com/user-attachments/assets/02d3faff-e4cf-49f8-a771-c7b8fbb483e0" />
 </p>
 
 _Simplifying the world, one list at a time_
