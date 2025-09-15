@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="description" content="Created by Describe Compiler v0.9.2">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="Demon of reason">
+	<link rel="stylesheet" type="text/css" href="index/index.styles.css" />
+	<title>Radiowatch</title>
+</head>
+<body style="height:100%;">
+
+	<div id="sidenav" >
+		<a href="javascript: closeNav();" class="closebtn"
+		style="
+		position: absolute; top: 0; right: 0; font-size: 36px; margin-right: 10px;
+		padding: 8px; text-decoration: none; color: #818181; display: block; transition: 0.3s;">
+			<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' style='margin-top:14px;' viewBox='0 0 25 25'>
+				<path d='M0,0 L16,16' stroke='#818181' stroke-width='2' fill='none'/>
+				<path d='M0,16 L16,0' stroke='#818181' stroke-width='2' fill='none'/>
+			</svg>
+		</a><!-- this is the X button -->
+		
+		<a id="menuArrow" href="javascript: showNextMenu();" class="closebtn" style="
+		position: absolute; top: 0; right: 20; font-size: 25px;
+		padding: 8px; text-decoration: none; color: #818181; display: inline; transition: 0.3s;
+		padding-left: 30px;
+		padding-top: 12px;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" style="margin-top:9px;" viewBox="0 0 25 25">
+				<path d="M1,9 L10,0" stroke="#818181" stroke-width="2" fill="none"/>
+				<path d="M1,9 L19,9" stroke="#818181" stroke-width="2" fill="none"/>
+				<path d="M0,9 L1,9" stroke="#818181" stroke-width="1" fill="none"/>
+				<path d="M1,9 L10,18" stroke="#818181" stroke-width="2" fill="none"/>
+			</svg>
+		</a><!-- this is the Arrow button -->
+		
+		<!-- MenuMain -->
+		<a id="userlink" href="javascript:void(0);" class="MenuMain">DemonOfReason</a>
+		<!-- <a id="userlink" href="<?php echo $url; ?>" class="MenuMain"><?php echo $text; ?></a> -->
+		<!-- <a href="javascript:void(0);">Settings</a> -->
+		
+		<hr style="margin: 32px;" class="MenuMain" />
+		<a id="navbar_public" href="javascript:publicClick();" style="display:none;" class="MenuMain">Public</a>
+		<a id="navbar_personal" href="javascript:personalClick('<?php echo $username; ?>');" class="MenuMain">Personal</a>
+		<a id="navbar_private" href="javascript:privateClick('<?php echo $usercode; ?>');" class="MenuMain">Private</a>
+		<a id="navbar_normative" href="javascript:normativeClick();" class="MenuMain">Normative</a>
+		
+		<hr style="margin: 32px;"  class="MenuMain"/>
+		<a href="https://forums.worldinlists.net/" target="blank" class="MenuMain">Forums</a>
+		<a href="contact/mobile/contact.php" class="MenuMain">Contact us</a>
+		<a href="contact/mobile/reportbug.php" class="MenuMain">Report a bug</a>
+		<a href="contact/mobile/donate.php" class="MenuMain">Donate</a>
+		<br class="MenuMain">
+		<!-- <a href="https://viktorchernev.github.io/DescribeDocumentation/" target="blank">Documentation</a> -->
+		<!-- <a href="contact/licensing.php">Licensing</a> -->
+		<a href="docs/terms_of_service.php" target="blank" class="MenuMain">Terms of Use</a>
+		<a href="docs/privacy_policy.php" target="blank" class="MenuMain">Privacy Policy</a>
+		
+		
+		<!-- MenuNext -->
+		<!-- <br style="display: none;" class="MenuNext"> -->
+		<!-- <br style="display: none;" class="MenuNext" /> -->
+		<!-- <hr style="margin: 32px; display: none;" class="MenuNext" /> -->
+
+		<a style="display: none;" href="javascript:showCopiersMenu();" class="MenuNext">
+			<img src="index/img/copy-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Copiers</span>
+		</a>
+		<a style="display: none;" href="javascript:showViewersMenu();" class="MenuNext">
+			<img src="index/img/eye-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Viewers</span>
+		</a>
+		<a style="display: none;" href="javascript:showSortersMenu();" class="MenuNext">
+			<img src="index/img/sort-ascending-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Sorters</span>
+		</a>
+		<a style="display: none;" href="javascript:showFiltersMenu();" class="MenuNext">
+			<img src="index/img/funnel-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Filters</span>
+		</a>
+		<a style="display: none;" href="javascript:showPickersMenu();" class="MenuNext">
+			<img src="index/img/arrow-fat-down-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Pickers</span>
+		</a>
+		<!-- <a style="display: none;" href="javascript:showDroppersMenu();" class="MenuNext">
+			<img src="index/img/x-circle-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Droppers</span>
+		</a> -->
+		<a style="display: none;" href="javascript:void(0);" class="MenuNext">
+			<img src="index/img/dots-three-circle-vertical-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Plugins</span>
+		</a>
+		
+		<!-- <br style="display: none; margin-bottom: 10px; " class="MenuNext" /> -->
+		<!-- <a style="display: none;" href="javascript:void(0);" class="MenuNext">
+			<img src="index/img/arrow-elbow-right-down-bold.png" style="margin-top:3px; margin-bottom: 10px; width:24px; height:24px; vertical-align: text-top;" />
+			<span style="padding-left:10px;">Expanders</span>
+		</a> -->
+		<hr style="margin: 32px; display: none;" class="MenuNext" />
+
+		
+		
+		<!-- MenuCopiers -->
+		<br class="MenuCopiers" />
+		<a id="MenuCopiers_CopyElements" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setCopier_Elements();" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy by element</span>
+		</a>
+		<a id="MenuCopiers_CopyFLink" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setCopier_Flink();" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy first link</span>
+		</a>
+		<a id="MenuCopiers_CopyEntries" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setCopier_Entries();" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy entries</span>
+		</a>
+		<a id="MenuCopiers_CopyEntriesDs" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setCopier_EntriesDs();" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy entries (*.ds)</span>
+		</a>
+
+		<hr style="margin: 32px; display: none;" class="MenuCopiers" />
+		<!--
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy song name</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy song year</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy artist name</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuCopiers">
+			<img src="index/img/copy-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">copy artist link</span>
+		</a> 
+		-->
+		
+		
+		<!-- MenuViewers -->
+		<br class="MenuViewers" />
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setCopier_Elements();" class="MenuViewers">
+			<img src="index/img/eye-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">view links</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuViewers">
+			<img src="index/img/eye-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">view elements</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuViewers">
+			<img src="index/img/eye-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">view as list</span>
+		</a>
+
+		<hr style="margin: 32px; display: none;" class="MenuViewers" />
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuViewers">
+			<img src="index/img/eye-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">view artists</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuViewers">
+			<img src="index/img/eye-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">view song date</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuViewers">
+			<img src="index/img/eye-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">view song year</span>
+		</a>
+		<a style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:void(0);" class="MenuViewers">
+			<img src="index/img/eye-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">view song genre</span>
+		</a>
+		<hr style="margin: 32px; display: none;" class="MenuViewers" />
+
+
+		<!-- MenuSorters -->
+		<br class="MenuSorters" />
+		<a id="MenuSorters_SortAz" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setSorterer_Az();" class="MenuSorters">
+			<img src="index/img/sort-ascending-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">sort a-z</span>
+		</a>
+		<a id="MenuSorters_SortZa" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setSorterer_Za();" class="MenuSorters">
+			<img src="index/img/sort-ascending-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">sort z-a</span>
+		</a>
+		<a id="MenuSorters_SortShortLong" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setSorterer_ShortLong();" class="MenuSorters">
+			<img src="index/img/sort-ascending-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">sort short-long</span>
+		</a>
+		<a id="MenuSorters_SortLongShort" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setSorterer_LongShort();" class="MenuSorters">
+			<img src="index/img/sort-ascending-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">sort long-short</span>
+		</a>
+		<hr style="margin: 32px; display: none;" class="MenuSorters" />
+		
+		
+		<!-- MenuFilters -->
+		<br class="MenuFilters" />
+		<a id="MenuFilters_FilterLinkful" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_Linkful();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">leave linkful</span>
+		</a>
+		<a id="MenuFilters_FilterLinkless" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_Linkless();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">leave linkless</span>
+		</a>
+		<a id="MenuFilters_FilterVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_Visited();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">leave visited</span>
+		</a>
+		<a id="MenuFilters_FilterNotVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_NotVisited();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">leave not-visited</span>
+		</a>
+		<a id="MenuFilters_FilterRVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_RVisited();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">remove visited</span>
+		</a>
+		<a id="MenuFilters_FilterRLinkless" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_Linkless();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">remove linkless</span>
+		</a>
+		<a id="MenuFilters_FilterRLinkful" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_Visited();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">remove linkful</span>
+		</a>
+		<a id="MenuFilters_FilterRNotVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setFilter_NotVisited();" class="MenuFilters">
+			<img src="index/img/funnel-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">remove not-visited</span>
+		</a>
+		<hr style="margin: 32px; display: none;" class="MenuFilters" />
+		
+		
+		<!-- MenuPickers -->
+		<br class="MenuPickers" />
+		<a id="MenuPickers_PickRandom" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setPicker_Random();" class="MenuPickers">
+			<img src="index/img/arrow-fat-down-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">pick random</span>
+		</a>
+		<a id="MenuPickers_PickNotVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setPicker_NotVisited();" class="MenuPickers">
+			<img src="index/img/arrow-fat-down-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">pick not-visited</span>
+		</a>
+		<a id="MenuPickers_PickVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setPicker_Visited();" class="MenuPickers">
+			<img src="index/img/arrow-fat-down-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">pick visited</span>
+		</a>
+		<a id="MenuPickers_PickFavorites" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setPicker_Favorite();" class="MenuPickers">
+			<img src="index/img/arrow-fat-down-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">pick favorite</span>
+		</a>
+		<br class="MenuPickers"><br class="MenuPickers">
+		<a id="MenuPickers_OptionPickMany" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setPicker_OptionPickMany();" class="MenuPickers">
+			<img src="index/img/check-circle-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">pick many</span>
+		</a>
+		<a id="MenuPickers_Clear" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:clearPickers();" class="MenuPickers">
+			<img src="index/img/x-circle-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">clear picks</span>
+		</a>
+		<hr style="margin: 32px; display: none;" class="MenuPickers" />
+		
+		
+		<!-- MenuDroppers -->
+		<!-- <br class="MenuDroppers" />
+		<a id="MenuDroppers_DropVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setDropper_Visited();" class="MenuDroppers">
+			<img src="index/img/x-circle-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">drop visited</span>
+		</a>
+		<a id="MenuDroppers_DropLinkless" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setDropper_Linkless();" class="MenuDroppers">
+			<img src="index/img/x-circle-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">drop linkless</span>
+		</a>
+		<a id="MenuDroppers_DropLinkful" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setDropper_Linkful();" class="MenuDroppers">
+			<img src="index/img/x-circle-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">drop linkful</span>
+		</a>
+		<a id="MenuDroppers_DropNotVisited" style="display: none; margin-top: -10px; margin-bottom: -10px;" href="javascript:setDropper_NotVisited();" class="MenuDroppers">
+			<img src="index/img/x-circle-bold-gray.png" style="margin-top:9px; margin-bottom: 10px; width:18px; height:18px; vertical-align: text-top;" />
+			<span style="padding-left:10px; font-size: 0.8em;">drop not-visited</span>
+		</a>
+		<hr style="margin: 32px; display: none;" class="MenuDroppers" /> -->
+		
+	</div>
+	
+	<!-- triggers -->
+	<!-- <img id="history-trigger" src='index/img/clock.png' /> -->
+	<!-- <img id="bookmark-trigger" src='index/img/star.png' /> -->
+	<!-- <img id="translate-trigger" src='index/img/translate.png' /> -->
+	<!-- <img id="talkpage-trigger" src='index/img/chat-text.png' /> -->
+	<span id="sidenav-trigger" onclick="openNav();">&#9776;</span>
+
+	<!-- main page skeleton -->
+	<table id="skeleton">
+		<tbody>
+			<tr>
+				<td colspan="10" id="LargeTopContainer"></td>
+			</tr>
+			<tr>
+				<td colspan="10" id="LargeContainer"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<script type="text/javascript" src="sources/payload.js"></script>
+	<!-- https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js -->
+	<script type="text/javascript" src="index/js/listiaring.js"></script>
+	<script type="text/javascript" src="index/js/mobile-detector.js"></script>
+	<script type="text/javascript" src="index/js/history-deamon.js"></script>
+	<script type="text/javascript" src="index/js/main-tree.js"></script>
+	<script type="text/javascript" src="index/js/crypto-js.min.js"></script>
+	<script type="text/javascript" src="index/js/index.scripts.js"></script>
+</body>
+</html>

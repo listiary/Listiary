@@ -1,5 +1,6 @@
-The config file from session - `/session/_config.php`
-The session folder from search - `search/session/` - whe shouldn't have that here anyways.
-The config file from installer - `/installer/_config.php`
-The work folder from installer - `/installer/.work/`
-The config file from editor - `/editor/_config.php`
+Session             The config file from session - `/session/_config.php`
+Search              The session folder from search - `search/session/` - whe shouldn't have that here anyways.
+Installer           The config file from installer - `/installer/_config.php`
+Installer           The work folder from installer - `/installer/.work/`
+Editor              The config file from editor - `/editor/_config.php`
+Index               Remove usercode hardcoded value from `m.index.php`
