@@ -1,0 +1,54 @@
+   /\\\\     /\\\\     /\\\\     /\\\\     /\\\\     /\\\\     /\\\\     /\\\\  
+  /  \\\\   /  \\\\   /  \\\\   /  \\\\   /  \\\\   _\ \\\\   /  \\\\   /  \\\\ 
+ / /\ \\\\ /  \ \\\\ /\ \ \\\\ / /\ \\\\ /  \ \\\\ /\/  \\\\ /  \ \\\\ /  \ \\\\
+ \ \/ //// \ \ \//// \ \ \//// \ \\\//// \|   //// \  /\//// \ \  //// \ \ \////
+  \  ////   \ \////   \  ////   \ \\\\    | \////   \ \\\\    \  ////   \ \//// 
+   \////     \////     \////     \////     \||||     \////     \////     \////  
+
+> parse-folder "C:\Users\vikto\Desktop\.Passwords" "C:\Users\vikto\Desktop\radiowatch\W5. Website\JsonVariant\sources\payload.json" translator=json beautify=true verbosity=low logfile="C:\Users\vikto\Desktop\radiowatch\W5. Website\JsonVariant\sources\payload.txt" dsonly=true toponly=false onerror=ignore censor theme=GREEN
+--------------------------------------------------
+Initializing Describe Transpiler v1.0
+Verbosity set to: Low
+Language version set to: Describe Lines - v1.0
+Describe Transpiler initialized.
+Translator initialized - using template "JSON_BASIC"
+Starting a 'Directory -> Unfold' operation...
+"C:\Users\vikto\Desktop\.Passwords"
+STOP_ON_ERROR - False
+PARSE_DS_ONLY - True
+PARSE_TOP_DIRECTORY_ONLY - False
+"C:\Users\vikto\Desktop\.Passwords\.passwords.ds" - parsed successfully
+Parser red 345 characters, into 43 tokens.
+Those were translated to 1 productions, containing 13 entries.
+"C:\Users\vikto\Desktop\.Passwords\Crypto.ds" - parsed successfully
+Parser red 529 characters, into 69 tokens.
+Those were translated to 1 productions, containing 20 entries.
+"C:\Users\vikto\Desktop\.Passwords\DeviceLinkedAccounts.ds" - parsed successfully
+Parser red 185 characters, into 15 tokens.
+Those were translated to 1 productions, containing 2 entries.
+"C:\Users\vikto\Desktop\.Passwords\Devices.ds" - parsed successfully
+Parser red 339 characters, into 33 tokens.
+Those were translated to 1 productions, containing 10 entries.
+"C:\Users\vikto\Desktop\.Passwords\Emails.ds" - parsed successfully
+Parser red 385 characters, into 38 tokens.
+Those were translated to 1 productions, containing 14 entries.
+"C:\Users\vikto\Desktop\.Passwords\EncryptedFiles.ds" - parsed successfully
+Parser red 1047 characters, into 83 tokens.
+Those were translated to 1 productions, containing 19 entries.
+"C:\Users\vikto\Desktop\.Passwords\GamingAcs.ds" - parsed successfully
+Parser red 1098 characters, into 95 tokens.
+Those were translated to 1 productions, containing 20 entries.
+"C:\Users\vikto\Desktop\.Passwords\Moms.ds" - parsed successfully
+Parser red 316 characters, into 37 tokens.
+Those were translated to 1 productions, containing 10 entries.
+"C:\Users\vikto\Desktop\.Passwords\Money.ds" - parsed successfully
+Parser red 269 characters, into 32 tokens.
+Those were translated to 1 productions, containing 6 entries.
+"C:\Users\vikto\Desktop\.Passwords\Services.ds" - parsed successfully
+Parser red 980 characters, into 79 tokens.
+Those were translated to 1 productions, containing 18 entries.
+"C:\Users\vikto\Desktop\.Passwords\UsbDevices.ds" - parsed successfully
+Parser red 3010 characters, into 212 tokens.
+Those were translated to 7 productions, containing 37 entries.
+All Files: 11, Succeeded: 11, Failed: 0, Errors: 0
+Task completed successfully. Press any key to exit.

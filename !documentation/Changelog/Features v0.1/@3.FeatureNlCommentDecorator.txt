@@ -1,0 +1,3 @@
+FEATURE: Support for {nlcomment} decorator
+
+The {nlcomment} decorator combines the {empty} decorator with the {comment} decorator, producing 2 items - an empty one and a comment one

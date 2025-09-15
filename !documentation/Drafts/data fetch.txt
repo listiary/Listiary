@@ -1,0 +1,56 @@
+mode            //"public"
+namespaces      // {}
+json            // {}
+articleId       // undefined
+
+
+
+URL Parameter reading
+We figure out the mode and the articleId.
+Mode is 'public' if URL parameter does not tell us otherwise, and articleId is `undefined, if URL parameter does not tell us otherwise.
+After we read url parameters, we call `loadJson(mode, article = null)`
+
+LoadJson - `loadJson(mode, article = null)`
+We call `fetchJson(mode, article)` to fetch json payload from the PHP backend.
+If we know which article we want to fetch, we won't know in which file it resides in, and vice versa* - if we don't know the article we want, we have a default filename we will load. We will soon fix that, but yeah, we have this workaround for now. So, we call `_fetchPublic(article = null)` and the PHP script figures out which file to serve us, and its linked files.
+
+Set default articleId
+If our articleId is null, undefined, or something like that, we want to set it to some default. To do this, we call `setDefaultArticleId(rjson)`, from the fetched JSON payload, depending on the payload structure variation we are using - single payload or multiple files.
+
+Populate namespaces
+We populate the `namespaces` map, by calling `populateNamespaces(rjson)` - rjson being the fetched JSON payload.
+Again, the method differs depending on the payload structure variation we are using - single payload or multiple files.
+
+Load home article instead
+We check to see if the articleId we have is an existent item in the namespaces.
+If not, we assume it is because we had bad id to begin with, and again, load the default article.
+
+Fix JSON
+
+
+Draw Tree
+
+
+
+
+* This is something that we will need to fix, but I am not sure which way will be the best:
+add separate file parameter - https://development.listiary.net/m.index.php?file=.radiowatch&article=radiowatch.playlists.list
+enforce filenames same as article names - one article per file
+I think we will enforce filenames as full namespaces - `radiowatch.playlists.list`.
+File parameter won't work well without URL escaping.
+
+filename dirrective
+The filename dirrective holds the original filename of the file - so that it can be restored sometimes later - for example, after downloading the file from SQL database.
+```
+directives ->
+
+    namespace <radiowatch.atrists>,
+    filename <Artists\2 Brothers on the 4th floor - Boer Boer Desray D-Rock.ds>,
+    language-version <1.0>,
+    authors <DemonOfReadon>;
+```
+
+enforce true-one dirrective; enforce true; endorce one;
+enforce true-one dirrective; enforce true; enforce one; enforce to; enforce t; enforce o;
+Enforce one - make sure it is one public list per source file.
+Enforce true - make sure the first/only punlic list namespace is the same as the filename, without extension.

@@ -1,0 +1,20 @@
+sudo systemctl restart apache2      //restart
+sudo systemctl start apache2        //start
+sudo systemctl enable apache2       //set to start automatically
+sudo systemctl disable apache2      //prevent from starting automatically
+sudo systemctl stop apache2         //stop
+sudo systemctl status apache2       //status
+
+/etc/php/8.3/cli/php.ini
+/etc/php/8.3/cli/apache2.ini
+    zend_extension=xdebug.so
+    xdebug.mode=debug
+    xdebug.start_with_request=yes
+    xdebug.client_port=9003
+
+sudo chmod o+x "/home/vchernev"
+sudo chmod o+x "/home/vchernev/Home"
+sudo chmod o+x "/home/vchernev/Home/Major Projects"
+sudo chmod o+x "/home/vchernev/Home/Major Projects/Listiary Describe"
+sudo chmod o+x "/home/vchernev/Home/Major Projects/Listiary Describe/Listiary Wiki Farm"
+sudo chmod -R o+rX "/home/vchernev/Home/Major Projects/Listiary Describe/Listiary Wiki Farm/Listiary"

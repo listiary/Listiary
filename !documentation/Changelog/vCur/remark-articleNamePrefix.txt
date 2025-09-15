@@ -1,0 +1,2 @@
+No need to append first dir to filename in upload SQL in oldver because of the separate databases we are using:
+"Public.Culture.cuisine.foodTypes" should be "Culture.cuisine.foodTypes" instead, as we are in the public DB anyways.

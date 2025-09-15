@@ -1,0 +1,16 @@
+test.root
+cd "/Home/Major Projects/Listiary Describe/Listiary Wiki Farm/Listiary/installer"
+php list_files.php "/home/vchernev/Home/Major Projects/Radiowatch/W3. Describe sources"
+php list_files.php "/home/vchernev/Home/Major Projects/Radiowatch/W3. Describe sources" > @filelist.txt
+non-ASCII chars regex in KATE - [^\x00-\x7F]
+php upload_files.php "/home/vchernev/Home/Major Projects/Listiary Describe/Listiary Wiki Farm/Listiary/.work/.FirstSource"
+
+
+
+php compile_database.php
+
+
+arn:aws:lambda:eu-north-1:580393905125:function:Transpile_SingleDmlToSingleJsonListiary
+https://cy66ng2oo4.execute-api.eu-north-1.amazonaws.com
+https://6o4lk665dj.execute-api.eu-north-1.amazonaws.com/                transpile-single-dml-to-single-json
+https://bcm98vlf3b.execute-api.eu-north-1.amazonaws.com/                transpile-single-dml-to-single-json-listiary

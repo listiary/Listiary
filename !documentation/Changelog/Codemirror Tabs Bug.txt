@@ -1,0 +1,4 @@
+Bug: editor.php
+The Codemirror library we are using seems to cut off some of the text, behind the scenes.
+This seems to be due to mishandling Tabs in the text.
+This is a severe bug, making content disappear behind the scenes.

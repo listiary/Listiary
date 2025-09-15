@@ -1,0 +1,7 @@
+BUG: Username portion of Personal articles is missing:
+
+https://development.worldinlists.net/editor/editor.php?article=MyEntertainment.MyBooks&domain=personal
+
+instead of
+
+https://development.worldinlists.net/editor/editor.php?article=DemonOfReason.MyEntertainment.MyBooks&domain=personal

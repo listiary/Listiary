@@ -1,0 +1,4 @@
+FEATURE: Add prototype menus to editor
+
+Add the functionality of having different side menues in the editor, and being able to navigate through them.
+Those side menues are a prototype to witch functionality will be added over time - in other words, we don't need to have all the functionality behind the menu items ready yet - we are currently only adding the menues

@@ -1,0 +1,14 @@
+//find "/home/vchernev/Home/Major Projects" -type f -name "*.sql"  - find in Linux Mint
+//install Jekyll on Linux Mint
+sudo apt update                         //update
+sudo apt upgrade                        //upgrade
+sudo apt install ruby-full              //install Ruby
+ruby -v                                 //Verify installation
+sudo gem install jekyll bundler         //install Jekyll and Bundler
+
+cd "/home/vchernev/Home/Major Projects/Listiary Describe/Describe Markup Language/DescribeDocumentation/documentation.jekyll"
+sudo bundle install
+sudo bundle exec jekyll -v
+sudo bundle exec jekyll clean
+sudo bundle install
+sudo bundle exec jekyll serve
