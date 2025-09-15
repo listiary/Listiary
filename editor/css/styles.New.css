@@ -1,0 +1,202 @@
+/* page */
+html, body {
+
+    height:100%;
+    width:100%;
+    margin:0;
+	
+	/* background-color: lime; */
+} 
+#skeleton {
+	
+	width:100%; 
+	background-color:white; 
+	height:100%; 
+	border: 0px solid black; 
+	border-collapse: collapse; 
+	table-layout: fixed; 
+	margin-bottom: 40px;
+}
+#SmallTopContainer, #LargeTopContainer {
+	
+	background-color:white; 
+	height: 40px; 
+	vertical-align: top; 
+	padding-bottom:9px;
+}
+#SmallContainer {
+	
+	background-color:white; 
+	width: 10%; 
+	max-width:20%; 
+	vertical-align: top; 
+	padding-top:0px; 
+	border-right: 0px dotted black;
+}
+#LargeContainer {
+	
+	background-color:white; 
+	width:100%; 
+	vertical-align: top; 
+	padding-left: 15px; 
+	padding-right: 15px;
+}
+
+
+
+/* sidenav */
+#sidenav-trigger {
+	
+	color: #818181;
+	font-size: 30px; 
+	cursor:pointer; 
+	position: absolute; 
+	z-index: 1; 
+	top: 0; right: 0; 
+	padding-top: 7px; 
+	padding-right: 15px;
+}
+#talkpage-trigger {
+	
+	width: 30px;
+	cursor: pointer;
+	position: absolute; 
+	z-index: 1; 
+	top: 0; right: 0; 
+	padding-top: 14px; 
+	padding-right: 50px;
+}
+#translate-trigger {
+	
+	width: 30px;
+	cursor: pointer;
+	position: absolute; 
+	z-index: 1; 
+	top: 0; right: 0; 
+	padding-top: 16px; 
+	padding-right: 85px;
+}
+#bookmark-trigger {
+	
+	width: 28px;
+	cursor: pointer;
+	position: absolute; 
+	z-index: 1; 
+	top: 0; right: 0; 
+	padding-top: 16px; 
+	padding-right: 120px;  /* 136px; */
+}
+#sidenav {
+	
+	display: none;
+	height: 100%; width: 0;
+	position: fixed; 
+	z-index: 999; 
+	top: 0; right: 0;
+	background-color: #ccc; 
+	overflow-x: hidden; 
+	transition: 0.5s; 
+	padding-top: 60px;
+}
+#sidenav a {
+	
+	padding: 8px 8px 0px 32px; 
+	text-decoration: none; 
+	font-size: 25px; 
+	color: #818181; 
+	display: block; 
+	transition: 0.3s;
+}
+
+
+
+/* small listree */
+.listree-submenu-heading {
+	cursor:pointer;
+	/* text-decoration: underline; */
+}
+ul.listree {
+	list-style:none; 
+	padding-left:0px; 
+	margin-top: 0px; 
+	margin-bottom: 0px;
+	margin-left: 20px;
+	
+	color: gray;
+	font-style: italic;
+}
+ul.listree-submenu-items {
+	list-style:none;
+	border-left: 2px dotted gray;
+	white-space:nowrap;
+	margin-right:4px;
+	padding-left:20px;
+}
+.scrollable-menu {
+	height:auto;
+	max-width:800px;
+	overflow-y:hidden;
+}
+
+
+
+/* big listree */
+ul.mainlistree  {
+	list-style:none; 
+	padding-left:5px; 
+	margin-top: 0px; 
+	margin-bottom: 0px;
+}
+.mainlistree-submenu-heading {
+	cursor:pointer;
+}
+ul.mainlistree-submenu-items {
+	list-style:none;
+	border-left:0px dashed #000;
+	white-space:nowrap;
+	margin-right:4px;
+	padding-left:0px;
+}
+
+
+
+/* breadcrumb */
+a.breadcrumbmain { 
+	
+	font-size: 80%;
+	color: black;
+	text-decoration: underline; 
+	cursor: pointer;
+	font-weight: 100;
+}
+a.breadcrumb { 
+	
+	color: black; 
+	text-decoration: underline; 
+	cursor: pointer;
+}
+a.breadcrumb:visited { 
+
+	color: black; 
+}
+a.breadcrumb:hover { 
+
+	color: black; 
+}
+a.breadcrumb:active { 
+
+	color: black; 
+}
+
+
+
+/* https://howto-wordpress-tips.com/split-list-into-columns-using-css/ */
+.twocol {
+
+	column-count: 2;
+	column-gap: 0px;
+	-webkit-column-count: 2;	/* Chrome/Opera, Safari */
+	-webkit-column-gap: 0px;	/* Chrome/Opera, Safari */
+	-moz-column-count: 2; 		/* Mozilla Firefox */
+	-moz-column-gap: 0px; 		/* Mozilla Firefox */
+}
