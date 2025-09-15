@@ -1,6 +1,6 @@
 <?php
 
-    //use 2 0r 3 arguments - if 3, the 3rd is the desired filename in the DB
+    //use 2 or 3 arguments - if 3, the 3rd is the desired filename in the DB
     //php upload_file.php "/path/to/file" "name.in.database"
 
     // Check args

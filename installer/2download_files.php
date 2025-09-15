@@ -44,6 +44,7 @@
     }
 
     while ($row = mysqli_fetch_assoc($result)) {
+
         $filename = $row['filename'];
         $content = $row['content'];
 
