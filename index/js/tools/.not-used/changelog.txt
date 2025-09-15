@@ -1,0 +1,8 @@
+GenericTool: 
+A tool class that gets part its id and name from properties being set.
+Tools get instantiated once. 
+Generic tools are used to create multiple different tools (tool classes) - just like generic classes in C#.
+
+DomTool:
+Dom tools don't change the JSON tree - instead, they act only on the DOM of the loaded list.
+Dom tools are used to prototype tools, most of the time will be replaced later on.

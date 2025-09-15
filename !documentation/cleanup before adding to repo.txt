@@ -3,4 +3,10 @@ Search              The session folder from search - `search/session/` - whe sho
 Installer           The config file from installer - `/installer/_config.php`
 Installer           The work folder from installer - `/installer/.work/`
 Editor              The config file from editor - `/editor/_config.php`
-Index               Remove usercode hardcoded value from `m.index.php`
+Index               Remove the "My Porn" reference from the local file loader plugin JS - `/index/js/.listiaring/plugin.local-file-loader.js`
+Index               Remove the "My Porn" reference from the local file loader plugin JS - `/index/js/plugins/plugin.local-file-loader.js`
+Index               Remove the "My Porn" reference from the local file loader plugin JS - `/index/js/plugins/.local-file-loader/local-file-loader.js`
+Index               Zip pass protect `/index/js/.listiaring/plugin.stream-player.js`
+Index               Zip pass protect `/index/js/plugins/plugin.stream-player.js`
+Index               Zip pass protect `/index/js/plugins/.stream-player/`
+M.Index             Remove usercode hardcoded value from `m.index.php`
