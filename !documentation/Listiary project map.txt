@@ -1,0 +1,35 @@
+Projects ->
+
+    Management ->
+
+        Project Financial Management,
+        Project HR Management
+        Project PR Management;
+
+    Listiary Wiki ->
+
+        Project Database,
+        Project Editor,
+        Project Index,
+        Project Index Tooling,
+        Project Plugins,
+        Project Admin Panel,
+        Project Legal Docs,
+        Project Contact,
+        Project Search,
+        Project Session,
+
+        Project Bots,
+
+        Project Backup,
+        Project Documentation;
+
+    Describe Markup ->
+
+        Project Language,
+        Project Compiler,
+        Project CLI Compiler,
+        Project Cloud Compiler,
+
+        Project Describe Library,
+        Project Documentation;

@@ -13,12 +13,3 @@ M.Index             Remove usercode hardcoded value from `m.index.php`
 M.Index             The config file from `/m.index/php/_config.php`
 M.Index             Zip pass protect `/m.index/js/plugin.stream-player.js`
 M.Index             Remove the "My Porn" reference from the local file loader plugin JS - `/m.index/js/plugin.local-loader.js`
-
-
-
-Projects ->
-
-    Listiary Wiki ->
-
-        Project Database,
-        Project Editor,
