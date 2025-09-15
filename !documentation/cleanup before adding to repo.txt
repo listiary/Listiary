@@ -1,0 +1,3 @@
+The config file from session - `/session/_config.php`
+The session folder from search - `search/session/` - whe shouldn't have that here anyways.
+The config file from installer - `/installer/_config.php`
