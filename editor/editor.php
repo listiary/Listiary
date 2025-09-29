@@ -3,7 +3,10 @@
 	//get URL parameters
 	$article = ""; 
 	$domain = "";
+	$itemid = "";
 	getUrlParameters();
+	$returnUrl = urlencode($itemid);
+	//echo "<script>console.log(" . $returnUrl . ");</script>";
 	
 	//include config
 	require_once "php/_config.php";
@@ -88,12 +91,16 @@
 	// Read URL parameters into our global variables
 	function getUrlParameters() {
 
-		global $article, $domain;
+		global $article, $domain, $itemid;
 
 		//get parameters
 		if(isset($_GET['article']) == false) die("'article' parameter of the url is not set");
 		$article = $_GET['article'];
 			//echo "Got article parameter - '" . $article . "'<br />";
+
+		if(isset($_GET['itemid']) == false) die("'itemid' parameter of the url is not set");
+		$itemid = $_GET['itemid'];
+			//echo "Got itemid parameter - '" . itemid . "'<br />";
 		
 		if(isset($_GET['domain']) == false) die("'domain' parameter of the url is not set");
 		$domain = $_GET['domain'];
@@ -463,9 +470,11 @@
 							<input type='button' style='display: none; margin-left: 1%; color: red; border: 1; background: none; box-shadow: none; border-radius: 0px; margin-left: 10px;' value='Cancel' onclick='hideEditor(null);'>
 
 							<div id="BottomToolbar" colspan="10" style="text-align: center; padding: 10px; background-color: #fff;">
-								<img src="img/check-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #eee; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick='submitFormS("<?php echo $editfileUrl; ?>", editor.getValue());' />
-								<img src="img/eye-closed-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #eee; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" />
-								<img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FFB3B3; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor(null);" />
+								<img src="img/check-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick='submitFormS("<?php echo $editfileUrl; ?>", editor.getValue());' />
+								<img src="img/eye-closed-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" />
+
+								<!-- <img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FF7F7F; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor('https://development.listiary.net/m.index.php?article=radiowatch.rnode');" /> -->
+								<img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FF7F7F; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor('https://development.listiary.net/m.index.php?article=<?php echo $returnUrl; ?>');" />
 							</div>
 						</div>
 					</form>

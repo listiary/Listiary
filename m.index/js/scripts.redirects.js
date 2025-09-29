@@ -4,7 +4,7 @@ async function showEditor(articleName, itemId) {
 	if(mode == "public" || mode == "normative")
 	{
 		window.location.href = "./editor/editor.php?article=" 
-			+ articleName + "&domain=" + mode;
+			+ articleName + "&domain=" + mode + "&itemid=" + itemId;
 	}
 	else if(mode == "personal")
 	{
