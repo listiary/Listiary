@@ -43,7 +43,8 @@ const mainTree = {
 		//else if(mode === "private") filename = user + '.' + filename;
 
 		var title = "<h2 style='margin-top: -25px; margin-bottom: 10px;'>" + obj.text + " <span style='text-decoration: none; vertical-align: super; position: relative; top: 0.2em; font-size: 70%; color: blue;'>[<a style='font-style: italic;' href='javascript:showEditor(\"" + filename + "\",\"" + obj.id + "\");'>edit</a>]</span></h2>";
-		
+
+
 		var prodHtml = mainTree.translateBaseProductionShallow(obj);
 		mainTree.Container.innerHTML = title + prodHtml;
 		//console.log("Tree drawn: " + obj.id);
@@ -51,8 +52,10 @@ const mainTree = {
 		mainTree.drawBreadcrumb_Compacted(id);
 		
 		setTimeout(() => {
-			if (document.documentElement.scrollHeight > document.documentElement.clientHeight) {
+			if (document.documentElement.scrollHeight > document.documentElement.clientHeight)
+			{
 				document.getElementById("BottomToolbar").style.display = "table-cell";
+				document.getElementById("BottomToolbarEditButton").onclick = function() { showEditor(filename, obj.id); };
 			}}, 800);
 	},
 	drawMobile: function(id){
@@ -78,8 +81,10 @@ const mainTree = {
 		//highlight_DataElements();
 		
 		setTimeout(() => {
-			if (document.documentElement.scrollHeight > document.documentElement.clientHeight + 200) {
+			if (document.documentElement.scrollHeight > document.documentElement.clientHeight + 200)
+			{
 				document.getElementById("BottomToolbar").style.display = "table-cell";
+				document.getElementById("BottomToolbarEditButton").onclick = function() { showEditor(filename, obj.id); };
 			}}, 800);
 	},
 	drawBreadcrumb: function(id) {

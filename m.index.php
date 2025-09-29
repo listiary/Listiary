@@ -11,7 +11,7 @@
 	//hardcoded for now. Should be calculated
 	//from session values in the future, when we have
 	//more than just 1 test user
-	$usercode = "";
+	$usercode = "94fd9ec55ffd";
 
 	// Check if the user is logged in, otherwise redirect to login page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
@@ -201,9 +201,9 @@
 			</tr>
 			<tr style="max-height: 60px; height: 60px;">				
 				<td id="BottomToolbar" colspan="10" style="text-align: center; padding: 10px; padding-bottom: 20px; padding-top: 20px; background-color: #fff; display: none;">
-					<img src="m.index/img/arrow-line-up-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:scrollToTop();" />
-					<img src="m.index/img/code-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" />
-					<img src="m.index/img/arrow-elbow-up-left-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:navigateBreadcrumbBack();" />
+					<img id="BottomToolbarScrollButton" src="m.index/img/arrow-line-up-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:scrollToTop();" />
+					<img id="BottomToolbarEditButton" src="m.index/img/code-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" />
+					<img id="BottomToolbarBackButton" src="m.index/img/arrow-elbow-up-left-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:navigateBreadcrumbBack();" />
 				</td>
 			</tr>
 		</tbody>
