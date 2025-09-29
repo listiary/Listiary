@@ -23,11 +23,11 @@
 
 	//get new article name and new article url.
 	$newname = generateNewArticleNameInSameNamespace($article);
-	$newArticleUrl = "editornewfile.php?article=" . $newname . "&domain=" . $domain;
+	$newArticleUrl = "php/editornewfile.php?article=" . $newname . "&domain=" . $domain;
 		//echo $newArticleUrl;
 
 	//$curPath = $_SERVER['SERVER_NAME'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
-	$editfileUrl = "_editfile.php?article=" . $article . "&domain=" . $domain;
+	$editfileUrl = "php/_editfile.php?article=" . $article . "&domain=" . $domain;
 	if($domain == "personal") $editfileUrl .= "&username=" . $_GET['username'];
 
 	// do breadcrumb
@@ -194,7 +194,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="author" content="Demon of reason">
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
-	<title>Proto World - Edit Article</title>
+	<title>Listiary | Edit Article</title>
 </head>
 <body style="height:100%;">
 

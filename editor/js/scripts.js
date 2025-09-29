@@ -47,10 +47,17 @@ async function submitForm(editfileUrl) {
 		//alert("SUCCEEDED:\n" + rtext);
 		hideEditor("../index.php");
 	}
+	else if(rtext.includes("Done. Connection closed.")) {
+
+		console.log("OK!");
+		console.log(rtext);
+		alert("OK\n-------------------------------\n" + rtext);
+	}
 	else {
-		
+
 		console.log("FAILED!");
-		alert("FAILED:\n" + rtext);
+		console.log(rtext);
+		alert("FAILED\n-------------------------------\n" + rtext);
 	}
 }
 async function submitFormS(editfileUrl, contnt) {
@@ -88,10 +95,17 @@ async function submitFormS(editfileUrl, contnt) {
 		//alert("SUCCEEDED:\n" + rtext);
 		hideEditor(null); //hideEditor("../index.php");
 	}
+	else if(rtext.includes("Done. Connection closed.")) {
+
+		console.log("OK!");
+		console.log(rtext);
+		alert("OK\n-------------------------------\n" + rtext);
+	}
 	else {
 		
 		console.log("FAILED!");
-		alert("FAILED:\n" + rtext);
+		console.log(rtext);
+		alert("FAILED\n-------------------------------\n" + rtext);
 	}
 }
 function getNewFileUrl(domain) {

@@ -54,6 +54,9 @@
 		
 		//delete file references in DB
 		deleteOldFileReferences($conn, $article);
+
+		echo "-------------------------------\n";
+		echo "\"" . $article . "\"\n";
 		
 		//insert ids
 		doIds($conn, $article, $compiledJson);
@@ -138,7 +141,9 @@
 
 		$connection = mysqli_connect($servername, $username, $password, $dbname);
 		if(!$connection) die("Connection failed: " . mysqli_connect_error());
-		echo "Created connection to '" . $servername . "'<br />";
+
+		//echo "Created connection to '" . $servername . "'<br />";
+		echo "Connection Created.\n";
 
 		return $connection;
 	}
@@ -147,7 +152,10 @@
 
 		//get old article
 		$sql = "SELECT `content` FROM `describe_documents` WHERE filename='" . $article . "'";
-		echo "Executing query - '" . $sql . "'<br />";
+
+		//echo "Executing query - '" . $sql . "'<br />";
+		echo "Executing query.\n";
+
 		$result = mysqli_query($conn, $sql);
 		if($result == false || mysqli_num_rows($result) < 1) 
 		{
@@ -282,7 +290,8 @@
 		}
 		else
 		{
-			echo "Plain document saved.<br />";
+			//echo "Plain document saved.<br />";
+			echo "Plain document saved.\n";
 		}
 	}
 	// Update compiled JSON in the DB
@@ -304,13 +313,14 @@
 		}
 		else
 		{
-			echo "Compiled document saved.<br />";
+			//echo "Compiled document saved.<br />";
+			echo "Compiled document saved.\n";
 		}
 	}
 	// Insert ids for the new article in the DB
 	function doIds($conn, $filename, $content) {
 
-		echo "<br />Doin Ids.";
+		//echo "<br />Doin Ids.";
 		$jArr = json_decode($content, true);
 		if ($jArr === null)
 		{
@@ -323,7 +333,8 @@
         $ids = array_keys($ids);
 
         $length = count($ids);
-        echo "\"" . $filename . "\" has $length public ids.\n";
+		//echo "\"" . $filename . "\" has $length public ids.\n";
+		echo "File has $length public ids.\n";
         //print_r($ids); var_dump($ids); break;
 
         //upload the data
@@ -344,7 +355,7 @@
             }
             else
             {
-                echo "Inserted " . mysqli_affected_rows($conn) . " rows.\n";
+                echo "Inserted " . mysqli_affected_rows($conn) . " rows of item metadata.\n";
             }
         }
 	}
@@ -417,7 +428,7 @@
             }
             else
             {
-                echo "Inserted " . mysqli_affected_rows($conn) . " rows.\n";
+                echo "Inserted " . mysqli_affected_rows($conn) . " rows of filename metadata.\n";
             }
         }
 	}
@@ -429,8 +440,9 @@
 
 		if (mysqli_query($conn, $query))
 		{
-			echo "Deleted " . mysqli_affected_rows($conn) . " id rows from the DB.";
-			echo "SQL: " . $query ." :SQL";
+			//echo "Deleted " . mysqli_affected_rows($conn) . " id rows from the DB.";
+			//echo "SQL: " . $query ." :SQL";
+			echo "Deleted " . mysqli_affected_rows($conn) . " id metadata rows from the DB.\n";
 		}
 		else
 		{
@@ -445,7 +457,7 @@
 
 		if (mysqli_query($conn, $query))
 		{
-			echo "Deleted " . mysqli_affected_rows($conn) . " file relation rows from the DB.";
+			echo "Deleted " . mysqli_affected_rows($conn) . " filename metadata rows from the DB.\n";
 		}
 		else
 		{
