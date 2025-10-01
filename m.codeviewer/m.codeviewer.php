@@ -187,6 +187,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="robots" content="noindex">
 	<meta name="description" content="Created by Describe Compiler v0.9.2">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
