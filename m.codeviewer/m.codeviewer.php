@@ -24,15 +24,6 @@
 	//fetch article to load
 	$curArticle = fetchCurrentArticle($conn, $article);
 
-	//get new article name and new article url.
-	$newname = generateNewArticleNameInSameNamespace($article);
-	$newArticleUrl = "php/editornewfile.php?article=" . $newname . "&domain=" . $domain;
-		//echo $newArticleUrl;
-
-	//$curPath = $_SERVER['SERVER_NAME'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
-	$editfileUrl = "php/_editfile.php?article=" . $article . "&domain=" . $domain;
-	if($domain == "personal") $editfileUrl .= "&username=" . $_GET['username'];
-
 	// do breadcrumb
 	$breadcrumb = getBreadcrumb($domain, $article);
 
@@ -205,27 +196,35 @@
 </head>
 <body style="height:100%;">
 
-	<div id="loadingModal" class="loading-modal">
-		<div class="loading-modal-content">
-			<img src="img/LoadingGifs/spin2.gif" alt="loading" style="width:200px; height:200px;">
-		</div>
-	</div>
-
 	<!-- https://www.branchcms.com/learn/docs/overview/editor-v4/toolbar-buttons -->
 	<div id="sidenav" style="z-index: 999;">
-		<a href="javascript:void(0);" class="closebtn" onclick="closeNav()"
-		style="
-		position: absolute; top: 0; right: 0; font-size: 36px; margin-right: 10px;
-		padding: 8px; text-decoration: none; color: #818181; display: block; transition: 0.3s;">&times;</a>
-		
-		<a href="javascript:void(0);" id="backbtn" onclick="backNav()"
-		style="
-		position: absolute; top: 0; right: 10; font-size: 20px; margin-right: 10px; margin-top: 7px;
-		padding: 8px; text-decoration: none; color: #818181; display: none; transition: 0.3s;">🡠</a>
-		<!-- &larr; -->
-		
+
+		<!-- This is the menu 'X' button -->
+		<a href="javascript: closeNav();" class="closebtn"
+		style="position: absolute; top: 0; right: 0; font-size: 36px; margin-right: 10px;
+		padding: 8px; text-decoration: none; color: #818181; display: block; transition: 0.3s;">
+			<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' style='margin-top:14px;' viewBox='0 0 25 25'>
+				<path d='M0,0 L16,16' stroke='#818181' stroke-width='2' fill='none'/>
+				<path d='M0,16 L16,0' stroke='#818181' stroke-width='2' fill='none'/>
+			</svg>
+		</a>
+
+		<!-- This is the menu '🡠' button -->
+		<a id="menuArrow" href="javascript: showFileMenu();" class="closebtn" style="
+		position: absolute; top: 0; right: 20; font-size: 25px;
+		padding: 8px; text-decoration: none; color: #818181; display: inline; transition: 0.3s;
+		padding-left: 20px;
+		padding-top: 12px;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" style="margin-top:9px;" viewBox="0 0 25 25">
+				<path d="M1,9 L10,0" stroke="#818181" stroke-width="2" fill="none"/>
+				<path d="M1,9 L19,9" stroke="#818181" stroke-width="2" fill="none"/>
+				<path d="M0,9 L1,9" stroke="#818181" stroke-width="1" fill="none"/>
+				<path d="M1,9 L10,18" stroke="#818181" stroke-width="2" fill="none"/>
+			</svg>
+		</a>
+
+
 		<!-- MAIN -->
-		<br class="Menu"/>
 		<a href="javascript:showFileMenu();" class="Menu">
 			<img src="img/Menu/folder-open-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">FILE</span>
@@ -251,89 +250,130 @@
 			<span style="padding-left:10px;">FORMAT</span>
 		</a>
 		<br class="Menu"/>
-		<a href="javascript:publicClick();" class="Menu">
+		<a href="javascript:void(0);" class="Menu">
 			<img src="img/Menu/gear-six-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">OPTIONS</span>
 		</a>
+		<br class="Menu"/>
+		<hr id="MenuMainMiddleAnchor" style="margin: 22px;" class="Menu"/>
+		<a href="javascript:void(0);" class="Menu">
+			<img src="img/MenuEdit/arrow-circle-left-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Undo</span>
+		</a>
+		<a href="javascript:void(0);" class="Menu">
+			<img src="img/MenuEdit/arrow-circle-right-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Redo</span>
+		</a>
+		<a href="javascript:void(0);" class="Menu">
+			<img src="img/MenuView/paragraph-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px; font-style: italic;">Show All</span>
+		</a>
+		<a href="javascript:void(0);" class="Menu">
+			<img src="img/MenuEdit/magnifying-glass-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Find</span>
+		</a>
+		<a href="javascript:void(0);" class="Menu">
+			<img src="img/MenuEdit/magnifying-glass-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Replace</span>
+		</a>
 		
 		<!-- FILE -->
-		<br class="MenuFile" />
-		<a href="<?php echo $newArticleUrl ?>" target="_blank" class="MenuFile">
+		<a href="javascript:void(0);" target="_blank" class="MenuFile">
 			<img src="img/MenuFile/file-dashed-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">New Article</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFile">
+		<a href="javascript:void(0);" class="MenuFile">
 			<img src="img/MenuFile/file-arrow-up-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Import</span>
 		</a>
 		<hr style="margin: 20px; display: none;" class="MenuFile" />
 		<!-- <br class="MenuFile" /> -->
-		<a href="javascript:publicClick();" class="MenuFile">
+		<a href="javascript:void(0);" class="MenuFile">
 			<img src="img/MenuFile/file-arrow-down-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Save</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFile">
+		<a href="javascript:void(0);" class="MenuFile">
 			<img src="img/MenuFile/file-arrow-down-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">SaveAs</span>
 		</a>
 		<hr style="margin: 20px; display: none;" class="MenuFile" />
 		<!-- <br class="MenuFile" /> -->
-		<a href="javascript:publicClick();" class="MenuFile">
+		<a href="javascript:void(0);" class="MenuFile">
 			<img src="img/MenuFile/file-code-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">SaveAs .ds</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFile">
+		<a href="javascript:void(0);" class="MenuFile">
 			<img src="img/MenuFile/file-text-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">SaveAs .txt</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFile">
+		<a href="javascript:void(0);" class="MenuFile">
 			<img src="img/MenuFile/file-html-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">SaveAs .html</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFile">
+		<a href="javascript:void(0);" class="MenuFile">
 			<img src="img/MenuFile/file-pdf-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">SaveAs .pdf</span>
 		</a>
+		<hr style="margin: 20px; display: none;" class="MenuFile" />
+		<a href="javascript:void(0);" class="MenuFile">
+			<img src="img/MenuEdit/arrow-circle-left-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Undo</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuFile">
+			<img src="img/MenuEdit/arrow-circle-right-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Redo</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuFile">
+			<img src="img/MenuView/paragraph-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px; font-style: italic;">Show All</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuFile">
+			<img src="img/MenuEdit/magnifying-glass-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Find</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuFile">
+			<img src="img/MenuEdit/magnifying-glass-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Replace</span>
+		</a>
 		
 		<!-- EDIT -->
-		<br  class="MenuEdit" />
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/arrow-circle-left-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Undo</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/arrow-circle-right-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Redo</span>
 		</a>
-		<br  class="MenuEdit" />
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<hr style="margin: 20px; display: none;" class="MenuEdit" />
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/scissors-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Cut</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/copy-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Copy</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/clipboard-text-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Paste</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/backspace-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Delete</span>
 		</a>
-		<br  class="MenuEdit" />
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<hr style="margin: 20px; display: none;" class="MenuEdit" />
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/selection-all-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Select All</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuEdit">
+		<a href="javascript:void(0);" class="MenuEdit">
 			<img src="img/MenuEdit/magnifying-glass-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Find</span>
 		</a>
+
 		
 		<!-- VIEW -->
-		<br class="MenuView" />
 		<a href="javascript:zoomIn();" class="MenuView">
 			<img src="img/MenuView/magnifying-glass-plus-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Zoom In</span>
@@ -342,21 +382,21 @@
 			<img src="img/MenuView/magnifying-glass-minus-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Zoom Out</span>
 		</a>
-		<br class="MenuView" />
-		<a href="javascript:publicClick();" class="MenuView">
+		<hr style="margin: 20px; display: none;" class="MenuView" />
+		<a href="javascript:void(0);" class="MenuView">
 			<img src="img/MenuView/eye-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px; font-style: italic;">Preview</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuView">
+		<a href="javascript:void(0);" class="MenuView">
 			<img src="img/MenuView/frame-corners-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px; font-style: italic;">Full Screen</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuView">
+		<a href="javascript:void(0);" class="MenuView">
 			<img src="img/MenuView/presentation-chart-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px; font-style: italic;">Visual Editor</span>
 		</a>
-		<br class="MenuView" />
-		<a href="javascript:publicClick();" class="MenuView">
+		<hr style="margin: 20px; display: none;" class="MenuView" />
+		<a href="javascript:void(0);" class="MenuView">
 			<img src="img/MenuView/paragraph-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px; font-style: italic;">All Characters</span>
 		</a>
@@ -364,85 +404,128 @@
 			<img src="img/MenuView/pencil-simple-line-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Highlighting</span>
 		</a>
+		<hr style="margin: 20px; display: none;" class="MenuView" />
+		<a href="javascript:void(0);" class="MenuView">
+			<img src="img/MenuEdit/arrow-circle-left-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Undo</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuView">
+			<img src="img/MenuEdit/arrow-circle-right-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Redo</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuView">
+			<img src="img/MenuView/paragraph-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px; font-style: italic;">Show All</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuView">
+			<img src="img/MenuEdit/magnifying-glass-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Find</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuView">
+			<img src="img/MenuEdit/magnifying-glass-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Replace</span>
+		</a>
 		
 		<!-- INSERT -->
-		<br class="MenuInsert" />
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/smiley-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Special Character</span>
 		</a>
-		<br class="MenuInsert" />
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<hr style="margin: 20px; display: none;" class="MenuInsert" />
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/code-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Tag</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/link-simple-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Link</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/brackets-curly-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Decorator</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/brackets-round-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Value</span>
 		</a>
-		<br class="MenuInsert" />
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<hr style="margin: 20px; display: none;" class="MenuInsert" />
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/git-commit-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Entry</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/git-commit-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Empty Line</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/git-commit-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Comment</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuInsert">
+		<a href="javascript:void(0);" class="MenuInsert">
 			<img src="img/MenuInsert/git-commit-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Line Comment</span>
 		</a>
+		<hr style="margin: 20px; display: none;" class="MenuInsert" />
+		<a href="javascript:void(0);" class="MenuInsert">
+			<img src="img/MenuEdit/arrow-circle-left-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Undo</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuInsert">
+			<img src="img/MenuEdit/arrow-circle-right-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Redo</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuInsert">
+			<img src="img/MenuView/paragraph-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px; font-style: italic;">Show All</span>
+		</a>
 		
 		<!-- FORMAT -->
-		<br class="MenuFormat" />
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/text-b-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Bold</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/text-italic-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Italic</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/text-underline-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Underline</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/text-strikethrough-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Strikethrough</span>
 		</a>
-		<br class="MenuFormat" />
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<hr style="margin: 20px; display: none;" class="MenuFormat" />
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/paint-brush-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Fore-Color</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/paint-bucket-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Back-Color</span>
 		</a>
-		<br class="MenuFormat" />
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<hr style="margin: 20px; display: none;" class="MenuFormat" />
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/spiral-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Clear Formatting</span>
 		</a>
-		<a href="javascript:publicClick();" class="MenuFormat">
+		<a href="javascript:void(0);" class="MenuFormat">
 			<img src="img/MenuFormat/palette-bold.png" style="width:24px; height:24px; vertical-align: text-top;" />
 			<span style="padding-left:10px;">Clear Color</span>
 		</a>
+		<hr style="margin: 20px; display: none;" class="MenuFormat" />
+		<a href="javascript:void(0);" class="MenuFormat">
+			<img src="img/MenuEdit/arrow-circle-left-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Undo</span>
+		</a>
+		<a href="javascript:void(0);" class="MenuFormat">
+			<img src="img/MenuEdit/arrow-circle-right-bold-gray.png" style="width:18px; height:18px; vertical-align: text-top; padding-top: 3px;" />
+			<span style="padding-left:10px;">Redo</span>
+		</a>
 	</div>
+
+    <!-- Triggers -->
 	<span id="sidenav-trigger" onclick="openNav();">&#9776;</span>
 	
 	
@@ -460,20 +543,9 @@
 							<textarea spellcheck="false" id="editArea" style='flex-grow: 1; width: 100%; height: auto; resize: vertical; box-sizing: border-box;' name='content'><?php echo $curArticle; ?></textarea>
 						</div>
 						<div id="summary-div" style='margin-top: 0px; width:100%; min-height:60px; background-color: #fff; padding-top: 0px; padding-bottom: 0px; border: 2px white;'>
-							<div style='display: none; margin-bottom: 10px; margin-left: 1%;'>
-								Edit summary (Briefly describe your changes)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="checkbox" id="minorEdit" name="minorEditCheckBox">
-								<label for="minorEdit"> This is a minor edit</label>
-							</div>
-							<input id="summaryBox" type='text' style='display: none; margin-left: 1%; width:96%; margin-bottom: 10px;' name='summary' spellcheck='true'>
-							<input type='button' style='display: none; margin-left: 1%; background-color: #0000ff; border: 1; background: none; box-shadow: none; border-radius: 0px;' value='Publish changes' onclick='submitFormS("<?php echo $editfileUrl; ?>", editor.getValue());'>
-							<input type='button' style='display: none; margin-left: 1%; color: red; border: 1; background: none; box-shadow: none; border-radius: 0px; margin-left: 10px;' value='Cancel' onclick='hideEditor(null);'>
-
 							<div id="BottomToolbar" colspan="10" style="text-align: center; padding: 10px; background-color: #fff;">
-								<img src="img/check-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick='submitFormS("<?php echo $editfileUrl; ?>", editor.getValue());' />
+								<img src="img/check-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor('https://development.listiary.net/m.index.php?article=<?php echo $returnUrl; ?>');" />
 								<img src="img/eye-closed-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" />
-
-								<!-- <img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FF7F7F; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor('https://development.listiary.net/m.index.php?article=radiowatch.rnode');" /> -->
 								<img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FF7F7F; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor('https://development.listiary.net/m.index.php?article=<?php echo $returnUrl; ?>');" />
 							</div>
 						</div>
@@ -489,7 +561,7 @@
 	<script src="js/lib/codemirror.js"></script>
 	<script>
 		var myTextarea = document.getElementById('editArea');
-		var editor = CodeMirror.fromTextArea(myTextarea, {lineNumbers: true});
+		var editor = CodeMirror.fromTextArea(myTextarea, {lineNumbers: true, readOnly: true});  //or `readOnly: "nocursor"`
 		
 		//var lines = editor.lineCount();
 		// Find the wrapping div (textarea-wrapper)
@@ -508,6 +580,7 @@
 		});
 	</script>
 
+	<!-- Load main scripts -->
 	<script src="js/scripts.js"></script>
 </body>
 </html>

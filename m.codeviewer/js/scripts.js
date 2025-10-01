@@ -9,127 +9,10 @@ function hideEditor(returnUrl = null) {
 		window.location.href = returnUrl;
 	}
 }
-async function submitForm(editfileUrl) {
-
-	var editorBox = document.getElementById("editArea");
-	var summaryBox = document.getElementById("summaryBox");
-
-	var contnt = editorBox.value;
-	var summary = summaryBox.value;
-	var isMinor = false;
-	if(document.getElementById("minorEdit") && 
-		document.getElementById("minorEdit").checked)
-	{
-		isMinor = document.getElementById("minorEdit").checked;
-	}
-	if(isMinor) editfileUrl += "&isminor=1";
-	else editfileUrl += "&isminor=0";
-	
-	const data = new URLSearchParams();
-	data.append('content', contnt);
-	data.append('message', summary);
-	const requestOptions = {
-
-		method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: data
-    };
-
-	showLoadingModal();
-	var response = await fetch(editfileUrl, requestOptions);
-	var rtext = await response.text();
-	hideLoadingModal();
-	
-	if(rtext.includes("SUCCEEDED!")) {
-		
-		//console.log("SUCCEEDED!");
-		//alert("SUCCEEDED:<br/>" + rtext);
-		//alert("SUCCEEDED:\n" + rtext);
-		hideEditor("../index.php");
-	}
-	else if(rtext.includes("Done. Connection closed.")) {
-
-		console.log("OK!");
-		console.log(rtext);
-		alert("OK\n-------------------------------\n" + rtext);
-	}
-	else {
-
-		console.log("FAILED!");
-		console.log(rtext);
-		alert("FAILED\n-------------------------------\n" + rtext);
-	}
-}
-async function submitFormS(editfileUrl, contnt) {
-
-	var summaryBox = document.getElementById("summaryBox");
-	var summary = summaryBox.value;
-	var isMinor = false;
-	if(document.getElementById("minorEdit") && 
-		document.getElementById("minorEdit").checked)
-	{
-		isMinor = document.getElementById("minorEdit").checked;
-	}
-	if(isMinor) editfileUrl += "&isminor=1";
-	else editfileUrl += "&isminor=0";
-	
-	const data = new URLSearchParams();
-	data.append('content', contnt);
-	data.append('message', summary);
-	const requestOptions = {
-
-		method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: data
-    };
-
-	showLoadingModal();
-	var response = await fetch(editfileUrl, requestOptions);
-	var rtext = await response.text();
-	hideLoadingModal();
-	
-	if(rtext.includes("SUCCEEDED!")) {
-		
-		//console.log("SUCCEEDED!");
-		//alert("SUCCEEDED:<br/>" + rtext);
-		//alert("SUCCEEDED:\n" + rtext);
-		hideEditor(null); //hideEditor("../index.php");
-	}
-	else if(rtext.includes("Done. Connection closed.")) {
-
-		console.log("OK!");
-		console.log(rtext);
-		alert("OK\n-------------------------------\n" + rtext);
-	}
-	else {
-		
-		console.log("FAILED!");
-		console.log(rtext);
-		alert("FAILED\n-------------------------------\n" + rtext);
-	}
-}
-function getNewFileUrl(domain) {
-
-	var value = document.getElementById("newArticleName").value;
-	value = "php/_newfile.php?article=" + value + "&domain=" + domain;
-	return value;
-}
-function showLoadingModal() {
-	
-	var modal = document.getElementById("loadingModal");
-	if(!modal) return;
-	modal.style.display = "block";
-}
-function hideLoadingModal() {
-	
-	var modal = document.getElementById("loadingModal");
-	if(!modal) return;
-	modal.style.display = "none";
-}
 
 //editor options
-var tabSymbol = "\t";
-var tabLength = 1;
+var tabSymbol = " ";
+var tabLength = 4;
 var newLine = "\n";
 
 //editor text box
@@ -228,6 +111,34 @@ function editAreaKeyDown(e) {
 document.getElementById('editArea').addEventListener('keydown', editAreaKeyDown);
 
 
+
+
+
+// SVG Icons
+const CloseSvgText = "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' style='margin-top:14px;' viewBox='0 0 25 25'><path d='M0,0 L16,16' stroke='#818181' stroke-width='2' fill='none'/><path d='M0,16 L16,0' stroke='#818181' stroke-width='2' fill='none'/></svg>"; //That is SVG 'X'
+
+const RightArrowSvgText = "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' style='margin-top:9px;' viewBox='0 0 25 25'><path d='M18,9 L9,0' stroke='#818181' stroke-width='2' fill='none'/><path d='M18,9 L0,9' stroke='#818181' stroke-width='2' fill='none'/><path d='M18,9 L19,9' stroke='#818181' stroke-width='1' fill='none'/><path d='M18,9 L9,18' stroke='#818181' stroke-width='2' fill='none'/></svg>"; //That is SVG '🡢'
+
+const LeftArrowSvgText = "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' style='margin-top:9px;' viewBox='0 0 25 25'><path d='M1,9 L10,0' stroke='#818181' stroke-width='2' fill='none'/><path d='M1,9 L19,9' stroke='#818181' stroke-width='2' fill='none'/><path d='M0,9 L1,9' stroke='#818181' stroke-width='1' fill='none'/><path d='M1,9 L10,18' stroke='#818181' stroke-width='2' fill='none'/></svg>"; //That SVG is '🡠'
+
+function setMenuArrowLeft(showFunction) {
+	const arr = document.getElementById("menuArrow");
+	if (!arr) return;
+
+	const fName = showFunction.name;
+	arr.setAttribute('href', `javascript:${fName}();`);
+	arr.innerHTML = LeftArrowSvgText;
+}
+function setMenuArrowRight(showFunction) {
+	const arr = document.getElementById("menuArrow");
+	if (!arr) return;
+
+	const fName = showFunction.name;
+	arr.setAttribute('href', `javascript:${fName}();`);
+	arr.innerHTML = RightArrowSvgText;
+}
+
+
 //sidenav
 var inSubMenu = false;
 function openNav() {				// open sidenav
@@ -239,14 +150,6 @@ function openNav() {				// open sidenav
 }
 function closeNav() {				// close sidenav
 
-	// if(inSubMenu) showMainMenu();
-	// else
-	// {
-		// document.getElementById("sidenav").style.display = "none";
-		// document.getElementById("sidenav-trigger").style.display = "block";
-		// document.getElementById("sidenav").style.width = "0";
-	// }
-	document.getElementById("backbtn").style.display = "none";
 	document.getElementById("sidenav").style.display = "none";
 	document.getElementById("sidenav-trigger").style.display = "block";
 	document.getElementById("sidenav").style.width = "0";
@@ -258,6 +161,8 @@ function backNav() {
 }
 function showMainMenu() {
 	
+	setMenuArrowLeft(showFileMenu);
+
 	var editLinks = document.getElementsByClassName("Menu");
 	for(var i = 0; i < editLinks.length; i++)
 	{	
@@ -283,7 +188,8 @@ function showMainMenu() {
 }
 function showFileMenu() {
 	
-	document.getElementById("backbtn").style.display = "block";
+	setMenuArrowRight(showMainMenu);
+
 	var editLinks = document.getElementsByClassName("MenuFile");
 	for(var i = 0; i < editLinks.length; i++) 
 	{	
@@ -309,7 +215,8 @@ function showFileMenu() {
 }
 function showEditMenu() {
 	
-	document.getElementById("backbtn").style.display = "block";
+	setMenuArrowRight(showMainMenu);
+
 	var editLinks = document.getElementsByClassName("MenuEdit");
 	for(var i = 0; i < editLinks.length; i++) 
 	{	
@@ -335,7 +242,8 @@ function showEditMenu() {
 }
 function showViewMenu() {
 	
-	document.getElementById("backbtn").style.display = "block";
+	setMenuArrowRight(showMainMenu);
+
 	var editLinks = document.getElementsByClassName("MenuView");
 	for(var i = 0; i < editLinks.length; i++) 
 	{	
@@ -361,7 +269,8 @@ function showViewMenu() {
 }
 function showInsertMenu() {
 	
-	document.getElementById("backbtn").style.display = "block";
+	setMenuArrowRight(showMainMenu);
+
 	var editLinks = document.getElementsByClassName("MenuInsert");
 	for(var i = 0; i < editLinks.length; i++)
 	{	
@@ -387,7 +296,8 @@ function showInsertMenu() {
 }
 function showFormatMenu() {
 	
-	document.getElementById("backbtn").style.display = "block";
+	setMenuArrowRight(showMainMenu);
+
 	var editLinks = document.getElementsByClassName("MenuFormat");
 	for(var i = 0; i < editLinks.length; i++) 
 	{	
