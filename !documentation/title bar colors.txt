@@ -1,0 +1,4 @@
+// title bar colors
+#99B3FF  - blue
+#ffcc00  - yellow
+#66CC99  - green
