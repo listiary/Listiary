@@ -234,6 +234,7 @@ const mainTree = {
 		//translate items
 		var items = "";
 		for (var i = 0; i < item.items.length; i++) {
+			if(options.CensoredNamespaces.includes(item.items[i].id)) continue;    //CENSOR NAMESPACES
 			items += mainTree.translateItemShallow(item.items[i]);
 		}
 
