@@ -256,9 +256,23 @@ const mainTree = {
 		}
 	},
 	_makeTitleLink: function(url, text) {
-		
-		return "<a target='_blank' style='text-decoration: none' href='" +
+
+		var iswikipedia = mainTree._isWikipediaLink(url);
+		if (iswikipedia)
+		{
+			return "<a target='_blank' style='color:green; text-decoration: none' href='" +
+			url + "'>🅦</a>";
+		}
+		else
+		{
+			return "<a target='_blank' style='text-decoration: none' href='" +
 			url + "'>" + text + "</a>";
+		}
+	},
+	_isWikipediaLink: function(url) {
+
+		const wikiRegex = /^(https?:\/\/)?(www\.)?[a-z]{2}\.wikipedia\.org\/?/i;
+		return wikiRegex.test(url);
 	},
 	_makeMainProductionBody: function(id, titleLinksHtml, itemsHtml) {
 		
