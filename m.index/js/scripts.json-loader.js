@@ -5,6 +5,7 @@ const normative_root_filename = "";
 
 async function loadJson(mode, article = null) {
 
+	if(article == null) article = "radiowatch.rnode";
 	var rjson = await fetchJson(mode, article);
 //console.log(rjson);
 	if (!articleId) setDefaultArticleId(rjson);
