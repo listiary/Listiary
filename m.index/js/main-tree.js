@@ -7,7 +7,11 @@ const mainTree = {
 	Container: null,
 	availableWidth: 0,
 	isMobile: false,
-	overlapType: "links",				//"dots" | "multyline" | "basic" | "links"
+	overlapType: "links",				//"dots" | "multiline" | "basic" | "links"		//links
+
+	//multiline
+	marginBlockItem: "0em",					//0.1em
+	marginBlockBranch: "0em",				//0.1em
 
 
 	//public methods
@@ -302,7 +306,7 @@ const mainTree = {
 		if(mainTree.overlapType == "basic") return mainTree.translateItemShallow_Basic(item);
 		else if(mainTree.overlapType == "dots") return mainTree.translateItemShallow_Dots(item);
 		else if(mainTree.overlapType == "links") return mainTree.translateItemShallow_Link(item);
-		//else if(mainTree.overlapType == "multyline") return mainTree.translateItemShallow_Multyline(item);	//Not implemented yet
+		else if(mainTree.overlapType == "multiline") return mainTree.translateItemShallow_Multiline(item);
 		else return mainTree.translateItem_Basic(item);
 	},
 	translateItemShallow_Basic: function(item) {
@@ -388,6 +392,36 @@ const mainTree = {
 			return;
 		}
 	},
+	translateItemShallow_Multiline: function(item) {
+
+		// This is the overflowing item template
+		// <li style="flex-grow: 1; overflow: visible; text-overflow: clip;white-space: normal; word-wrap: break-word; margin-block: 0.65em;">
+		//	<a target="_blank" style="all: unset;" href="https://youtube.com/watch?v=ZaJ_ub9ps58">Blue - Sorry Seems To Be The Hardest Word (Radio Edit) (Feat. Elton John)</a>
+		// </li>
+
+		if (item.name == "branch") {
+
+			var links = mainTree.translateLinks(item);
+			var itext = mainTree.choosever(item);
+			if (item.color != undefined)
+			{
+				return mainTree._makeBranchItem_Multiline_Colored(item.id, itext, links, item.color);
+			}
+			else
+			{
+				return mainTree._makeBranchItem_Multiline(item.id, itext, links);
+			}
+		}
+		else if (item.name == "leaf")
+		{
+			return mainTree.translateItem(item);
+		}
+		else
+		{
+			console.log('FATAL: Unknown item.name! What is "' + item.name + '"?');
+			return;
+		}
+	},
 	_makeBranchItem_Basic: function(id, text, linksHtml, availableWidth) {
 		
 		return "<li class='treedata' style='" +
@@ -434,6 +468,21 @@ const mainTree = {
 		"style=\"flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;\">" + 
 		text + " </a></li>";
 	},
+	_makeBranchItem_Multiline: function(id, text) {
+
+		return "<li class='treedata' style='display: flex; align-items: center; max-width: max-content; overflow: hidden;'>" +
+			"<a class=\"breadcrumb\" href=\"javascript:reloadJson(\'" + mode + "\',\'" + id + "\');\" " +
+			"style=\"flex-grow: 1; overflow: visible; text-overflow: clip; white-space: normal; word-wrap: break-word; margin-block: " + mainTree.marginBlockBranch + "; padding-left: 0.5em; text-indent: -0.5em;\">" +
+			text + " </a></li>";
+	},
+	_makeBranchItem_Multiline_Colored: function(id, text, color) {
+
+		"<li class='treedata' style='color: " +
+		color + "display: flex; align-items: center; max-width: max-content; overflow: hidden;'>" +
+		"<a class=\"breadcrumb\" href=\"javascript:reloadJson(\'" + mode + "\',\'" + id + "\');\" " +
+		"style=\"flex-grow: 1; overflow: visible; text-overflow: clip; white-space: normal; word-wrap: break-word; margin-block: " + mainTree.marginBlockBranch + "; padding-left: 0.5em; text-indent: -0.5em;\">" +
+		text + " </a></li>";
+	},
 
 
 	//Translate item
@@ -442,7 +491,7 @@ const mainTree = {
 		if(mainTree.overlapType == "basic") return mainTree.translateItem_Basic(item);
 		else if(mainTree.overlapType == "dots") return mainTree.translateItem_Dots(item);
 		else if(mainTree.overlapType == "links") return mainTree.translateItem_Link(item);
-		//else if(mainTree.overlapType == "multyline") return mainTree.translateItem_Multyline(item);	//Not implemented yet
+		else if(mainTree.overlapType == "multiline") return mainTree.translateItem_Multiline(item);
 		else return mainTree.translateItem_Basic(item);
 	},
 	
@@ -467,7 +516,7 @@ const mainTree = {
 			}
 			else if (item.type == "nlcomment") 
 			{
-				return mainTree._makeItem_Basic_NlComment(cssFromDecorators, links, itext);
+				return mainTree._makeItem_NlComment(cssFromDecorators, links, itext);
 			}
 			else if (item.color != undefined) 
 			{
@@ -818,6 +867,108 @@ const mainTree = {
 			}
 		}
 	},
+
+
+	//Translate item Links style - overlapType: "multiline"
+	translateItem_Multiline: function(item) {
+
+		if(item.type == "empty") {
+
+			return mainTree._makeItem_Multiline_Empty(item.id);
+		}
+		else {
+
+			var links = mainTree.translateLinks(item);
+			var cssFromDecorators = mainTree._makeCssFromDecorators_Multiline(item);
+
+			//choose short version if available
+			var itext = mainTree.choosever(item);
+
+			//return item
+			if (item.type == "comment")
+			{
+				return mainTree._makeItem_Multiline_Comment(item.id, cssFromDecorators, links, itext);
+			}
+			else if (item.type == "nlcomment")
+			{
+				return mainTree._makeItem_Multiline_NlComment(item.id, cssFromDecorators, links, itext);
+			}
+			else if (item.color != undefined)
+			{
+				return mainTree._makeItem_Multiline_Colored(item.id, cssFromDecorators, links, itext, item.color);
+			}
+			else //item.type == "item"
+			{
+				return mainTree._makeItem_Multiline(item.id, cssFromDecorators, links, itext);
+			}
+		}
+	},
+	_makeItem_Multiline_Empty(id) {
+
+		return "<li id='" + id + "'>&nbsp;</li>";
+	},
+	_makeItem_Multiline(id, cssFromDecorators, linkHtml, text) {
+
+		var addToStyle = "flex-grow: 1; overflow: visible; text-overflow: clip; white-space: normal; word-wrap: break-word; margin-block: " + mainTree.marginBlockItem + "; padding-left: 0.5em; text-indent: -0.5em;";
+		addToStyle += cssFromDecorators;
+
+		return "<li id='" + id + "' class='treedata' style='" + addToStyle + "'>" +
+			linkHtml.replace('~~~', text) + "</li>";
+	},
+	_makeItem_Multiline_Colored(id, cssFromDecorators, linkHtml, text, color) {
+
+		var addToStyle = "flex-grow: 1; overflow: visible; text-overflow: clip; white-space: normal; word-wrap: break-word; margin-block: " + mainTree.marginBlockItem + "; padding-left: 0.5em; text-indent: -0.5em;";
+		addToStyle += cssFromDecorators;
+
+		return "<li id='" + id + "' class='treedata' style='color: " +
+			color + ";" + addToStyle + "'>" +
+			linkHtml.replace('~~~', text) + "</li>";
+	},
+	_makeItem_Multiline_Comment(id, cssFromDecorators, linkHtml, text) {
+
+		var addToStyle = "flex-grow: 1; overflow: visible; text-overflow: clip; white-space: normal; word-wrap: break-word; margin-block: " + mainTree.marginBlockItem + "; padding-left: 0.5em; text-indent: -0.5em;";
+		addToStyle += cssFromDecorators;
+
+		return "<li id='" + id + "' class='treedata' style='color: green; font-style: italic;" + addToStyle + "'>" +
+			linkHtml.replace('~~~', text) + "</li>";
+	},
+	_makeItem_Multiline_NlComment(id, cssFromDecorators, linkHtml, text) {
+
+		var addToStyle = "flex-grow: 1; overflow: visible; text-overflow: clip; white-space: normal; word-wrap: break-word; margin-block: " + mainTree.marginBlockItem + "; padding-left: 0.5em; text-indent: -0.5em;";
+		addToStyle += cssFromDecorators;
+
+		return mainTree._makeItem_Multiline_Empty() +
+			"<li id='" + id + "' class='treedata' style='color: green; font-style: italic;" + addToStyle + "'>" +
+			linkHtml.replace('~~~', text) + "</li>";
+	},
+	_makeCssFromDecorators_Multiline(item) {
+
+		var css = "";
+		for(var i = 0; i < item.decorators.length; i++)
+		{
+			var name = Object.keys(item.decorators[i]);
+			if (name == "bgcolor")
+			{
+				css += "background-color: " + item.decorators[i][name] + ";";
+			}
+			else if (name == "bold")
+			{
+				css += "font-weight: bold;";
+			}
+			else if (name == "italic")
+			{
+				css += "font-style: italic;";
+			}
+			else if (name == "underline")
+			{
+				css += "text-decoration: underline;";
+			}
+			else if (name == "striked")
+			{
+				css += "text-decoration: line-through;";
+			}
+		}
+	},
 	
 
 	//Translate links in the items in the main production
@@ -826,8 +977,34 @@ const mainTree = {
 		if(mainTree.overlapType == "links") return mainTree.translateLinks_One(item);
 		else if(mainTree.overlapType == "basic") return mainTree.translateLinks_Basic(item);
 		else if(mainTree.overlapType == "dots") return mainTree.translateLinks_Dots(item);
-		//else if(mainTree.overlapType == "multyline") return mainTree.translateLinks_Multyline(item);	//Not implemented yet
+		else if(mainTree.overlapType == "multiline") return mainTree.translateLinks_One(item);
 		else return mainTree.translateLinks_Basic(item);
+	},
+	translateLinks_One: function(item) {
+
+		let addToStyle = "";
+		if(namespaces[item.id] && namespaces[item.id].decorators["highlight"])
+		{
+			let color = namespaces[item.id].decorators["highlight"];
+			addToStyle += " background-image: linear-gradient(to right, " + color + " 50%, " + color + " 50%);";
+			addToStyle += " background-size: 100% 60%;";
+			addToStyle += " background-position: 0 85%;";
+			addToStyle += " background-repeat: no-repeat;";
+		}
+
+		var links = "";
+		for (var i = 0; i < item.links.length; i++) {
+
+			links += "<a target='_blank' style='all: unset; cursor: pointer;" + addToStyle +
+			"' href='" + item.links[i].url + "'>~~~</a>";
+			break;
+		}
+
+		if(links == "")
+		{
+			links = "<a style='all: unset;" + addToStyle + "' href='javascript:void(0);'>~~~</a>";
+		}
+		return links;
 	},
 	translateLinks_Basic: function(item) {
 		
@@ -836,7 +1013,7 @@ const mainTree = {
 		
 			var wikicol = "";
 			if(item.links[i].url.startsWith("https://en.wikipedia.org/"))
-				wikicol = "color:blue;";
+				wikicol = "color:green;";
 			
 			links += "<a target='_blank' style='text-decoration: none;" + wikicol + "' href='" +
 			item.links[i].url +
@@ -853,39 +1030,13 @@ const mainTree = {
 		
 			var wikicol = "";
 			if(item.links[i].url.startsWith("https://en.wikipedia.org/"))
-				wikicol = "color:blue;";
+				wikicol = "color:green;";
 			
 			links += "<a target='_blank' style='text-decoration: none; flex-shrink: 0; margin-left: 5px;" + wikicol + "' href='" +
 			item.links[i].url +
 			"'>" +
 			item.links[i].text +
 			"</a>";
-		}
-		return links;
-	},
-	translateLinks_One: function(item) {
-		
-		let addToStyle = "";
-		if(namespaces[item.id] && namespaces[item.id].decorators["highlight"])
-		{
-			let color = namespaces[item.id].decorators["highlight"];
-			addToStyle += " background-image: linear-gradient(to right, " + color + " 50%, " + color + " 50%);";
-			addToStyle += " background-size: 100% 60%;";
-			addToStyle += " background-position: 0 85%;";
-			addToStyle += " background-repeat: no-repeat;";
-		}
-		
-		var links = "";
-		for (var i = 0; i < item.links.length; i++) {
-			
-			links += "<a target='_blank' style='all: unset; cursor: pointer;" + addToStyle + 
-			"' href='" + item.links[i].url + "'>~~~</a>";
-			break;
-		}
-		
-		if(links == "")
-		{
-			links = "<a style='all: unset;" + addToStyle + "' href='javascript:void(0);'>~~~</a>";
 		}
 		return links;
 	},

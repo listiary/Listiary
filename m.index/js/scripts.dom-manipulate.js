@@ -249,3 +249,46 @@ function showMenu(menuName) {
 	LocalFileLoader.UnSelect();
 	StreamPlayer.UnSelect();
 }
+
+
+// Toggle list styles
+const el = document.getElementById('Menu_StyleSwitcher');
+const elimg = el.getElementsByTagName("img")[0];
+let listStyle = "links";
+el.addEventListener('click', function (e) {
+
+	e.preventDefault();               // stop navigation
+	if(listStyle == "links")
+	{
+		listStyle = "multiline";
+		mainTree.overlapType = "multiline";
+		elimg.src = "m.index/img/dots-three-outline-vertical-bold-gray.png";   //dots-three-bold-gray
+		addLargeTree(articleId);
+	}
+	else if(listStyle == "multiline")
+	{
+		listStyle = "dots";
+		mainTree.overlapType = "dots";
+		elimg.src = "m.index/img/arrows-out-line-horizontal-bold-gray.png";
+		addLargeTree(articleId);
+	}
+	else if(listStyle == "dots")
+	{
+		listStyle = "basic";
+		mainTree.overlapType = "basic";
+		elimg.src = "m.index/img/arrows-out-line-vertical-bold-gray.png";
+		addLargeTree(articleId);
+	}
+	else if(listStyle == "basic")
+	{
+		listStyle = "expand";
+		 elimg.src = "m.index/img/link-simple-bold-gray.png";
+	}
+	else if(listStyle == "expand")
+	{
+		listStyle = "links";
+		mainTree.overlapType = "links";
+		elimg.src = "m.index/img/text-align-right-bold-gray.png";  //text-align-right-bold-gray
+		addLargeTree(articleId);
+	}
+});

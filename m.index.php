@@ -63,7 +63,7 @@
 				<path d="M1,9 L10,18" stroke="#818181" stroke-width="2" fill="none"/>
 			</svg>
 		</a>
-		
+
 
 
 		<!-- MenuMain -->
@@ -89,10 +89,10 @@
 
 
 		<div style="position: absolute; bottom: 50; left: 0; right: 0; background-color: #ccc; margin-top: 30px; display: flex; justify-content: center; align-items: center; gap: 10px;">
-		<a style="padding: 8px;" href="javascript:void(0);" class="MenuMain">
-			<img src="m.index/img/arrows-out-line-vertical-bold-gray.png" style="background-color: #818181; border: 3px solid #ccc; border-radius: 60px; width: 30px; height: 30px; padding: 3px;">
+		<a id="Menu_StyleSwitcher" style="padding: 8px;" class="MenuMain">
+			<img src="m.index/img/text-align-right-bold-gray.png" style="background-color: #818181; border: 3px solid #ccc; border-radius: 60px; width: 30px; height: 30px; padding: 3px;">
 		</a>
-		<a style="padding: 8px;" href="javascript:void(0);" class="MenuMain">
+		<a id="Menu_LangSwitcher" style="padding: 8px;" class="MenuMain">
 			<img src="m.index/img/translate-bold-gray.png" style="background-color: #818181; border: 3px solid #ccc; border-radius: 60px; width: 30px; height: 30px; padding: 3px;">
 		</a>
 		</div>
@@ -203,7 +203,7 @@
 			<tr style="max-height: 60px; height: 60px;">				
 				<td id="BottomToolbar" colspan="10" style="text-align: center; padding: 10px; padding-bottom: 20px; padding-top: 20px; background-color: #fff; display: none;">
 					<img id="BottomToolbarScrollButton" src="m.index/img/arrow-line-up-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:scrollToTop();" />
-					<img id="BottomToolbarEditButton" src="m.index/img/code-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" />
+					<img id="BottomToolbarEditButton" src="m.index/img/code-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;"/>
 					<img id="BottomToolbarBackButton" src="m.index/img/arrow-elbow-up-left-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:navigateBreadcrumbBack();" />
 				</td>
 			</tr>
