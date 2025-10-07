@@ -1,7 +1,12 @@
 const options = {
 
+    // Do we load editor or a viewer
+    ShowEditor: false,
+
     // For censoring items by id
     CensoredNamespaces: [], //"radiowatch.more"
+
+
 
     // Wether we will be using local js file as source / payload (for debugging purposes)
     FetchLocal: false,

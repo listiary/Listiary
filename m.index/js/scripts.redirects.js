@@ -1,14 +1,39 @@
 //Redirects
 async function showEditor(articleName, itemId) {
 
+	if(options.ShowEditor == false) showViewer(articleName, itemId);
+	else
+	{
+		if(mode == "public" || mode == "normative")
+		{
+			window.location.href = "./m.editor/m.editor.php?article="
+				+ articleName + "&domain=" + mode + "&itemid=" + itemId;
+		}
+		else if(mode == "personal")
+		{
+			window.location.href = "./m.editor/m.editor.php?article="
+				+ articleName + "&domain=" + mode + "&username=" + user;
+		}
+		else if(mode == "private")
+		{
+			console.log("Editing not implemented for private mode");
+		}
+		else
+		{
+			console.log("Editing not implemented for this mode");
+		}
+	}
+}
+async function showViewer(articleName, itemId) {
+
 	if(mode == "public" || mode == "normative")
 	{
-		window.location.href = "./editor/editor.php?article=" 
+		window.location.href = "./m.codeviewer/m.codeviewer.php?article="
 			+ articleName + "&domain=" + mode + "&itemid=" + itemId;
 	}
 	else if(mode == "personal")
 	{
-		window.location.href = "./editor/editor.php?article=" 
+		window.location.href = "./m.codeviewer/m.codeviewer.php?article="
 			+ articleName + "&domain=" + mode + "&username=" + user;
 	}
 	else if(mode == "private")
