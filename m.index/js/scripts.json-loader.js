@@ -200,7 +200,7 @@ function fixJson(rjson) {
 		}
 	}
 
-console.log(namespaces);
+	//console.log(namespaces);
 
 	//set json object - only one left with no parent item.
 	json = null;

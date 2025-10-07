@@ -1,7 +1,7 @@
 const options = {
 
     // Do we load editor or a viewer
-    ShowEditor: false,
+    ShowEditor: true,
 
     // For censoring items by id
     CensoredNamespaces: [], //"radiowatch.more"
