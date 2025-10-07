@@ -44,6 +44,8 @@ const mainTree = {
 
 		var title = "<h2 style='margin-top: -25px; margin-bottom: 10px;'>" + obj.text + " <span style='text-decoration: none; vertical-align: super; position: relative; top: 0.2em; font-size: 70%; color: blue;'>[<a style='font-style: italic;' href='javascript:showEditor(\"" + filename + "\",\"" + obj.id + "\");'>edit</a>]</span></h2>";
 
+		document.getElementById("BottomToolbarEditButton").onclick = function() { showEditor(filename, obj.id); };
+
 
 		var prodHtml = mainTree.translateBaseProductionShallow(obj);
 		mainTree.Container.innerHTML = title + prodHtml;
