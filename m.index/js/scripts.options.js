@@ -4,7 +4,16 @@ const options = {
     ShowEditor: true,
 
     // For censoring items by id
-    CensoredNamespaces: [], //"radiowatch.more"
+    CensoredNamespaces: [
+
+        //"radiowatch.more",
+        //"radiowatch.dlists.onions",
+        //"radiowatch.dlists.ameds",
+        //"radiowatch.videowatch.ybtc",
+        //"radiowatch.worldoflists.unsorted.sextoys",
+        //"radiowatch.worldoflists.darkarts",
+        //"radiowatch.personal"
+    ],
 
 
 
