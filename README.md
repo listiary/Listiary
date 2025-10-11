@@ -16,7 +16,7 @@ This repository is the home of the open-source wiki software that powers Listiar
 
 ## About  
 
-## Sponsor  
+## Support This Project  
 
 ## Links  
 🧭 Listiary wiki (prototype demo) - [demo.listiary.net](https://demo.listiary.net/m.index.php)  
