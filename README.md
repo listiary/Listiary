@@ -20,14 +20,28 @@ This repository is the home of the open-source wiki software that powers Listiar
 
 ## Links  
 Listiary wiki (prototype demo) - [demo.listiary.net](https://demo.listiary.net/m.index.php)  
-Listiary documentation - [https://documentation.listiary.net/listiary/](https://documentation.listiary.net/listiary/)  
-Listiary repository on GitHub - [https://github.com/viktorchernev/Listiary](https://github.com/viktorchernev/Listiary)  
-Describe repository on GitHub - [https://github.com/viktorchernev/DescribeCompiler](https://github.com/viktorchernev/DescribeCompiler)  
-Describe documentation - [https://documentation.listiary.net/](https://documentation.listiary.net/)  
-Describe library - [library.listiary.com](https://library.listiary.com/)  
-Listiary wiki (dev version, password protected) - [https://development.listiary.net/m.index.php](https://development.listiary.net/m.index.php)  
-Listiary wiki Radiowatch - [https://radiowatch.listiary.net/m.index.html](https://radiowatch.listiary.net/m.index.html)  
+You can visit the prototype and interact with it. You will not be allowed to edid content yet, but you can test a read-only version of the editor and look at the Describe code.
 
+Listiary documentation - [https://documentation.listiary.net/listiary/](https://documentation.listiary.net/listiary/)  
+This is the central documentation place for the Listiary/Describe project.
+
+Listiary repository on GitHub - [https://github.com/viktorchernev/Listiary](https://github.com/viktorchernev/Listiary)  
+This is the home of the Listiary codebase.
+
+Describe repository on GitHub - [https://github.com/viktorchernev/DescribeCompiler](https://github.com/viktorchernev/DescribeCompiler)  
+This is the home of the Describe Markup Language compiler codebase, and the main Describe repository.
+
+Describe documentation - [https://documentation.listiary.net/](https://documentation.listiary.net/)  
+This is the central documentation place for the Listiary/Describe project.
+
+Describe library - [library.listiary.com](https://library.listiary.com/)  
+You can browse Describe Markup Language source codes in the library. You can also download and edit them, try to compile them yourself, or whatever.
+
+Listiary wiki (dev version, password protected) - [https://development.listiary.net/m.index.php](https://development.listiary.net/m.index.php)  
+Developers only! This is the website you experience when working on the project. It is password protected.
+
+Listiary wiki Radiowatch - [https://radiowatch.listiary.net/m.index.html](https://radiowatch.listiary.net/m.index.html)  
+This will be the first wiki we will likely release, even if in a read only format at first. It has custom plugins to listen to radio and cloud music and bot to content pipelines, and other cool features. Is not ready yet.
 
 
 ## Get in touch  
