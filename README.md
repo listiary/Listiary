@@ -16,6 +16,10 @@ This repository is the home of the open-source wiki software that powers Listiar
 
 ## About  
 
+
+
+
+
 ## Support This Project  
 Listiary and Describe are designed to give everyone open, modular, and accessible tools for knowledge management. We’re currently setting up an Open Collective page where you’ll be able to contribute in the near future. Your support helps keep the project free, sustainable, and continuously evolving.
 
