@@ -41,8 +41,6 @@ Listiary wiki (dev version, password protected) - [https://development.listiary.
 Developer-only environment. Password-protected instance used during project development.
 
 Listiary wiki Radiowatch - [https://radiowatch.listiary.net/m.index.html](https://radiowatch.listiary.net/m.index.html)  
-This will be the first wiki we will likely release, even if in a read only format at first. It has custom plugins to listen to radio and cloud music and bot to content pipelines, and other cool features. Is not ready yet.
-
 This is an upcoming themed wiki release. Initially planned as read-only. Includes custom plugins for radio and cloud music streaming, content bots, and other cool experimental features. Not yet ready for public release - I give the link as a curiosity.
 
 
