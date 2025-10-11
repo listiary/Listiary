@@ -11,8 +11,8 @@ _Simplifying the world, one list at a time_
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-Listiary is a wiki built from nested lists on various topics. From movie recommendations and playlists to knowledge maps, from personal knowledge bases to shopping lists and exercise journals - Listiary is a versatile tool for building wikis on various topics. 
-This repository is the home of the open-source wiki software that powers Listiary.
+Listiary is a wiki built from nested lists on various topics. From movie recommendations and playlists to knowledge maps and personal journals.
+It’s a flexible, open-source tool for building structured wikis of lists on any topic.
 
 ## About  
 
