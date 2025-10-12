@@ -15,9 +15,9 @@ Listiary is a wiki built from nested lists on various topics. From movie recomme
 It’s a flexible, open-source tool for building structured wikis of lists on any topic.
 
 ## About  
-Lorem ipsum  
-sdnv,sdvnsvndsdn,dsv,ndvs,m mn ,mdm,dsms,  
-sd,nnsc,sdmdmdm  
+Wikis are collaborative platforms for creating and organizing knowledge — from global projects like [Wikipedia](https://www.wikipedia.org/) and [Fandom](https://www.fandom.com/), to smaller frameworks and wiki farms powering niche communities. At their core, wikis share a common spirit of open collaboration, freedom, and a mission to make information accessible and editable by everyone. Listiary continues that tradition with a twist: it’s a wiki software built around nested lists. Using our custom Describe Markup language, Listiary makes structured knowledge creation intuitive, expressive, and uniquely suited for hierarchically organized ideas.  
+  
+  
 
 <a href="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2"><img src="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2" width="60"/></a>
 <a href="https://github.com/user-attachments/assets/13908d39-3def-49ef-a893-e5d310d2a5b9"><img src="https://github.com/user-attachments/assets/13908d39-3def-49ef-a893-e5d310d2a5b9" width="60"/></a>
