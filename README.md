@@ -62,5 +62,6 @@ This is an upcoming themed wiki release. Initially planned as read-only. Include
 
 ## Get in touch  
 - Use GitHub's issue reporter on the right
-- Send me an email vchernev91@abv.bg (might take a few days)
-- You can reach me on Viber as well: +359-885-18-05-86
+- Send an email contact@listiary.org
+- Or, contact the founder directly at vchernev91@abv.bg (might take a few days)
+- You can reach him on Viber as well: +359-885-18-05-86
