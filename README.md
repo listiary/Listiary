@@ -19,7 +19,7 @@ Wikis are collaborative platforms for creating and organizing knowledge — from
 
 Listiary is the PHP/JavaScript engine behind the wiki farm [listiary.org](https://listiary.org/), a platform used both for creating public knowledge and managing personal projects — from knowledge bases to shopping lists, workout journals, and more. It’s powered by Describe Markup, our own custom markup language designed specifically for structured, nested list creation.  
   
-Listiary supports a variety of list types and offers powerful tools for working with lists — acting as both a playground and an editor. The platform is extensible via plugins, integrates bot-fed automated pipelines, and embraces an open, experimental spirit. Together, these features make Listiary a unique, powerful, and versatile tool for collaborative and personal organization alike.  
+Listiary supports a variety of list types and offers powerful tools for working with lists — acting as both a playground and an editor. The platform is extensible via plugins, integrates bot-fed automated pipelines, and embraces an open, experimental spirit. Together, these features make Listiary a unique, powerful, and versatile tool for collaborative and personal organization alike.
 <br />
 
 <a href="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2"><img src="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2" width="60"/></a>
