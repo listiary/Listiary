@@ -23,7 +23,7 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 
 ***Security through simplicity*** - Listiary is a custom platform implemented in plain JavaScript and PHP, without dependencies that could introduce vulnerabilities or maintenance overhead.
 
-***A language for lists*** – Listiary has its own language, called Describe Markup Language (or simply Describe). The Describe Markup Language (DML) compiler utilizes ANTLR 4 in C#, and is a powerful, flexible, tested and documented tool in its own right. Describe is intuitive: anyone can write in it without formal trainig, allowing rich, interactive lists to be created by anyone.
+***A language for lists*** – Listiary has its own language, called Describe Markup Language (or simply Describe). The Describe Markup Language (DML) compiler utilizes ANTLR 4 in C#, and is a powerful, flexible, tested and documented tool in its own right. Describe is intuitive – anyone can write in it without formal trainig, allowing rich, interactive lists to be created by anyone.
 
 ***Extensible via plugins*** – Developers can write and submit their own add-ons, and users can enable different add-ons to customize their experience. Think music players, fonts and styles, etc.
 
