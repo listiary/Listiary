@@ -33,6 +33,10 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 
 ***Tailored to lists*** – Lists stick out like a sore thumb on many wiki platforms, because large, wide, awkward lists don't fit neatly inside text, or software templates made for presenting text. Listiary lets complex lists shine in elegant and convenient ways – You can have checkbox lists, timed lists that change color or text when they expire, and much, much more endlessly-sortable goodness.
 
+***Learn more*** – You can visit the official documentation to learn more:<br />
+[Project Listiary - Official Documentation](https://documentation.listiary.org/listiary/)<br />
+[Describe Markup Language - Official Documentation](https://documentation.listiary.org/)
+
 <br />
 
 <a href="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2"><img src="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2" width="60"/></a>
