@@ -27,6 +27,12 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 
 ***Extensible via plugins*** – Developers can write and submit their own add-ons, and users can enable different add-ons to customize their experience. Think music players, fonts and styles, etc.
 
+***Flexible monetization*** – Listiary is free for all, but paid users will be able to host private wikis on our domain, similar to the GitHub Enterprise Cloud and many other platforms, which improves long-term sustainability without compromising the mission of the wiki.
+
+***Interactive editing*** – Users can customize, edit, highlight, and sort public or personal lists, with versioned drafts saved for later, fork their own versions, and even share them on social media if they like.
+
+***Tailored to lists*** – Lists stick out like a sore thumb on many wiki platforms, because large, wide, awkward lists don't fit neatly inside text, or software templates made for presenting text. Listiary lets complex lists shine in elegant and convenient ways – You can have checkbox lists, timed lists that change color or text when they expire, and much, much more endlessly-sortable goodness.
+
 <br />
 
 <a href="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2"><img src="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2" width="60"/></a>
