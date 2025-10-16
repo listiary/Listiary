@@ -16,6 +16,10 @@ It’s a flexible, open-source tool for building structured wikis of lists on an
 
 ## About  
 Listiary is a custom wiki platform built for writing lists. Unlike traditional wikis, which focus on free-form text, Listiary is designed from the ground up for structured, interactive, and dynamic lists.
+
+***Distributed and sustainable*** – Users choose servers and content to load, giving Listiary a decentralized model – similar to Mastodon. This flexibility makes a huge difference in terms of moderation and long-term sustainability, compared to rigid centralized platforms.
+
+***Bot-fed content*** – Oracles watch data streams, automated agents post to PHP staging pools, and curator bots log information, so users can enjoy journal style lists while the wiki writes itself in real time.
 <br />
 
 <a href="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2"><img src="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2" width="60"/></a>
