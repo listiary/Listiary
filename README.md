@@ -20,6 +20,9 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 ***Distributed and sustainable*** – Users choose servers and content to load, giving Listiary a decentralized model – similar to Mastodon. This flexibility makes a huge difference in terms of moderation and long-term sustainability, compared to rigid centralized platforms.
 
 ***Bot-fed content*** – Oracles watch data streams, automated agents post to PHP staging pools, and curator bots log information, so users can enjoy journal style lists while the wiki writes itself in real time.
+
+***Security through simplicity*** - Listiary is a custom platform implemented in plain JavaScript and PHP, without dependencies that could introduce vulnerabilities or maintenance overhead.
+
 <br />
 
 <a href="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2"><img src="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2" width="60"/></a>
