@@ -15,11 +15,28 @@ Listiary is a wiki built from nested lists on various topics. From movie recomme
 It’s a flexible, open-source tool for building structured wikis of lists on any topic.
 
 ## About  
-Wikis are collaborative platforms for creating and organizing knowledge — from global projects like [Wikipedia](https://www.wikipedia.org/) and [Fandom](https://www.fandom.com/), to smaller frameworks and wiki farms powering niche communities. At their core, wikis share a common spirit of open collaboration, freedom, and a mission to make information accessible and editable by everyone. Listiary continues that tradition with a twist: it’s a wiki software built around nested lists. Using our custom Describe Markup language, Listiary makes structured knowledge creation intuitive, expressive, and uniquely suited for hierarchically organized ideas.  
+Listiary is a custom wiki platform built for writing lists. Unlike traditional wikis, which focus on free-form text, Listiary is designed from the ground up for structured, interactive, and dynamic lists.
 
-Listiary is the PHP/JavaScript engine behind the wiki farm [listiary.org](https://listiary.org/), a platform used both for creating public knowledge and managing personal projects — from knowledge bases to shopping lists, workout journals, and more. It’s powered by Describe Markup, our own custom markup language designed specifically for structured, nested list creation.  
-  
-Listiary supports a variety of list types and offers powerful tools for working with lists — acting as both a playground and an editor. The platform is extensible via plugins, integrates bot-fed automated pipelines, and embraces an open, experimental spirit. Together, these features make Listiary a unique, powerful, and versatile tool for collaborative and personal organization alike.
+***Distributed and sustainable*** – Users choose servers and content to load, giving Listiary a decentralized model – similar to Mastodon. This flexibility makes a huge difference in terms of moderation and long-term sustainability, compared to rigid centralized platforms.
+
+***Bot-fed content*** – Oracles watch data streams, automated agents post to PHP staging pools, and curator bots log information, so users can enjoy journal style lists while the wiki writes itself in real time.
+
+***Security through simplicity*** - Listiary is a custom platform implemented in plain JavaScript and PHP, without dependencies that could introduce vulnerabilities or maintenance overhead.
+
+***A language for lists*** – Listiary has its own language, called Describe Markup Language (or simply Describe). The Describe Markup Language (DML) compiler utilizes ANTLR 4 in C#, and is a powerful, flexible, tested and documented tool in its own right. Describe is intuitive – anyone can write in it without formal trainig, allowing rich, interactive lists to be created by anyone.
+
+***Extensible via plugins*** – Developers can write and submit their own add-ons, and users can enable different add-ons to customize their experience. Think music players, fonts and styles, etc.
+
+***Flexible monetization*** – Listiary is free for all, but paid users will be able to host private wikis on our domain, similar to the GitHub Enterprise Cloud and many other platforms, which improves long-term sustainability without compromising the mission of the wiki.
+
+***Interactive editing*** – Users can customize, edit, highlight, and sort public or personal lists, with versioned drafts saved for later, fork their own versions, and even share them on social media if they like.
+
+***Tailored to lists*** – Lists stick out like a sore thumb on many wiki platforms, because large, wide, awkward lists don't fit neatly inside text, or software templates made for presenting text. Listiary lets complex lists shine in elegant and convenient ways – You can have checkbox lists, timed lists that change color or text when they expire, and much, much more endlessly-sortable goodness.
+
+***Learn more*** – You can visit the official documentation to learn more:<br />
+[Project Listiary - Official Documentation](https://documentation.listiary.org/listiary/)<br />
+[Describe Markup Language - Official Documentation](https://documentation.listiary.org/)
+
 <br />
 
 <a href="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2"><img src="https://github.com/user-attachments/assets/a1555953-4010-4d41-aab0-4e80f0c737e2" width="60"/></a>
@@ -46,10 +63,10 @@ This is the main documentation hub for the Listiary and Describe projects.
 📚 Describe library - [library.listiary.org](https://library.listiary.org/)  
 Browse Describe Markup Language source codes. You can view, download, and experiment with compiling files locally - they are diverse and free.
 
-:octocat: Listiary repository on GitHub - [https://github.com/viktorchernev/Listiary](https://github.com/viktorchernev/Listiary)  
+:octocat: Listiary repository on GitHub - [https://github.com/listiary/Listiary](https://github.com/viktorchernev/Listiary)  
 This is the home of the Listiary codebase.
 
-:octocat: Describe repository on GitHub - [https://github.com/viktorchernev/DescribeCompiler](https://github.com/viktorchernev/DescribeCompiler)  
+:octocat: Describe repository on GitHub - [https://github.com/listiary/DescribeCompiler](https://github.com/viktorchernev/DescribeCompiler)  
 This is the home of the Describe Markup Language compiler and the primary Describe project repository.
 
 Listiary wiki (dev version, password protected) - [https://development.listiary.org/m.index.php](https://development.listiary.org/m.index.php)  
