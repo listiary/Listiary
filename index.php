@@ -73,18 +73,18 @@
 		<a id="modelink_normative" href="javascript:normativeClick();" style="display:none;" class="MenuMain">private mode</a>
 		<a id="modelink_public" href="javascript:publicClick();" style="display:none;" class="MenuMain">normative mode</a>
 		<hr id="MenuMainMiddleAnchor" style="margin: 22px;" class="MenuMain"/>
-		<a href="#" target="blank" class="MenuMain">About</a>
-		<a href="https://forums.listiary.org/" target="blank" class="MenuMain">Forums</a>
+		<a href="#" target="_blank" class="MenuMain">About</a>
+		<a href="https://forums.listiary.org/" target="_blank" class="MenuMain">Forums</a>
 		<a href="contact/mobile/contact.php" class="MenuMain">Contact us</a>
 		<a href="contact/mobile/reportbug.php" class="MenuMain">Report a bug</a>
 		<a href="contact/mobile/donate.php" class="MenuMain">Donate</a>
 		<br class="MenuMain">
 		<hr id="MenuMainBottomAnchor" style="margin: 22px;" class="MenuMain"/>
-		<a href="docs/m.terms_of_service.php" target="blank" class="MenuMain">Terms of Use</a>
-		<a href="docs/m.privacy_policy.php" target="blank" class="MenuMain">Privacy Policy</a>
-		<a href="https://library.listiary.org/" target="blank" class="MenuMain">Describe Library</a>
-		<a href="https://documentation.listiary.org/" target="blank" class="MenuMain">Describe Docs</a>
-		<a href="https://github.com/viktorchernev/DescribeCompiler" target="blank" class="MenuMain">Describe Repo</a>
+		<a href="docs/m.terms_of_service.php" target="_blank" class="MenuMain">Terms of Use</a>
+		<a href="docs/m.privacy_policy.php" target="_blank" class="MenuMain">Privacy Policy</a>
+		<a href="https://library.listiary.org/" target="_blank" class="MenuMain">Describe Library</a>
+		<a href="https://documentation.listiary.org/" target="_blank" class="MenuMain">Describe Docs</a>
+		<a href="https://github.com/viktorchernev/DescribeCompiler" target="_blank" class="MenuMain">Describe Repo</a>
 
 
 
