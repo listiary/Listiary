@@ -63,10 +63,10 @@ This is the main documentation hub for the Listiary and Describe projects.
 📚 Describe library - [library.listiary.org](https://library.listiary.org/)  
 Browse Describe Markup Language source codes. You can view, download, and experiment with compiling files locally - they are diverse and free.
 
-:octocat: Listiary repository on GitHub - [https://github.com/viktorchernev/Listiary](https://github.com/viktorchernev/Listiary)  
+:octocat: Listiary repository on GitHub - [https://github.com/listiary/Listiary](https://github.com/viktorchernev/Listiary)  
 This is the home of the Listiary codebase.
 
-:octocat: Describe repository on GitHub - [https://github.com/viktorchernev/DescribeCompiler](https://github.com/viktorchernev/DescribeCompiler)  
+:octocat: Describe repository on GitHub - [https://github.com/listiary/DescribeCompiler](https://github.com/viktorchernev/DescribeCompiler)  
 This is the home of the Describe Markup Language compiler and the primary Describe project repository.
 
 Listiary wiki (dev version, password protected) - [https://development.listiary.org/m.index.php](https://development.listiary.org/m.index.php)  
