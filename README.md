@@ -50,7 +50,7 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 ## Support This Project  
 <!-- Listiary and Describe are designed to give everyone open, modular, and accessible tools for knowledge management. We’re currently setting up an Open Collective page where you’ll be able to contribute in the near future. Your support helps keep the project free, sustainable, and continuously evolving. -->
 
-You can now support Listiary directly through [Open Collective](https://opencollective.com/listiary) - a transparent platform for community funding.
+You can now support Listiary directly through <a href="https://opencollective.com/listiary" target="_blank">Open Collective</a> - a transparent platform for community funding.
 Your donation helps keep the project free, sustainable, and continuously evolving.
 
 ## Links  
