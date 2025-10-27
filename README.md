@@ -48,7 +48,10 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 <a href="https://github.com/user-attachments/assets/9a88d5a0-031c-400c-a38b-7bb4686c0b4b"><img src="https://github.com/user-attachments/assets/9a88d5a0-031c-400c-a38b-7bb4686c0b4b" width="60"/></a>
 
 ## Support This Project  
-Listiary and Describe are designed to give everyone open, modular, and accessible tools for knowledge management. We’re currently setting up an Open Collective page where you’ll be able to contribute in the near future. Your support helps keep the project free, sustainable, and continuously evolving.
+<!-- Listiary and Describe are designed to give everyone open, modular, and accessible tools for knowledge management. We’re currently setting up an Open Collective page where you’ll be able to contribute in the near future. Your support helps keep the project free, sustainable, and continuously evolving. -->
+
+You can now support Listiary directly through [Open Collective](https://opencollective.com/listiary) - a transparent platform for community funding.
+Your donation helps keep the project free, sustainable, and continuously evolving.
 
 ## Links  
 🧭 Listiary wiki (prototype demo) - [demo.listiary.org](https://demo.listiary.org/m.index.php)  
