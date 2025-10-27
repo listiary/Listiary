@@ -618,6 +618,7 @@ const mainTree = {
 				css += "text-decoration: line-through;";
 			}
 		}
+		return css;
 	},
 
 
@@ -764,6 +765,7 @@ const mainTree = {
 				css += "text-decoration: line-through;";
 			}
 		}
+		return css;
 	},
 
 
@@ -797,6 +799,10 @@ const mainTree = {
 			}
 			else //item.type == "item"
 			{ 
+				if(links == "<a style='all: unset;' href='javascript:void(0);'>~~~</a>")
+				{
+					cssFromDecorators += "color:#333333;";
+				}
 				return mainTree._makeItem_Link(item.id, cssFromDecorators, links, itext);
 			}
 		}
@@ -866,6 +872,7 @@ const mainTree = {
 				css += "text-decoration: line-through;";
 			}
 		}
+		return css;
 	},
 
 
@@ -899,6 +906,10 @@ const mainTree = {
 			}
 			else //item.type == "item"
 			{
+				if(links == "<a style='all: unset;' href='javascript:void(0);'>~~~</a>")
+				{
+					cssFromDecorators += "color:#333333;";
+				}
 				return mainTree._makeItem_Multiline(item.id, cssFromDecorators, links, itext);
 			}
 		}
@@ -968,6 +979,7 @@ const mainTree = {
 				css += "text-decoration: line-through;";
 			}
 		}
+		return css;
 	},
 	
 
