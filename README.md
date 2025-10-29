@@ -74,7 +74,7 @@ This is the home of the Describe Markup Language compiler and the primary Descri
 Listiary wiki (dev version, password protected) - [https://development.listiary.org/m.index.php](https://development.listiary.org/)  
 Developer-only environment. Password-protected instance used during project development.
 
-Listiary wiki Radiowatch - [https://radiowatch.listiary.org/m.index.html](https://radiowatch.listiary.org/)  
+Listiary wiki Radiowatch - [https://radiowatch.listiary.org/m.index.html](https://radiowatch.listiary.org/m.index.html)  
 This is an upcoming themed wiki release. Initially planned as read-only. Includes custom plugins for radio and cloud music streaming, content bots, and other cool experimental features. Not yet ready for public release - I give the link as a curiosity.
 
 
