@@ -53,13 +53,13 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 You can now support Listiary directly through <a href="https://opencollective.com/listiary" target="_blank">Open Collective</a> - a transparent platform for community funding. Your donation helps keep the project free, sustainable, and continuously evolving.
 
 ## Links  
-🧭 Listiary wiki (prototype demo) - [demo.listiary.org](https://demo.listiary.org/m.index.php)  
+🧭 Listiary wiki (prototype demo) - [demo.listiary.org](https://demo.listiary.org/)  
 You can visit the prototype and interact with it. You will not be allowed to edit content yet, but you can try out a read-only version of the editor and inspect the Describe code in action.
 
 📚 Listiary documentation - [https://documentation.listiary.org/listiary/](https://documentation.listiary.org/listiary/)  
 This is the main documentation hub for the Listiary and Describe projects.
 
-📚 Describe documentation - [https://documentation.listiary.org/](https://documentation.listiary.org/)  
+📚 Describe documentation - [https://documentation.listiary.org/](https://documentation.listiary.org/language/)  
 This is the main documentation hub for the Listiary and Describe projects.
 
 📚 Describe library - [library.listiary.org](https://library.listiary.org/)  
@@ -71,10 +71,10 @@ This is the home of the Listiary codebase.
 :octocat: Describe repository on GitHub - [https://github.com/listiary/DescribeCompiler](https://github.com/viktorchernev/DescribeCompiler)  
 This is the home of the Describe Markup Language compiler and the primary Describe project repository.
 
-Listiary wiki (dev version, password protected) - [https://development.listiary.org/m.index.php](https://development.listiary.org/m.index.php)  
+Listiary wiki (dev version, password protected) - [https://development.listiary.org/m.index.php](https://development.listiary.org/)  
 Developer-only environment. Password-protected instance used during project development.
 
-Listiary wiki Radiowatch - [https://radiowatch.listiary.org/m.index.html](https://radiowatch.listiary.org/m.index.html)  
+Listiary wiki Radiowatch - [https://radiowatch.listiary.org/m.index.html](https://radiowatch.listiary.org/)  
 This is an upcoming themed wiki release. Initially planned as read-only. Includes custom plugins for radio and cloud music streaming, content bots, and other cool experimental features. Not yet ready for public release - I give the link as a curiosity.
 
 
