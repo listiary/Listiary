@@ -71,7 +71,7 @@ This is the home of the Listiary codebase.
 :octocat: Describe repository on GitHub - [https://github.com/listiary/DescribeCompiler](https://github.com/listiary/DescribeCompiler)  
 This is the home of the Describe Markup Language compiler and the primary Describe project repository.
 
-Listiary wiki (dev version, password protected) - [https://development.listiary.org/m.index.php](https://development.listiary.org/)  
+Listiary wiki (dev version, password protected) - [https://development.listiary.org/](https://development.listiary.org/)  
 Developer-only environment. Password-protected instance used during project development.
 
 Listiary wiki Radiowatch - [https://radiowatch.listiary.org/m.index.html](https://radiowatch.listiary.org/m.index.html)  
