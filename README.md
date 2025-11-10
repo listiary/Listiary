@@ -53,7 +53,7 @@ Listiary is a custom wiki platform built for writing lists. Unlike traditional w
 You can now support Listiary directly through <a href="https://opencollective.com/listiary" target="_blank">Open Collective</a> - a transparent platform for community funding. Your donation helps keep the project free, sustainable, and continuously evolving.
 
 ## Links  
-🧭 Listiary wiki (prototype demo) - [demo.listiary.org](https://demo.listiary.org/)  
+🧭 Listiary wiki (prototype demo) - [https://demo.listiary.org/](https://demo.listiary.org/)  
 You can visit the prototype and interact with it. You will not be allowed to edit content yet, but you can try out a read-only version of the editor and inspect the Describe code in action.
 
 📚 Listiary documentation - [https://documentation.listiary.org/listiary/](https://documentation.listiary.org/listiary/)  
