@@ -62,7 +62,7 @@ This is the main documentation hub for the Listiary and Describe projects.
 📚 Describe documentation - [https://documentation.listiary.org/language/](https://documentation.listiary.org/language/)  
 This is the main documentation hub for the Listiary and Describe projects.
 
-📚 Describe library - [library.listiary.org](https://library.listiary.org/)  
+📚 Describe library - [https://library.listiary.org](https://library.listiary.org/)  
 Browse Describe Markup Language source codes. You can view, download, and experiment with compiling files locally - they are diverse and free.
 
 :octocat: Listiary repository on GitHub - [https://github.com/listiary/Listiary](https://github.com/listiary/Listiary)  
