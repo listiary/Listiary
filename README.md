@@ -9,7 +9,7 @@ _Simplifying the world, one list at a time_
 <!-- Listiary - see complexity surmised -->
 <!-- Listiary - the world in simple terms -->
 
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0) ![GitHub last commit](https://img.shields.io/github/last-commit/listiary/Listiary)
 
 Listiary is a wiki built from nested lists on various topics. From movie recommendations and playlists to knowledge maps and personal journals.
 It’s a flexible, open-source tool for building structured wikis of lists on any topic.
