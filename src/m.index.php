@@ -215,6 +215,8 @@
 	<script type="text/javascript" src="m.index/js/scripts.options.js"></script>
 	<script type="text/javascript" src="m.index/js/plugin.base.js"></script>
 	<script type="text/javascript" src="m.index/js/plugin.stream-player.js"></script>
+	<script type="text/javascript" src="m.index/js/plugin.soundcloud-player.js"></script>
+		<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
 	<script type="text/javascript" src="m.index/js/plugin.local-loader.js"></script>
 	<script type="text/javascript" src="sources/payload.js"></script>
 
