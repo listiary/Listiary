@@ -319,7 +319,7 @@ function addPluginsSubmenu() {
 		"m.index/img/folder-open-bold.png", "m.index/img/folder-open-bold.png",
 		"MenuPlugins_LocalFileLoader", "MenuPlugins");
 
-	SoundcloudPlayer = new ListiaryToolDummy("SoundcloudPlayer", "Soundcloud",
+	SoundcloudPlayer = new SoundcloudPlayerPlugin("SoundcloudPlayer", "Soundcloud",
 		"m.index/img/soundcloud-logo-bold.png", "m.index/img/soundcloud-logo-bold.png",
 		"MenuPlugins_SoundcloudPlayer", "MenuPlugins");
 
@@ -341,7 +341,11 @@ function addPluginsSubmenu() {
 	LocalFileLoader.AddAfter("MenuPluginsTopAnchor");
 	LocalFileLoader.AddControlsAfter("MenuPluginsMiddleAnchor");
 
+	//SoundcloudPlayer
+	SoundcloudPlayer.Init(ToolManager, "plugins");
 	SoundcloudPlayer.AddAfter("MenuPluginsTopAnchor");
+	SoundcloudPlayer.AddControlsAfter("MenuPluginsMiddleAnchor");
+	
 	YoutubePlayer.AddAfter("MenuPluginsTopAnchor");
 
 	//StreamPlayer

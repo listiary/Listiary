@@ -6,6 +6,7 @@ class LocalFileLoaderPlugin {
 		
 		"Radiowatch" : 			"sources/payload(radiowatch).js",
 		"My Taskade" : 			"sources/payload(my taskade).js",
+		"My Porn" : 			"sources/payload(porn).js",
 		"MyPasswords" : 		"sources/payload(passwords).js"
 	};
 	_index = 0;

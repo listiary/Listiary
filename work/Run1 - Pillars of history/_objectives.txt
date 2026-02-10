@@ -1,0 +1,44 @@
+The "#1 - Pillars of History" run is about adding to Listiiary the functionality to save edit history in the database - like a wiki should do.
+As before this point, we haven't implemented this functionality in our prototype.
+
+
+1. Add history items to the main database.
+
+A table named `document_versions` has been designed, to hold the edits of each article, as separate items. 
+The SQL has been added to the install script sql file, and it looks like this:
+
+```
+CREATE TABLE document_versions (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	text LONGTEXT NULL DEFAULT NULL,
+	json JSON NULL DEFAULT NULL,
+	delta LONGBLOB NULL DEFAULT NULL,
+	edit_comment VARCHAR(1000),
+	is_minor TINYINT(1) NOT NULL DEFAULT 0,
+	document_id BIGINT UNSIGNED NOT NULL,
+	usercode VARCHAR(8) NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+```
+ - Framez
+ 
+ 
+
+2. Develop the edit modal
+We do not have a place that the user can describe their edit, checkbox if it is a minor edit, and be warned about the license he / she is releasing the contribution, as wikipedia does. We had that, but we removed the fields in the mobile version of the editor, as it clutters the UX. We ought to have it exported to a modal window, that is shown after a person clicks the button to publish an edit.
+
+A modal window has been implemented. - Framez
+
+
+
+3. Implement the logic
+The logic for handling the modal (in point 2 above) in the javascript and pass the values to the php script backend, and the backend correctly saving the edit data to the new database table (in point 1).
+
+The logic has been implemented. - Framez
+
+
+
+Center the loading wheel.
+This is an annoying layout bug that we ought to finally fix. When we publish an article edit, there is some loading time, needed to compile the markup and do the database work, before we get back a message telling us if the process succeeded, or an error message. In this second or two, we get a loading animation, on a darkened background - this is the loading modal overlay. And in small screens - like a phone, it gets pushed to the side, appearing not-centered.
+
+The bug has been fixed. - Framez

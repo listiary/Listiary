@@ -23,40 +23,7 @@ CREATE INDEX idx_filename USING BTREE ON compiled_documents (filename(333));
 
 
 
--- 2. Edit history
--- History
-CREATE TABLE document_versions (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	text LONGTEXT NULL DEFAULT NULL,
-	json JSON NULL DEFAULT NULL,
-	delta LONGBLOB NULL DEFAULT NULL,
-	edit_comment VARCHAR(1000),
-	is_minor TINYINT(1) NOT NULL DEFAULT 0,
-	document_id BIGINT UNSIGNED NOT NULL,
-	usercode VARCHAR(8) NOT NULL,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-
-
-
-
--- 3. Accounts
--- Accounts
-CREATE TABLE accounts (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(30) NOT NULL UNIQUE,
-    usercode VARCHAR(8) NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    is_bot BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-
-
-
--- 4. Housekeeping
+-- 2. Housekeeping
 -- This will link Describe item ids to filenames they are defined in.
 -- N said this compound primary key creates an index, but we need an
 -- additional index - 'idx_item_id' - to efficiently backward search.
@@ -80,3 +47,18 @@ CREATE TABLE housekeeping_filename_related (
 
 -- index to speed up lookups by related_filename
 CREATE INDEX idx_related_filename ON housekeeping_filename_related (related_filename);
+
+
+
+
+
+-- 3. Accounts
+-- Accounts
+CREATE TABLE accounts (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(30) NOT NULL UNIQUE,
+    usercode VARCHAR(8) NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    is_bot BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

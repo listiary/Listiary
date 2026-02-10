@@ -26,7 +26,7 @@
 
 	//get new article name and new article url.
 	$newname = generateNewArticleNameInSameNamespace($article);
-	$newArticleUrl = "php/editornewfile.php?article=" . $newname . "&domain=" . $domain;
+	$newArticleUrl = "m.editornewfile.php?article=" . $newname . "&domain=" . $domain;
 		//echo $newArticleUrl;
 
 	//$curPath = $_SERVER['SERVER_NAME'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
@@ -206,9 +206,9 @@
 </head>
 <body style="height:100%;">
 
-	<div id="loadingModal" class="loading-modal">
+	<div id="loadingModal" class="loading-modal" style="display:none;">
 		<div class="loading-modal-content">
-			<img src="img/LoadingGifs/spin2.gif" alt="loading" style="width:200px; height:200px;">
+			<img src="img/LoadingGifs/spin2.gif" alt="loading">
 		</div>
 	</div>
 
@@ -447,6 +447,199 @@
 	<span id="sidenav-trigger" onclick="openNav();">&#9776;</span>
 	
 	
+	<!-- Add Edit Info Modal aka 'makeEditModal' version 1 - for bigger screens -->
+	<!-- <div id="makeEditModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(2px);">
+		
+		<div style="background-color: #fff; margin: 50px auto; padding: 0px; border-radius: 8px; width: 80%; max-width: 800px; height: 80vh; overflow-y: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; display: flex; flex-direction: column;">
+			
+			<!-- Header Bar --\>
+			<div style="background-color: #99B3FF; padding: 15px 40px; border-bottom: 1px solid #88a3ef; position: sticky; top: 0; z-index: 10;">
+				<h2 style="margin: 0; font-size: 1.5rem;">Save Changes</h2>
+				<span onclick="closeMakeEditModal()" style="position: absolute; right: 20px; top: 12px; font-size: 28px; font-weight: bold; cursor: pointer; color: #333;">&times;</span>
+			</div>
+			
+			<!-- The Content Area --\>
+			<div id="modalInnerContent" style="padding: 20px; flex-grow: 1; display: flex; flex-direction: column;">
+				
+				<div id="modalBody">
+					<h4 style="margin-bottom: 10px;">Edit summary (Briefly describe your changes)</h4>
+
+					<textarea id="summaryBoxModal" placeholder="Enter summary here..." rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 10px; resize: vertical; font-family: inherit; font-style: italic; font-size: 1.2em; color: green;" name="summary"></textarea>
+
+					<div style="display: flex; align-items: center; gap: 8px;">
+						<input type="checkbox" id="minorEditModal" name="minorEditCheckBox" style="width: 18px; height: 18px; cursor: pointer;">
+						<label for="minorEditModal" style="cursor: pointer; font-size: 14px; font-style: italic; user-select: none;">
+							This is a minor edit
+						</label>
+					</div>
+				</div>
+
+				<!-- GAP 1: Pushes the text paragraphs away from the editor --\>
+				<div style="flex-grow: 1;"></div>
+				
+				<div id="paragraphs">
+					<div style="margin-top: 10px;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					</div>
+					<div style="margin-top: 15px;">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</div>
+				</div>
+
+				<!-- GAP 3: Pushes everything away from the bottom buttons --\>
+				<div style="flex-grow: 1;"></div>
+			</div>
+
+			<!-- Action Buttons --\>
+			<div style="position: sticky; bottom: 0; background-color: #f9f9f9; padding: 15px; text-align: center; border-top: 1px solid #eee; z-index: 10;">
+				<button type="button" onclick="closeMakeEditModal()" style="padding: 8px 16px; margin-right: 10px; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: white;">Cancel</button>
+				<button type="button" onclick="saveSummaryAndSubmit()" style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Save & Publish</button>
+			</div>
+		</div>
+	</div> -->
+
+	
+	<!-- Add Edit Info Modal aka 'makeEditModal' version 2 - for phones -->
+	<div id="makeEditModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(2px);">
+		
+		<div style="background-color: #fff; margin: 55px auto; padding: 0px; border-radius: 8px; width: 92%; max-width: 800px; height: 80vh; overflow-y: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; display: flex; flex-direction: column;">
+			
+			<!-- Header Bar -->
+			<div style="background-color: #99B3FF; padding: 15px 40px 15px 20px; border-bottom: 1px solid #88a3ef; position: sticky; top: 0; z-index: 10;">
+				<h2 style="margin: 0; font-size: 1.5rem;">Save Changes</h2>
+				<span onclick="hideMakeEditModal();" style="position: absolute; right: 20px; top: 12px; font-size: 28px; font-weight: bold; cursor: pointer; color: #333;">&times;</span>
+			</div>
+			
+			<!-- The Content Area -->
+			<div id="modalInnerContent" style="padding: 0px 20px; flex-grow: 1; display: flex; flex-direction: column;">
+				
+				<div id="modalBody">
+					<h4 style="margin-bottom: 10px;">Edit summary</h4>
+
+					<textarea id="makeEditModal_SummaryBox" placeholder="Enter summary here..." rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 10px; resize: vertical; font-family: inherit; font-style: italic; font-size: 1em; color: green;" name="summary" onkeyup="document.getElementById('makeEditModal_isMinor').checked = this.value.trim().length === 0"></textarea>
+
+					<div style="display: flex; align-items: center; gap: 8px;">
+						<input type="checkbox" id="makeEditModal_isMinor" name="minorEditCheckBox" style="width: 18px; height: 18px; cursor: pointer;" checked>
+						<label for="makeEditModal_isMinor" style="cursor: pointer; font-size: 14px; font-style: italic; user-select: none;">
+							This is a minor edit
+						</label>
+					</div>
+				</div>
+
+				<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+				<div style="flex-grow: 1;"></div>
+				
+				<div id="paragraphs">
+					<div style="margin-top: 10px;">
+						Suggested edit captions:<br />
+						
+						"<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Add data.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Add data.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Remove data.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Remove data.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Update data.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Update data.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Enlist old data.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Enlist old data.
+						</a>"<br />
+						
+						
+						"<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Add entry to journal.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Add entry to journal.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Add entries to journal.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Add entries to journal.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Add to a journal.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Add to a journal.
+						</a>"<br />
+						
+						
+						"<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Add data.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Add data.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Correcting data.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Correcting data.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Housekeeping.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Housekeeping.
+						</a>", "
+						<a href="javascript:void(0);"
+						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
+						   onmouseover="this.style.textDecoration='underline';"
+						   onmouseout="this.style.textDecoration='none';"
+						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Fix a typo.'; document.getElementById('makeEditModal_isMinor').checked = false">
+						   Fix a typo.
+						</a>"<br />
+						
+						
+						
+					</div>
+					<div style="margin-top: 15px;">
+						By publishing changes, you agree to the Terms of Use, and you irrevocably agree to release your contribution under the <a href="https://spdx.org/licenses/0BSD.html" target="_blank">0BSD License</a>.
+						<br /><br />
+						<span style="color:gray;">This is a developer copy of the software. Administrators installing or deploying the software should select a license that fits their needs. If no license is explicitly set during setup, the software will default to the <a href="https://spdx.org/licenses/0BSD.html" style="color:gray;" target="_blank">0BSD (Zero-Clause BSD) License</a>, the most permissive option.</span>
+						<br><br>
+					</div>
+				</div>
+
+				<!-- GAP 3: Pushes everything away from the bottom buttons -->
+				<div style="flex-grow: 1;"></div>
+			</div>
+
+			<!-- Action Buttons -->
+			<div style="position: sticky; bottom: 0; background-color: #f9f9f9; padding: 15px; text-align: center; border-top: 1px solid #eee; z-index: 10;">
+				<button type="button" onclick="hideMakeEditModal();" style="padding: 8px 16px; margin-right: 10px; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: white;">Cancel</button>
+				<button type="button" onclick='submitFormS("<?php echo $editfileUrl; ?>", editor.getValue()); hideMakeEditModal();' style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Save & Publish</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- Skeleton -->
 	<table id="skeleton">
 		<tbody>
 			<tr>
@@ -471,11 +664,11 @@
 							<input type='button' style='display: none; margin-left: 1%; color: red; border: 1; background: none; box-shadow: none; border-radius: 0px; margin-left: 10px;' value='Cancel' onclick='hideEditor(null);'>
 
 							<div id="BottomToolbar" colspan="10" style="text-align: center; padding: 10px; background-color: #fff;">
-								<img src="img/check-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick='submitFormS("<?php echo $editfileUrl; ?>", editor.getValue());' />
-								<img src="img/eye-closed-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" />
+								<img src="img/check-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick='showMakeEditModal();' />
+								<img src="img/eye-closed-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #ccc; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick='showMakeEditModal();' />
 
 								<!-- <img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FF7F7F; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor('https://development.listiary.net/m.index.php?article=radiowatch.rnode');" /> -->
-								<img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FF7F7F; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="javascript:hideEditor('https://development.listiary.net/m.index.php?article=<?php echo $returnUrl; ?>');" />
+								<img src="img/x-thin.png" style="border: 1px solid black; border-radius: 40px; background-color: #FF7F7F; padding:4px; height: 30px; width: 30px; cursor: pointer; margin: 7px;" onclick="hideEditor('https://development.listiary.net/m.index.php?article=<?php echo $returnUrl; ?>');" />
 							</div>
 						</div>
 					</form>
@@ -508,7 +701,6 @@
 			editor.setSize(null, newHeight + 20);
 		});
 	</script>
-
 	<script src="js/scripts.js"></script>
 </body>
 </html>

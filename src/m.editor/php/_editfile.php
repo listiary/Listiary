@@ -23,6 +23,7 @@
 		$conn = createConnection();
 
 		//fetch old article
+		$curArticleId = -1;
 		$curArticle = fetchCurrentArticle($conn, $article);
 
 		//get new article from POST param
@@ -43,11 +44,11 @@
 		//update the Describe document
 		updateDescribeDocument($conn, $article, $newArticle);
 
-		//TODO: add old version
-		//addOldVersion();
-
 		//update Json
 		updateCompiledJson($conn, $article, $compiledJson);
+		
+		//add edit version
+		addVersionEntry($conn, $curArticleId, $newArticle, $compiledJson);
 
 		//delete ids in DB
 		deleteOldIds($conn, $article);
@@ -95,6 +96,7 @@
 		die("'domain' is 'personal' and 'username' parameter of the url is not set");
 			//echo "Got username parameter - '" . $_GET['username'] . "'<br />";
 	}
+	
 	// Read Database connection constants from the config into our global variables.
 	function setDbConstants($domain) {
 
@@ -134,6 +136,7 @@
 			die("Connection failed: Unknown value for url parameter domain - '" . $domain . "'");
 		}
 	}
+	
 	// Create a connection to the database
 	function createConnection() {
 
@@ -147,11 +150,14 @@
 
 		return $connection;
 	}
+	
 	// Fetch the current article from the DB
 	function fetchCurrentArticle($conn, $article) {
+		
+		global $curArticleId;
 
 		//get old article
-		$sql = "SELECT `content` FROM `describe_documents` WHERE filename='" . $article . "'";
+		$sql = "SELECT `id`, `content` FROM `describe_documents` WHERE filename='" . $article . "'";
 
 		//echo "Executing query - '" . $sql . "'<br />";
 		echo "Executing query.\n";
@@ -163,10 +169,12 @@
 		}
 		$row = mysqli_fetch_assoc($result);
 		$oldArticle = $row["content"];
+		$curArticleId = $row["id"];
 		//echo "Got the old article <br />";
 
 		return $oldArticle;
 	}
+	
 	// Get new article text from the HTTP POST data. Exit if it is the same as the old one.
 	function getNewArticle($oldArticle) {
 
@@ -182,6 +190,7 @@
 
 		return $newArticle;
 	}
+	
 	// Do Compilation request
 	function doPostRequest($url, $code, $filename) {
 
@@ -224,6 +233,7 @@
 
 		return $result;
 	}
+	
 	// Check if decoding of JSON failed
 	function validateCompiledJson($jArr, $result) {
 
@@ -255,6 +265,7 @@
 			exit;
 		}
 	}
+	
 	// Decode the compiled output
 	function decodeOutput($jArr) {
 
@@ -263,14 +274,41 @@
 		//echo $compiledJson;
 		return $compiledJson;
 	}
-	// TODO: Save the old version in a history table
-	function addOldVersion() {
+	
+	// Save the new edit in a history table
+	function addVersionEntry($conn, $articleId, $text, $json) {
 
-		//We will be saving actual previous versions
-		//$sql = "";
-		//$editMessage = $_POST['message']; //must be <= 65535 characters long
-		//$isMinorEdit = $_POST['isminor'];
+		//get edit values
+		$msg = $_POST['message']; //must be <= 65535 characters long
+		$ism = $_POST['isminor']; // is '1' or '0'
+		$usercode = $_POST['usercode'];
+		
+		$editMessage_safe = mysqli_real_escape_string($conn, $msg);
+		$isMinorEdit_safe = (int)$_POST['isminor']; // 1 or 0 as integer
+		$text_safe = mysqli_real_escape_string($conn, $text);
+		$json_safe = mysqli_real_escape_string($conn, $json);
+		$usercode_safe = mysqli_real_escape_string($conn, $usercode);
+		
+		//check
+		if (mb_strlen($editMessage_safe, 'UTF-8') > 65535) die("Message too long");
+		//if (strlen($editMessage_safe) > 65535) die("Message too long");
+
+		//add entry
+		$sql = "INSERT INTO `document_versions` (text, json, edit_comment, is_minor, document_id, usercode, created_at)
+			VALUES ('$text_safe', '$json_safe', '$editMessage_safe', '$isMinorEdit_safe', '$articleId', '$usercode_safe', NOW());";
+			
+		// Insert edit entry
+		if (!mysqli_query($conn, $sql))
+		{
+			echo "Database error: " . mysqli_error($conn);
+		}
+		else
+		{
+			//echo "Edit history item saved.<br />";
+			echo "Edit history item saved.\n";
+		}
 	}
+	
 	// Upsert Describe document in the DB
 	function updateDescribeDocument($conn, $articleName, $newArticleText) {
 
@@ -294,6 +332,7 @@
 			echo "Plain document saved.\n";
 		}
 	}
+	
 	// Update compiled JSON in the DB
 	function updateCompiledJson($conn, $articleName, $compiledJson) {
 
@@ -317,6 +356,7 @@
 			echo "Compiled document saved.\n";
 		}
 	}
+	
 	// Insert ids for the new article in the DB
 	function doIds($conn, $filename, $content) {
 
@@ -375,6 +415,7 @@
 			}
 		}
 	}
+	
 	// Insert filename references for the new article in the DB
 	function doFilenameReferences($conn, $filename, $content) {
 
@@ -432,6 +473,7 @@
             }
         }
 	}
+	
 	// Delete old ids in the DB
 	function deleteOldIds($conn,$filename) {
 
@@ -449,6 +491,7 @@
 			echo "Error: " . mysqli_error($conn);
 		}
 	}
+	
 	// Delete old filename references in the DB
 	function deleteOldFileReferences($conn, $filename) {
 
