@@ -1,0 +1,78 @@
+<div id="customModal" style="display: block; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(2px);">
+    
+    <div style="background-color: #fff; margin: 50px auto; padding: 0px; border-radius: 8px; width: 80%; max-width: 800px; height: 80vh; overflow-y: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative;">
+        
+		<!-- The Header Bar (approx 8% height) -->
+        <div style="background-color: #99B3FF; padding: 15px 40px; border-bottom: 1px solid #88a3ef;">
+            <h2 style="margin: 0; font-size: 1.5rem;">Save Changes</h2>
+            <span onclick="closeMyModal()" style="position: absolute; right: 20px; top: 12px; font-size: 28px; font-weight: bold; cursor: pointer; color: #333;">&times;</span>
+        </div>
+        
+        <div id="modalInnerContent" style='padding: 20px; padding-top: 40px;'>
+            <div id="modalBody">
+				<br />
+				<h4 style='margin-bottom: 10px;'>Edit summary (Briefly describe your changes)</h4>
+				
+				<!-- Single line text box 
+				<input id="summaryBoxModal" type="text" placeholder="Enter summary here..." 
+					style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 30px;" 
+					name="summary"> -->
+				<textarea id="summaryBoxModal" 
+					placeholder="Enter summary here..." 
+					rows="4" 
+					style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 10px; resize: vertical; font-family: inherit;" 
+					name="summary"></textarea>
+
+				<!-- Checkbox on the next line -->
+				<br />
+				<div style="display: flex; align-items: center; gap: 8px;">
+					<input type="checkbox" id="minorEditModal" name="minorEditCheckBox" style="width: 18px; height: 18px; cursor: pointer;">
+					<label for="minorEditModal" style="cursor: pointer; font-size: 14px; user-select: none;">
+						This is a minor edit
+					</label>
+				</div>
+				
+				<!-- paragraphs -->
+				<div style="margin-top: 30px;">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				</div>
+				<div style="margin-top: 15px;">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+
+
+				<!-- Action Buttons -->
+				<div style="margin-top: 120px; text-align: center;">
+					<button type="button" onclick="closeMyModal()" style="padding: 8px 16px; margin-right: 10px; cursor: pointer;">Cancel</button>
+					<button type="button" onclick="saveSummaryAndSubmit()" style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Save & Publish</button>
+				</div> 
+			
+			</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+function openMyModal() {
+    // Show the modal
+    document.getElementById('customModal').style.display = "block";
+    
+    // Optional: Move your existing form into the modal body
+    // var form = document.getElementById('editForm');
+    // document.getElementById('modalBody').appendChild(form);
+}
+
+function closeMyModal() {
+    document.getElementById('customModal').style.display = "none";
+}
+
+// Close modal if user clicks anywhere outside of the white box
+window.onclick = function(event) {
+    var modal = document.getElementById('customModal');
+    if (event.target == modal) {
+        closeMyModal();
+    }
+}

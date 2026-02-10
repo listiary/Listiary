@@ -3,27 +3,27 @@
 define('COMPILER_URL', 'https://bcm98vlf3b.execute-api.eu-north-1.amazonaws.com/');
 
 /* public */
-define('DB_SERVER_PUBLIC', '');
-define('DB_USERNAME_PUBLIC', '');
-define('DB_PASSWORD_PUBLIC', '');
-define('DB_NAME_PUBLIC', '');
+define('DB_SERVER_PUBLIC', 'web.jumphosting03.com');
+define('DB_USERNAME_PUBLIC', 'historic_ca7amaran82');
+define('DB_PASSWORD_PUBLIC', 'A4mh)uZ?Qq^Qx(i');
+define('DB_NAME_PUBLIC', 'historic_listiary_development');
 
 /* personal */
-define('DB_SERVER_PERSONAL', '');
-define('DB_USERNAME_PERSONAL', '');
-define('DB_PASSWORD_PERSONAL', '');
-define('DB_NAME_PERSONAL', '');
+define('DB_SERVER_PERSONAL', 'web.jumphosting03.com');
+define('DB_USERNAME_PERSONAL', 'historic_ca7amaran82');
+define('DB_PASSWORD_PERSONAL', 'A4mh)uZ?Qq^Qx(i');
+define('DB_NAME_PERSONAL', 'historic_listiary_development');
 
 /* private */
-define('DB_SERVER_PRIVATE', '');
-define('DB_USERNAME_PRIVATE', '');
-define('DB_PASSWORD_PRIVATE', '');
-define('DB_NAME_PRIVATE', '');
+define('DB_SERVER_PRIVATE', 'web.jumphosting03.com');
+define('DB_USERNAME_PRIVATE', 'historic_ca7amaran82');
+define('DB_PASSWORD_PRIVATE', 'A4mh)uZ?Qq^Qx(i');
+define('DB_NAME_PRIVATE', 'historic_listiary_development');
 
 /* documentation */
-define('DB_SERVER_DOCUMENTATION', '');
-define('DB_USERNAME_DOCUMENTATION', '');
-define('DB_PASSWORD_DOCUMENTATION', '');
-define('DB_NAME_DOCUMENTATION', '');
+define('DB_SERVER_DOCUMENTATION', 'web.jumphosting03.com');
+define('DB_USERNAME_DOCUMENTATION', 'historic_ca7amaran82');
+define('DB_PASSWORD_DOCUMENTATION', 'A4mh)uZ?Qq^Qx(i');
+define('DB_NAME_DOCUMENTATION', 'historic_listiary_development');
 
 ?>

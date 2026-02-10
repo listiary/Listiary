@@ -62,20 +62,29 @@ async function submitForm(editfileUrl) {
 }
 async function submitFormS(editfileUrl, contnt) {
 
-	var summaryBox = document.getElementById("summaryBox");
+    // get edit summary
+	var summaryBox = document.getElementById("makeEditModal_SummaryBox");
 	var summary = summaryBox.value;
-	var isMinor = false;
-	if(document.getElementById("minorEdit") && 
-		document.getElementById("minorEdit").checked)
-	{
-		isMinor = document.getElementById("minorEdit").checked;
-	}
-	if(isMinor) editfileUrl += "&isminor=1";
-	else editfileUrl += "&isminor=0";
+	if (summary == "") summary = "[NO MESSAGE]";
 	
+	// get whether it is a minor edit
+	var isMinor = false;
+	if(document.getElementById("makeEditModal_isMinor") && 
+		document.getElementById("makeEditModal_isMinor").checked)
+	{
+		isMinor = document.getElementById("makeEditModal_isMinor").checked;
+	}
+	
+	//get user code - in our case use dummy for now
+	var usercode = "00000000";
+
+	// add data to post
 	const data = new URLSearchParams();
 	data.append('content', contnt);
 	data.append('message', summary);
+	data.append('usercode', usercode);
+	if(isMinor) data.append('isminor', 1);
+	else data.append('isminor', 0);
 	const requestOptions = {
 
 		method: 'POST',
@@ -118,13 +127,23 @@ function showLoadingModal() {
 	
 	var modal = document.getElementById("loadingModal");
 	if(!modal) return;
-	modal.style.display = "block";
+	modal.style.display = "flex";
 }
 function hideLoadingModal() {
 	
 	var modal = document.getElementById("loadingModal");
 	if(!modal) return;
 	modal.style.display = "none";
+}
+function showMakeEditModal() { 
+
+	document.getElementById('makeEditModal').style.display = "block"; 
+}
+function hideMakeEditModal() { 
+
+	document.getElementById('makeEditModal').style.display = "none";
+	document.getElementById('makeEditModal_SummaryBox').value = '';
+	document.getElementById('makeEditModal_isMinor').checked = true;
 }
 
 //editor options

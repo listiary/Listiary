@@ -28,6 +28,7 @@ const mainTree = {
 		
 		//init plugins
 		StreamPlayer.AddPlayer();
+		SoundcloudPlayer.AddPlayer();
 	},
 	
 	

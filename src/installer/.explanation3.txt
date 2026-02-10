@@ -1,0 +1,86 @@
+1. Main data
+There are 2 tables - `describe_documents` and `compiled_documents`, that hold the main data in a listiary wiki. 
+`describe_documents` holds the Describe source files, and `compiled_documents` - the compiled versions of those files in JSON.
+There are also indexes for each of those tables - `idx_filename`, so that we can quickly search by filename.
+
+```
+describe_documents
+  .id
+  .filename
+  .content
+  .submitted_at
+  
+compiled_documents
+  .id
+  .filename
+  .content
+  .submitted_at
+```
+
+
+
+2. Edit history
+`document_versions` is the table responsible for keeping the edit history in the wiki.
+When a user create or edit an article, one entry is created in this table. 
+`text` and `json` are the text of the describe document and the compiled JSON version, respectively.
+`delta` is the difference between the previous version and this one.
+We can store a version as text only, as text and json, and as delta only - depending on how fast we want to be able to restore the item 
+versus how much space it will take to store in the DB. Probably older changes will be pruned to include only the delta, and newer will be stored in full.
+`edit_comment` - the edit comment. Comment is a reserved word in SQL, by the way.
+`is_minor` - whether the edit is a minor one.
+`document_id` - links to the document id in the `describe_documents` table.
+`previous_version_id`, `next_version_id` - links to the previous and next edit item, in a linked list fashion.
+`usercode` - the user who created the edit.
+`created_at` - time of creation.
+`antiquated_at` - when was the newer edit created - or basically when this edit became not the latest one.
+
+```
+document_versions
+  .id
+  
+  .text
+  .json
+  .delta
+  
+  .comment
+  .is_minor
+  
+  .document_id
+  .previous_version_id
+  .next_version_id
+  
+  .usercode
+  .created_at
+  .antiquated_at
+```
+
+
+
+3. Accounts
+The `accounts` table stores the information for the user accounts, as the name suggests.
+
+```
+accounts
+  .id
+  .username
+  .usercode
+  .password_hash
+  .is_bot
+  .created_at
+```
+
+
+
+4. Housekeeping
+`housekeeping_itemid_filename` table links Describe item ids to filenames they are defined in.
+`housekeeping_filename_related` table links files to files needed when loading them.
+
+```
+housekeeping_itemid_filename
+	.filename
+    .item_id
+
+housekeeping_filename_related
+    .filename
+    .related_filename
+```
