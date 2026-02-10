@@ -530,9 +530,10 @@
 				<div style="flex-grow: 1;"></div>
 				
 				<div id="paragraphs">
+				
+					<!--
 					<div style="margin-top: 10px;">
 						Suggested edit captions:<br />
-						
 						"<a href="javascript:void(0);"
 						   style="color: #006400; font-style: italic; text-decoration: none; cursor: pointer;"
 						   onmouseover="this.style.textDecoration='underline';"
@@ -614,10 +615,7 @@
 						   onclick="document.getElementById('makeEditModal_SummaryBox').value='Fix a typo.'; document.getElementById('makeEditModal_isMinor').checked = false">
 						   Fix a typo.
 						</a>"<br />
-						
-						
-						
-					</div>
+					</div> -->
 					<div style="margin-top: 15px;">
 						By publishing changes, you agree to the Terms of Use, and you irrevocably agree to release your contribution under the <a href="https://spdx.org/licenses/0BSD.html" target="_blank">0BSD License</a>.
 						<br /><br />
