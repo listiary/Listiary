@@ -1,0 +1,12 @@
+### Description
+Add history items to the main database.
+Develop the edit modal.
+Implement the edit history logic.
+Center the loading wheel (bugfix).
+Some previous work - soundcloud player plugin added.
+
+### Related Issue
+Run 01 - Pillars of History
+
+### How Has This Been Tested?
+Integration-tested during development.
