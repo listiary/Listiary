@@ -180,7 +180,7 @@
 								session_regenerate_id(true);
 								$_SESSION["loggedin"] = true;
 								$_SESSION["id"] = $id;
-								$_SESSION["username"] = $username;   
+								$_SESSION["username"] = $username;
 								
 								// redirect back
 								header("location: " . $redirecturl);
