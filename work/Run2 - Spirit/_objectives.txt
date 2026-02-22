@@ -1,0 +1,11 @@
+The "#2 - Spirit" run is about adding to Listiiary the functionality to have working user accounts that can hold sessions in cookies, are connected with the content, upload avatars, and more.
+
+
+
+	1. Log in, Log Out
+	2. Register and Reset password
+	3. Keep session in cookies
+4. Have profile page with avatar and structure, that looks complete
+5. Options to set session duration, logout all devices, change password
+6. Have a page in the profile page that shows all user's contributions
+7. Create documentation about the 'session' module
