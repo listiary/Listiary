@@ -8,112 +8,40 @@
 	// HTTPS-only session cookies
 	// Logout script that destroys session properly
 
-	//include config
+	// Presets
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/php/_config.php";
+	set_exception_handler('catchEx');
 	
-	//read config
-	$servername = ""; 
-	$db_username = ""; 
-	$password = ""; 
-	$dbname = "";
-	setDbConstants("public");
+	// More Presets
+	startSecureSession();
+	$link = connectDb();
 
-	//create connection
-	$link = createConnection();
-
-	// Check connection
-	if(!$link) die("Connection failed: " . mysqli_connect_error());
-	//echo "Created connection to '" . $servername . "'<br />";
-	
-	// Initialize a secure session cookie
-	session_set_cookie_params([
-		'lifetime' => 0,
-		'path' => '/',
-		'domain' => '',
-		'secure' => true,       // HTTPS only
-		'httponly' => true,     // Not accessible via JS
-		'samesite' => 'Strict'  // or 'Lax'
-	]);
-
-	// Initialize the session
-	session_start();
-	
 	//try to get redirect params
-	$redirecturl = "https://development.listiary.net/m.index.php";
-	if(isset($_GET['domain']) == true)
-	{
-		$redirecturl .= "?domain=" . $_GET['domain'];
-		if(isset($_GET['article']) == true) 
-			$redirecturl .= "&article=" . $_GET['article'];
-	}
+	$redirecturl = getRedirectLink();
 
 	// If we logged in - redirect
-	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) 
+	// Else, try to log in from a remember_me cookie
+	// if successful - redirect, if not load the page further
+	// And if we are using POST, we will proceed to try and execute a login
+	if (!isSessionEmpty()) 
 	{
 		header("Location: " . $redirecturl);
 		exit;
 	}
-	else if (isset($_COOKIE['remember_token']))
+	else
 	{
-		$cookie = $_COOKIE['remember_token'];
-		if (strpos($cookie, ':') !== false) 
-		{
-			list($selector, $validator) = explode(':', $cookie, 2);
-
-			// Look up selector in DB
-			$sql = "SELECT user_id, token_hash, expires_at FROM persistent_logins WHERE selector = ? LIMIT 1";
-			if ($stmt = mysqli_prepare($link, $sql)) 
-			{
-				mysqli_stmt_bind_param($stmt, "s", $selector);
-				mysqli_stmt_execute($stmt);
-				mysqli_stmt_bind_result($stmt, $user_id, $token_hash, $expires_at);
-				if (mysqli_stmt_fetch($stmt)) 
-				{
-					// Check expiration
-					if (new DateTime() <= new DateTime($expires_at) &&
-						hash_equals($token_hash, hash('sha256', $validator))) 
-					{
-
-						// Validator matches and token not expired → restore session
-						session_regenerate_id(true);
-						$_SESSION['loggedin'] = true;
-						$_SESSION['id'] = $user_id;
-
-						// Optionally fetch username from accounts table
-						$usernameSql = "SELECT username FROM accounts WHERE id = ?";
-						if ($userStmt = mysqli_prepare($link, $usernameSql)) 
-						{
-							mysqli_stmt_bind_param($userStmt, "i", $user_id);
-							mysqli_stmt_execute($userStmt);
-							mysqli_stmt_bind_result($userStmt, $username);
-							mysqli_stmt_fetch($userStmt);
-							$_SESSION['username'] = $username;
-							mysqli_stmt_close($userStmt);
-						}
-
-						// Rotate persistent token (new validator + update DB + reset cookie)
-						executePersistentLogin($link, $user_id);
-
-						header("Location: " . $redirecturl);
-						exit;
-					} 
-					else 
-					{
-						// Invalid or expired token → delete from DB & remove cookie
-						$delSql = "DELETE FROM persistent_logins WHERE selector = ?";
-						$delStmt = mysqli_prepare($link, $delSql);
-						mysqli_stmt_bind_param($delStmt, "s", $selector);
-						mysqli_stmt_execute($delStmt);
-						mysqli_stmt_close($delStmt);
-
-						setcookie('remember_token', '', time() - 3600, '/', '', true, true);
-					}
-				}
-				mysqli_stmt_close($stmt);
-			}
+		$result = doRememberedLogin($link);
+		if($result === true)
+		{			
+			//redirect
+			header("Location: " . $redirecturl);
+			exit;
 		}
 	}
- 
+	
+	
+
 	// Define variables and initialize with empty values
 	$username = $password = "";
 	$username_err = $password_err = $login_err = "";
@@ -144,132 +72,195 @@
 		// Validate credentials
 		if(empty($username_err) && empty($password_err))
 		{
-			// Prepare a select statement
-			$sql = "SELECT id, username, password_hash FROM accounts WHERE username = ?";
-			
-			if($stmt = mysqli_prepare($link, $sql))
+			// Verify password and username
+			$user = fetchUserCredentials($link, $username);
+			if ($user === null || !password_verify($password, $user['password_hash']))
 			{
-				// Bind variables to the prepared statement as parameters
-				mysqli_stmt_bind_param($stmt, "s", $param_username);
-				
-				// Set parameters
-				$param_username = $username;
-				
-				// Attempt to execute the prepared statement
-				if(mysqli_stmt_execute($stmt))
-				{
-					// Store result
-					mysqli_stmt_store_result($stmt);
-					
-					// Check if username exists, if yes then verify password
-					if(mysqli_stmt_num_rows($stmt) == 1)
-					{                    
-						// Bind result variables
-						mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-						if(mysqli_stmt_fetch($stmt))
-						{
-							if(password_verify($password, $hashed_password))
-							{
-								// Remember for an year?
-								if(isset($_POST['remember_me']))
-								{
-									executePersistentLogin($link, $id);
-								}
-								
-								// Store data in session variables
-								session_regenerate_id(true);
-								$_SESSION["loggedin"] = true;
-								$_SESSION["id"] = $id;
-								$_SESSION["username"] = $username;
-								
-								// redirect back
-								header("location: " . $redirecturl);
-								exit;
-							} 
-							else
-							{
-								// Password is not valid, display a generic error message
-								$login_err = "Invalid username or password.";
-							}
-						}
-					} 
-					else
-					{
-						// Username doesn't exist, display a generic error message
-						$login_err = "Invalid username or password.";
-					}
-				} 
-				else
-				{
-					echo "Oops! Something went wrong. Please try again later.";
-				}
-
-				// Close statement
-				mysqli_stmt_close($stmt);
+				$login_err = "Invalid username or password.";
+				return;
 			}
-			else
+
+			// Success - login
+			if (!empty($_POST['remember_me'])) 
 			{
-				die("SQL Error: " . mysqli_error($link));
+				executePersistentLogin($link, $user['id']);
 			}
+			//var_dump($id);
+			restoreUserSession($link, $user['id']);
+			header("Location: " . $redirecturl);
+			exit;
 		}
+	}
+	
+	// Retrieve 'id' and 'password_hash' for a user provided username from DB
+	// Return NULL if no such username in our DB
+	function fetchUserCredentials(mysqli $link, string $username): ?array {
+
+		$sql = "SELECT id, password_hash FROM accounts WHERE username = ?";
+		$stmt = mysqli_prepare($link, $sql);
+		if (!$stmt) 
+		{
+			throw new RuntimeException('Database prepare failed.');
+		}
+		mysqli_stmt_bind_param($stmt, "s", $username);
+		if (!mysqli_stmt_execute($stmt))
+		{
+			mysqli_stmt_close($stmt);
+			throw new RuntimeException('Database execution failed.');
+		}
+
+		mysqli_stmt_bind_result($stmt, $id, $password_hash);
+		if (!mysqli_stmt_fetch($stmt))
+		{
+			// No such user
+			mysqli_stmt_close($stmt);
+			return null;
+		}
+
+		mysqli_stmt_close($stmt);
+
+		return [
+			'id' => $id,
+			'password_hash' => $password_hash,
+		];
+	}
+
+
+
+
+	// Log in with a remember me token and the database.
+	function doRememberedLogin($link): bool {
+
+		/* Attempt a "remember me" login using persistent cookie
+		 * Returns true if login succeeds, false if cookie invalid or expired
+		 * Throws RuntimeException for malformed cookie or serious DB issues */
+	 
+		if (!isset($_COOKIE['remember_token'])) return false;
+		$cookie = $_COOKIE['remember_token'];
+
+		// Split cookie into selector and validator
+		if (strpos($cookie, ':') === false)
+		{
+			throw new RuntimeException('Invalid remember_token cookie format');
+		}
+		list($selector, $validator) = explode(':', $cookie, 2);
+		if (empty($selector) || empty($validator)) 
+		{
+			throw new RuntimeException('Invalid remember_token cookie content');
+		}
+
+		// Look up selector in DB
+		$sql = "SELECT user_id, token_hash, expires_at 
+				FROM persistent_logins 
+				WHERE selector = ? LIMIT 1";
+		$stmt = mysqli_prepare($link, $sql);
+		if (!$stmt) 
+		{
+			throw new RuntimeException('DB prepare failed');
+		}
+		mysqli_stmt_bind_param($stmt, "s", $selector);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_bind_result($stmt, $user_id, $token_hash, $expires_at);
+		$rowExists = mysqli_stmt_fetch($stmt);
+		mysqli_stmt_close($stmt);
+
+		if (!$rowExists) 
+		{
+			// No such selector - possibly stale or forged cookie
+			setcookie('remember_token', '', time() - 3600, '/', '', true, true);
+			return false;
+		}
+
+		// Verify expiration and token
+		$now = new DateTime();
+		$expires = new DateTime($expires_at);
+		$validatorHash = hash('sha256', $validator);
+
+		// If token invalid or expired - delete DB row + remove cookie
+		if ($now > $expires || !hash_equals($token_hash, $validatorHash))
+		{
+			invalidateRememberToken($link, $selector);
+			return false;
+		}
+
+		// Token valid thus restore session
+		restoreUserSession($link, $user_id);
+
+		// Rotate persistent token safely
+		executePersistentTokenRotation($link, $user_id, $selector, $validator);
+
+		return true;
+	}
+
+	// Delete token from DB
+	function invalidateRememberToken(mysqli $link, string $selector): void {
 		
-		// Close connection
-		mysqli_close($link);
-	}
-	
-	// Read Database connection constants from the config into our global variables.
-	function setDbConstants($domain) {
-
-		global $servername, $db_username, $password, $dbname;
+		/* Invalidate a persistent login token.
+		 * Deletes the token row from the database and expires the client cookie. */
 		
-		if($domain == "public")
-		{
-			$servername = DB_SERVER_PUBLIC;
-			$db_username = DB_USERNAME_PUBLIC;
-			$password = DB_PASSWORD_PUBLIC;
-			$dbname = DB_NAME_PUBLIC;
+		$delSql = "DELETE FROM persistent_logins WHERE selector = ?";
+		$delStmt = mysqli_prepare($link, $delSql);
+		if ($delStmt) {
+			mysqli_stmt_bind_param($delStmt, "s", $selector);
+			mysqli_stmt_execute($delStmt);
+			mysqli_stmt_close($delStmt);
 		}
-		else if($domain == "personal")
-		{
-			$servername = DB_SERVER_PERSONAL;
-			$db_username = DB_USERNAME_PERSONAL;
-			$password = DB_PASSWORD_PERSONAL;
-			$dbname = DB_NAME_PERSONAL;
-		}
-		else if($domain == "private")
-		{
-			$servername = DB_SERVER_PRIVATE;
-			$db_username = DB_USERNAME_PRIVATE;
-			$password = DB_PASSWORD_PRIVATE;
-			$dbname = DB_NAME_PRIVATE;
-		}
-		else if($domain == "normative")
-		{
-			$servername = DB_SERVER_DOCUMENTATION;
-			$db_username = DB_USERNAME_DOCUMENTATION;
-			$password = DB_PASSWORD_DOCUMENTATION;
-			$dbname = DB_NAME_DOCUMENTATION;
-		}
-		else
-		{
-			die("Connection failed: Unknown value for url parameter domain - '" . $domain . "'");
-		}
+
+		// Expire cookie on client
+		setcookie('remember_token', '', time() - 3600, '/', '', true, true);
 	}
-	
-	// Create a connection to the database
-	function createConnection() {
 
-		global $servername, $db_username, $password, $dbname;
+	// Fetch user info from accounts table and populates $_SESSION
+	function restoreUserSession(mysqli $link, int $user_id): void {
+		
+		 /* Restore session for a given user ID.
+		  * Fetches user info from accounts table and populates $_SESSION
+		  * Throws RuntimeException if DB fails or user not found. */
+  
+		// Regenerate session ID to prevent session fixation
+		session_regenerate_id(true);
+		$_SESSION['loggedin'] = true;
+		$_SESSION['id'] = $user_id;
 
-		$connection = mysqli_connect($servername, $db_username, $password, $dbname);
-		if(!$connection) die("Connection failed: " . mysqli_connect_error());
-		//echo "Created connection to '" . $servername . "'<br />";
+		// Fetch user info
+		$userSql = "SELECT username, email, usercode, is_bot, is_active, created_at 
+					FROM accounts 
+					WHERE id = ? LIMIT 1";
+		$userStmt = mysqli_prepare($link, $userSql);
+		if (!$userStmt) {
+			throw new RuntimeException('DB prepare failed for user info');
+		}
 
-		return $connection;
+		mysqli_stmt_bind_param($userStmt, "i", $user_id);
+		mysqli_stmt_execute($userStmt);
+		mysqli_stmt_bind_result(
+			$userStmt,
+			$username,
+			$email,
+			$usercode,
+			$is_bot,
+			$is_active,
+			$created_at
+		);
+		$userExists = mysqli_stmt_fetch($userStmt);
+		mysqli_stmt_close($userStmt);
+
+		if (!$userExists)
+		{
+			throw new RuntimeException('User not found for session restoration');
+		}
+
+		// Populate session
+		$_SESSION['username'] = $username;
+		$_SESSION['email'] = $email;
+		$_SESSION['usercode'] = $usercode;
+		$_SESSION['is_bot'] = $is_bot;
+		$_SESSION['is_active'] = $is_active;
+		$_SESSION['created_at'] = $created_at;
 	}
-	
+
 	// Stores persistent login token to the database
-	function executePersistentLogin($link, $user_id) {
+	function executePersistentLogin(mysqli $link, int $user_id) {
 		
 		// Generate selector (public) and token (secret)
 		$token = bin2hex(random_bytes(32));
@@ -303,8 +294,201 @@
 			true
 		);
 	}
-?>
 
+	// Rotates stored persistent login token
+	function executePersistentTokenRotation(mysqli $link, int $user_id, string $selector, string $token): void {
+
+		$oldTokenHash = hash('sha256', $token);
+
+		// Start transaction
+		mysqli_begin_transaction($link);
+		try
+		{
+			// Generate new selector and token
+			$newToken = bin2hex(random_bytes(32));
+			$newTokenHash = hash('sha256', $newToken);
+
+			// Update database
+			$sql = "UPDATE persistent_logins
+					SET token_hash = ?, expires_at = NOW() + INTERVAL 1 YEAR
+					WHERE user_id = ? AND selector = ? AND token_hash = ?";
+
+			$stmt = mysqli_prepare($link, $sql);
+			mysqli_stmt_bind_param(
+				$stmt,
+				"siss",
+				$newTokenHash,
+				$user_id,
+				$selector,
+				$oldTokenHash
+			);
+
+			mysqli_stmt_execute($stmt);
+			if (mysqli_stmt_affected_rows($stmt) !== 1)
+			{
+				mysqli_stmt_close($stmt);
+				throw new RuntimeException('Token rotation failed: row not found');
+			}
+			mysqli_stmt_close($stmt);
+
+			// Commit DB changes
+			mysqli_commit($link);
+		}
+		catch (Exception $e)
+		{
+			// Roll back DB to previous valid state
+			mysqli_rollback($link);
+			throw $e;
+		}
+
+		// Only now touch the cookie
+		$cookieValue = $selector . ':' . $newToken;
+		$result = setcookie(
+			"remember_token",
+			$cookieValue,
+			time() + (60 * 60 * 24 * 364),
+			"/",
+			"",
+			true,
+			true
+		);
+		if ($result === false)
+		{
+			// DB is already correct; force re-login later
+			throw new RuntimeException('Failed to set rotated remember_token cookie');
+		}
+	}
+
+
+
+
+	// Start a session with a hardened cookie. Must call before any output.
+	function startSecureSession(): void {
+
+		if (session_status() === PHP_SESSION_NONE) 
+		{
+			// Detect HTTPS properly
+			$isHttps = (
+				(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+				$_SERVER['SERVER_PORT'] == 443
+			);
+			
+			// If we don't allow HTTP sessions
+			if ($isHttps == false && ALLOW_SESSION_OVER_HTTP == false)
+			{
+				throw new RuntimeException('HTTPS is required for secure sessions.');
+			}
+
+			// Set secure cookie rules
+			session_set_cookie_params([
+				'lifetime' => 0,
+				'path'     => '/',
+				'secure'   => $isHttps,
+				'httponly' => true,
+				'samesite' => 'Strict'
+			]);
+
+			// Start the session
+			if (!session_start()) 
+			{
+				throw new RuntimeException('Failed to start a session.');
+			}
+		}
+	}
+
+	// Do we have a logged in session or a useless empty one.
+	function isSessionEmpty(): bool {
+		
+		if(!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
+		{
+			return false;
+		} 
+		else 
+		{
+			return true;
+		}
+	}
+
+	// Get the article link to return to after logging in.
+	function getRedirectLink(): string {
+
+		$base = rtrim(BASE_URL, '/') . '/m.index.php';
+		$params = [];
+
+		//if we have the domain parameter set, it can only contain letters
+		if (isset($_GET['domain']))
+		{
+			if(!preg_match('/^[a-zA-Z]+$/', $_GET['domain']))
+			{
+				throw new RuntimeException('Invalid characters in "domain" parameter');
+			}
+			$params['domain'] = $_GET['domain'];
+		}
+		
+		//if we have the article parameter set, it can only contain letters, numbers and dot - '/^[a-zA-Z0-9.]+$/'.
+		//in this version regex, it also cannot start with a dot or have 2 or more dot clusters
+		if (isset($_GET['article']))
+		{
+			if(!preg_match('/^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*$/', $_GET['article']))
+			{
+				throw new RuntimeException('Invalid characters in "article" parameter');
+			}
+			$params['article'] = $_GET['article'];
+		}
+		
+		//build
+		if (!empty($params)) 
+		{
+			$base .= '?' . http_build_query($params);
+		}
+
+		return $base;
+	}
+
+	// Open a connection to the DB.
+	function connectDb(): mysqli {
+
+		// singleton object
+		static $connection = null;
+
+		if ($connection === null) 
+		{
+			//create connection
+			$connection = new mysqli(
+				DB_SERVER_PUBLIC,
+				DB_USERNAME_PUBLIC,
+				DB_PASSWORD_PUBLIC,
+				DB_NAME_PUBLIC
+			);
+			
+			//handle error
+			if ($connection->connect_error) 
+			{
+				throw new RuntimeException('Database connection failed: ' . $connection->connect_error);
+			}
+		}
+
+		//return
+		return $connection;
+	}
+
+	// Default Exception handler.
+	function catchEx(Throwable $ex): void {
+
+		error_log($ex);
+		http_response_code(500);
+		if (!IS_PRODUCTION)
+		{
+			header('Content-Type: text/html; charset=utf-8');
+			echo "<pre>" . htmlspecialchars((string)$ex) . "</pre>";
+		}
+		else
+		{
+			echo "An internal error occurred.";
+		}
+		exit;
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

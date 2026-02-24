@@ -16,9 +16,9 @@
 	{
 		$result = doRememberedLogin($link);
 		if($result === false)
-		{
+		{			
 			//redirect
-			header("Location: " . rtrim(BASE_URL, '/') . '/' . "session/m.login.php");
+			header("Location: " . "m.login.php");
 			exit;
 		}
 	}
@@ -31,14 +31,12 @@
 	$is_bot = $_SESSION['is_bot'];
 	$is_active = $_SESSION['is_active'];
 	$created_at = $_SESSION['created_at'];
-	
-	
-	
-	
-	
+
+
+
 
 	// Log in with a remember me token and the database.
-	function doRememberedLogin($link): bool {
+	function doRememberedLogin(mysqli $link): bool {
 
 		/* Attempt a "remember me" login using persistent cookie
 		 * Returns true if login succeeds, false if cookie invalid or expired
@@ -102,7 +100,7 @@
 	}
 	
 	// Delete token from DB
-	function invalidateRememberToken($link, string $selector): void {
+	function invalidateRememberToken(mysqli $link, string $selector): void {
 		
 		/* Invalidate a persistent login token.
 		 * Deletes the token row from the database and expires the client cookie. */
@@ -120,7 +118,7 @@
 	}
 	
 	// Fetch user info from accounts table and populates $_SESSION
-	function restoreUserSession($link, int $user_id): void {
+	function restoreUserSession(mysqli $link, int $user_id): void {
 		
 		 /* Restore session for a given user ID.
 		  * Fetches user info from accounts table and populates $_SESSION
@@ -169,7 +167,7 @@
 	}
 	
 	// Stores persistent login token to the database
-	function executePersistentLogin($link, $user_id) {
+	function executePersistentLogin(mysqli $link, int $user_id): void {
 
 		// Generate token and selector
 		$token = bin2hex(random_bytes(32));
@@ -215,7 +213,7 @@
 	}
 
 	// Rotates stored persistent login token
-	function executePersistentTokenRotation($link, $user_id, $selector, $token) {
+	function executePersistentTokenRotation(mysqli $link, int $user_id, string $selector, string $token): void {
 
 		$oldTokenHash = hash('sha256', $token);
 
@@ -320,11 +318,11 @@
 		
 		if(!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
 		{
-			return true;
+			return false;
 		} 
 		else 
 		{
-			return false;
+			return true;
 		}
 	}
 
@@ -356,7 +354,7 @@
 	}
 
 	// Default Exception handler
-	function catchEx(Throwable $ex) {
+	function catchEx(Throwable $ex): void {
 
 		error_log($ex);
 		http_response_code(500);
@@ -372,3 +370,59 @@
 		exit;
 	}
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile – <?php echo htmlspecialchars($username); ?></title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #fff; /* white canvas for entire page */
+        margin: 0;
+        padding: 2rem;
+		padding-top: 5rem;
+        color: #333;
+    }
+    .profile-container {
+        max-width: 480px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-color: #ddd;
+        display: inline-block;
+        margin-bottom: 1rem;
+        object-fit: cover;
+    }
+    h1 { margin: 0.5rem 0; font-size: 1.8rem; }
+    p { color: #555; margin: 0.3rem 0; font-size: 1rem; }
+    .bio { margin-top: 1rem; font-size: 0.95rem; color: #666; }
+</style>
+</head>
+<body>
+
+<div class="profile-container">
+    <!-- Avatar -->
+	<img src="avatars/snail.jpg" alt="Avatar" class="avatar">
+
+    <!-- Username -->
+    <h1><?php echo htmlspecialchars($username); ?></h1>
+
+    <!-- Basic info -->
+    <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
+    <p><strong>Joined:</strong> <?php echo htmlspecialchars(date("F j, Y", strtotime($created_at))); ?></p>
+    <p><strong>Status:</strong> <?php echo $is_active ? 'Active' : 'Inactive'; ?><?php echo $is_bot ? ' (Bot)' : ''; ?></p>
+
+    <!-- Basic bio -->
+    <div class="bio">
+        This is your profile. You can update your avatar and bio here in the future.
+    </div>
+</div>
+
+</body>
+</html>
