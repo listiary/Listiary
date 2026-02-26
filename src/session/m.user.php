@@ -402,6 +402,100 @@
     h1 { margin: 0.5rem 0; font-size: 1.8rem; }
     p { color: #555; margin: 0.3rem 0; font-size: 1rem; }
     .bio { margin-top: 1rem; font-size: 0.95rem; color: #666; }
+
+
+
+
+
+.info-line {
+  color: #777;               /* whole thing grey */
+  font-weight: bold;         /* bold text */
+  font-style: italic;        /* italic text */
+  font-size: 0.95rem;
+
+  display: inline-flex;      /* make the flex container shrink to content */
+  align-items: center;       /* vertically align SVGs with text */
+  gap: 0.3em;                /* spacing between SVGs and text */
+
+  margin: 0 auto;            /* center the flex container inside parent */
+}
+
+.info-line svg {
+  vertical-align: middle;    /* ensure proper baseline alignment */
+  fill: currentColor;        /* make SVG match text color */
+}
+
+
+
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 170px;
+  padding: 0.35em 0;
+  margin: 2px;
+  font-size: 0.9rem;
+
+  border-radius: 60px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.05s ease;
+}
+
+.btn:hover {
+  filter: brightness(0.9);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--green {
+	color: black;
+  background-color: #99F0C6;
+}
+
+.btn--green:hover {
+	color: black;
+  background-color: #7ED9AD;
+}
+
+.btn--blue {
+	color: black;
+  background-color: #99D6FF;
+}
+
+.btn--blue:hover {
+	color: black;
+  background-color: #7FC2EB;
+}
+
+.btn--red {
+	color: black;
+  background-color: #FFB3A7;
+}
+
+.btn--red:hover {
+	color: black;
+  background-color: #E89A8E;
+}
+
+.btn--purple {
+	color: black;
+  background-color: #99B3FF;
+}
+
+.btn--purple:hover {
+	color: black;
+  background-color: #7F99E6;
+}
+
+
 </style>
 </head>
 <body>
@@ -413,16 +507,52 @@
 
     <!-- Username -->
     <h1><?php echo htmlspecialchars($username); ?></h1>
+	<p class="info-line">
+	  <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+		<path d="m12.596 11.596-3.535 3.536a1.5 1.5 0 0 1-2.122 0l-3.535-3.536a6.5 6.5 0 1 1 9.192-9.193 6.5 6.5 0 0 1 0 9.193Zm-1.06-8.132v-.001a5 5 0 1 0-7.072 7.072L8 14.07l3.536-3.534a5 5 0 0 0 0-7.072ZM8 9a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 9Z"></path>
+	  </svg>
+	  <span>Veliko Tarnovo, Bulgaria</span>
+	</p><br />
+	<p class="info-line">
+	  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+		<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7-3.25v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5a.75.75 0 0 1 1.5 0Z"></path>
+	  </svg>
+	  <span>20:50 (UTC +02:00)</span>
+	</p>
+	
+	<!-- Basic bio -->
+    <div class="bio" style="margin-bottom: 15px;">
+        This is your profile. You can update your avatar and bio here by selecting Edit Account.
+		This is your profile. You can update your avatar and bio here by selecting Edit Account.
+    </div>
 
     <!-- Basic info -->
     <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
     <p><strong>Joined:</strong> <?php echo htmlspecialchars(date("F j, Y", strtotime($created_at))); ?></p>
-    <p><strong>Status:</strong> <?php echo $is_active ? 'Active' : 'Inactive'; ?><?php echo $is_bot ? ' (Bot)' : ''; ?></p>
+	<!-- Location -->
+	<!-- Local Time -->
+    <p><strong>Status:</strong> <?php echo $is_active ? 'Active' : 'Inactive'; ?><?php echo $is_bot ? ' (Bot)' : ''; ?></p> <!-- Also, include Paid Subscription here -->
+ 
+	<br /><br />
 
-    <!-- Basic bio -->
-    <div class="bio">
-        This is your profile. You can update your avatar and bio here in the future.
-    </div>
+	<!-- Lists -->
+	<!-- <a class="btn btn--purple">Contributions</a>
+	<a class="btn btn--blue">My Public Lists</a><br />
+	<a class="btn btn--green">My Personal Lists</a>
+	<a class="btn btn--red">My Private Lists</a> -->
+	<a class="btn btn--purple">Contributions</a><br />
+	<a class="btn btn--blue">My Public Lists</a><br />
+	<a class="btn btn--green">My Personal Lists</a>
+
+
+	
+	<br /><br />
+
+	<!-- Menu -->
+	<a href="<?php echo $BASE_URL; ?>"><strong>Settings</strong></a><br />
+	<a href="<?php echo $BASE_URL; ?>"><strong>Edit Account</strong></a><br />
+	<a href="<?php echo $BASE_URL; ?>"><strong>Log Out</strong></a><br />
+
 </div>
 
 </body>
