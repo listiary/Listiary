@@ -87,10 +87,35 @@
 	{
 		$adress = '<p class="info-line"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M200,220H160.73c5.18-5,10.75-10.71,16.33-17.13C205.15,170.57,220,136.37,220,104a92,92,0,0,0-184,0c0,50,34.12,91.94,59.18,116H56a12,12,0,0,0,0,24H200a12,12,0,0,0,0-24ZM60,104a68,68,0,0,1,136,0c0,33.31-20,63.37-36.7,82.71A249.35,249.35,0,0,1,128,216.89a249.35,249.35,0,0,1-31.3-30.18C80,167.37,60,137.31,60,104Zm68,44a44,44,0,1,0-44-44A44.05,44.05,0,0,0,128,148Zm0-64a20,20,0,1,1-20,20A20,20,0,0,1,128,84Z"></path></svg><span>' . $adress . '</span></p><br />';
 	}
-	$timenow = date("H:i");
+	$timenow = "";
 	if($user_details['timezone'] !== null && trim($user_details['timezone']) !== '')
 	{
-		$timenow .= ' (' . $user_details['timezone'] . ')';
+		$t = getTimeNow($user_details['timezone']);
+		$timenow = "<p class='info-line'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='#000000' viewBox='0 0 256 256'><path d='M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z'></path></svg><span>$t</span></p>";
+	}
+
+
+	// Get current time
+	function getTimeNow(string $timezone): string {
+
+		// Convert "UTC+2" or "UTC-8" to a format PHP's DateTimeZone understands
+		$tz = str_replace(['UTC+', 'UTC-'], ['Etc/GMT-', 'Etc/GMT+'], $timezone);
+		$date = new DateTime("now", new DateTimeZone($tz));
+		return $date->format("H:i") . ' (' . formatUtcOffset($timezone) . ')';
+	}
+	function formatUtcOffset(string $timezone): string {
+
+		// Match the sign (+/-) and the hour
+		if (!preg_match('/UTC([+-]?)(\d{1,2})$/', $timezone, $matches))
+		{
+			throw new InvalidArgumentException("Invalid timezone format: $timezone");
+		}
+
+		$sign = $matches[1] === '' ? '+' : $matches[1]; // default to '+'
+		$hour = (int)$matches[2];
+		$hourPadded = str_pad($hour, 2, '0', STR_PAD_LEFT);
+
+		return "UTC {$sign}{$hourPadded}:00";
 	}
 ?>
 <!DOCTYPE html>
@@ -119,10 +144,7 @@
 			
 			<!-- Contact info -->
 			<?php echo $adress; ?>
-			<p class="info-line">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"></path></svg>
-				<span><?php echo $timenow; ?></span>
-			</p>
+			<?php echo $timenow; ?>
 			<br /><br />
 			<p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
 			<?php echo $phoneField; ?>

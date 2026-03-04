@@ -691,7 +691,7 @@
 	}
 	
 	// Delete all the tokens from DB for an user
-	function invalidateAllRememberTokens(mysqli $link, int id): void {
+	function invalidateAllRememberTokens(mysqli $link, int $id): void {
 		
 		/* Invalidate a persistent login token.
 		 * Deletes the token row from the database and expires the client cookie. */
