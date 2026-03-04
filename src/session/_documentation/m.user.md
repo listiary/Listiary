@@ -135,8 +135,16 @@ This is the user profile page the logged in user sees when he clicks on his prof
 
 ```
 
-m.login			->			m.user
-m.login			->			m.register
-m.login			->			m.forgotpass
+m.login			->							m.user
+m.login			->							m.register
+m.login			->							m.forgotpass
+
+m.register		->		[email]		->		m.verify
+m.verify		->							m.regsuccess
+m.forgotpass	->		[email]		->		m.resetpass
+
+m.user			-> 							m.useredit
+m.user			-> 							m.usercontact
+m.user			-> 							m.usersettings
 
 ```

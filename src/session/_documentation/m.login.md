@@ -54,8 +54,12 @@
 
 ```
 
-m.login			->			m.user
-m.login			->			m.register
-m.login			->			m.forgotpass
+m.login			->							m.user
+m.login			->							m.register
+m.login			->							m.forgotpass
+
+m.register		->		[email]		->		m.verify
+m.verify		->							m.regsuccess
+m.forgotpass	->		[email]		->		m.resetpass
 
 ```
