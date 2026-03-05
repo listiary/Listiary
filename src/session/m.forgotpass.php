@@ -4,6 +4,7 @@
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/php/_config.php";
 	require_once __DIR__ . "/php/_sessionlib.php";
+	require_once __DIR__ . "/php/_ratelimiters.php";
 	set_exception_handler('catchEx');
 	
 	// More Presets
@@ -50,8 +51,15 @@
 				$message_state = "error";
 				$button_text = "Retry";
 			}
+			else if(isIpBlockedForResetRequest($link) || isEmailBlockedForResetRequest($link, $email))
+			{
+				$message = "Too many attempts have been made.<br>Please wait some time before requesting a new link.";
+				$message_state = "error";
+				$button_text = "Retry";
+			}
 			else
 			{
+				recordPasswordResetRequest($link, $email);	//for rate limiting
 				$status = false;
 				if(isEmailInDatabase($link, $email))
 				{

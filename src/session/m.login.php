@@ -4,6 +4,7 @@
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/php/_config.php";
 	require_once __DIR__ . "/php/_sessionlib.php";
+	require_once __DIR__ . "/php/_ratelimiters.php";
 	set_exception_handler('catchEx');
 	
 	// More Presets

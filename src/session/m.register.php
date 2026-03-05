@@ -4,6 +4,7 @@
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/php/_config.php";
 	require_once __DIR__ . "/php/_sessionlib.php";
+	require_once __DIR__ . "/php/_ratelimiters.php";
 	set_exception_handler('catchEx');
 	
 	// More Presets
@@ -43,16 +44,10 @@
         {
             $username_err = "Username can only contain letters, numbers, and underscores.";
         }
-		else if (!preg_match('/^[a-zA-Z0-9_]{3,35}$/', $_POST["username"])) 
+		elseif(!preg_match('/^[a-zA-Z0-9_]{3,35}$/', $_POST["username"])) 
 		{
 			$username_err = "Username can only contain letters, numbers, and underscores and be 3 to 35 symbols long.";
 		}
-        else
-        {
-			$isUsernameTaken = isUsernameTaken($link, $username);
-			if($isUsernameTaken == false) $username = trim($_POST["username"]);
-			else $username_err = "This username is already taken.";
-        }
 
 		// Validate email
 		if(empty(trim($_POST["email"])))
@@ -62,12 +57,6 @@
 		else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) 
 		{
 			$email_err = "Please enter a valid email address.";
-		}
-		else
-        {
-			$isEmailTaken = isEmailTaken($link, $email);
-			if($isEmailTaken == false) $email = trim($_POST["email"]);
-			else $email_err = "This email is already taken.";
 		}
 
         // Validate password
@@ -97,12 +86,39 @@
                 $confirm_password_err = "Password did not match.";
             }
         }
+		
+		
+		//log account creation rate-limiting event
+		//users should be limited at how many emails they might try
+		//but it should be a bigger number than the allowed successful registrations
+		//but for now, we won't be limiting that
+		
+		// Check if username taken
+		$isUsernameTaken = isUsernameTaken($link, $username);
+		if($isUsernameTaken == false) $username = trim($_POST["username"]);
+		else $username_err = "This username is already taken.";
+		
+		// Check if email taken
+		$isEmailTaken = isEmailTaken($link, $email);
+		if($isEmailTaken == false) $email = trim($_POST["email"]);
+		else $email_err = "This email is already taken.";
+		
+		// Check if too many accounts registrations on this IP
+		if(isIpBlockedForRegister($link))
+		{
+			$username_err = "Your IP adress has been blocked for too many registrations.";
+			$email_err = "Your IP adress has been blocked for too many registrations.";
+			$password_err = "Your IP adress has been blocked for too many registrations.";
+			$confirm_password_err = "Your IP adress has been blocked for too many registrations.";
+		}
 
         // Check input errors before inserting in database
         if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err))
         {
 			createAccount($link, $username, $email, $password, 0);
-			//log account creation as a rate-limiting event
+			
+			//log account creation rate-limiting event
+			recordRegistrationSuccess($link, $email);
 			
 			// send verification link
 			$res = sendVerificationEmail($link, $username, $email, $raw_token);
