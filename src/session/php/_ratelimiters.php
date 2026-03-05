@@ -4,7 +4,7 @@
 	const MAX_LOGIN_ATTEMPTS_PER_IP = 10;			//10 failed attempts
 	const MAX_LOGIN_ATTEMPTS_PER_EMAIL = 5;			//5 failed attempts
 	const WAIT_TIME_LOGIN = 15;						//wait for 15 minutes 
-	const KEEP_OLD_RECORDS = 7;						//prune old records after 1 day
+	const KEEP_OLD_RECORDS = 7;						//prune old records after 7 days
 	
 	// Record failed login Attempt
 	function recordFailedLoginAttempt(mysqli $link, string $email): void {
@@ -120,7 +120,7 @@
 	const MAX_RESET_ATTEMPTS_PER_IP = 10;			//10 failed attempts
 	const MAX_RESET_ATTEMPTS_PER_EMAIL = 5;			//5 failed attempts
 	const WAIT_TIME_RESET = 16;						//wait for 16 minutes 
-	const KEEP_OLD_RECORDS_RESETS = 7;				//prune old records after 1 day
+	const KEEP_OLD_RECORDS_RESETS = 7;				//prune old records after 7 days
 
 	// Record password reset email
 	function recordPasswordResetRequest(mysqli $link, string $email): void {
@@ -299,7 +299,7 @@
 	}
 
 	// Cleanup Database register_success table by deleting records for an email
-	function cleanupLoginAttempts(mysqli $link, string $email): void {
+	function cleanupRegisterSuccessEvents(mysqli $link, string $email): void {
 		
 		$sql = "DELETE FROM register_success WHERE email = ?";
 		
@@ -322,7 +322,7 @@
 
 	// Prune Database register_success table by deleting records older than 7 days.
 	// Need to execute manually once in a while from the ARC panel
-	function pruneLoginAttemptsTable(mysqli $link): void {
+	function pruneRegisterSuccessTable(mysqli $link): void {
 
 		$sql = "DELETE FROM register_success WHERE attempt_time < DATE_SUB(NOW(), INTERVAL " . KEEP_OLD_RECORDS_REGISTER . " DAY)";
 		if (!mysqli_query($link, $sql)) 
