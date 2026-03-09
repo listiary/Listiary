@@ -477,120 +477,7 @@
 
 
 
-	/* RATE LIMITER */
-	// Record failed login Attempt
-	function recordFailedLoginAttempt(mysqli $link, string $email): void {
-		
-		// Start the transaction
-		mysqli_begin_transaction($link);
 
-		try {
-			
-			// 1. Prune records older than 1 day for THIS email
-			$prune_sql = "DELETE FROM login_attempts WHERE email = ? AND attempt_time < DATE_SUB(NOW(), INTERVAL 1 DAY)";
-			if ($prune_stmt = mysqli_prepare($link, $prune_sql)) 
-			{
-				mysqli_stmt_bind_param($prune_stmt, "s", $email);
-				mysqli_stmt_execute($prune_stmt);
-				mysqli_stmt_close($prune_stmt);
-			} 
-			else 
-			{
-				throw new Exception("Prune prepare failed");
-			}
-
-			// 2. Record the current failed attempt
-			$insert_sql = "INSERT INTO login_attempts (email, ip_address) VALUES (?, ?)";
-			if ($insert_stmt = mysqli_prepare($link, $insert_sql)) 
-			{
-				mysqli_stmt_bind_param($insert_stmt, "ss", $email, $_SERVER['REMOTE_ADDR']);
-				mysqli_stmt_execute($insert_stmt);
-				mysqli_stmt_close($insert_stmt);
-			} 
-			else 
-			{
-				throw new Exception("Insert prepare failed");
-			}
-
-			// Commit the transaction
-			mysqli_commit($link);
-		}
-		catch (Exception $e) 
-		{
-			// Rollback on error
-			mysqli_rollback($link);
-			throw new RuntimeException("Database error: Transaction failed.");
-		}
-	}
-
-	// Check if IP is blocked due to too many failed attempts
-	function isIpBlocked(mysqli $link): bool {
-		
-		$ip = $_SERVER['REMOTE_ADDR'];
-		$sql = "SELECT COUNT(*) FROM login_attempts WHERE ip_address = ? AND attempt_time > DATE_SUB(NOW(), INTERVAL 15 MINUTE)";
-		
-		$stmt = mysqli_prepare($link, $sql);
-		mysqli_stmt_bind_param($stmt, "s", $ip);
-		mysqli_stmt_execute($stmt);
-		mysqli_stmt_bind_result($stmt, $count);
-		mysqli_stmt_fetch($stmt);
-		mysqli_stmt_close($stmt);
-
-		return $count >= 5; // 5 attempts per IP in 15 mins
-	}
-
-	// Check if specific account is blocked due to too many failed attempts
-	function isEmailBlocked(mysqli $link, string $email): bool {
-		
-		$sql = "SELECT COUNT(*) FROM login_attempts WHERE email = ? AND attempt_time > DATE_SUB(NOW(), INTERVAL 15 MINUTE)";
-		
-		$stmt = mysqli_prepare($link, $sql);
-		mysqli_stmt_bind_param($stmt, "s", $email);
-		mysqli_stmt_execute($stmt);
-		mysqli_stmt_bind_result($stmt, $count);
-		mysqli_stmt_fetch($stmt);
-		mysqli_stmt_close($stmt);
-
-		return $count >= 10; // 10 attempts per email in 15 mins
-	}
-
-	// Cleanup Database login_attempts table by deleting records for an email
-	function cleanupLoginAttempts(mysqli $link, string $email): void {
-		
-		$sql = "DELETE FROM login_attempts WHERE email = ?";
-		
-		if (!$stmt = mysqli_prepare($link, $sql))
-		{
-			throw new RuntimeException("Database error preparing cleanup.");
-		}
-		
-		// Bind the $email parameter to the '?' in the query
-		mysqli_stmt_bind_param($stmt, "s", $email);
-		
-		if (!mysqli_stmt_execute($stmt))
-		{
-			mysqli_stmt_close($stmt);
-			throw new RuntimeException("Failed to cleanup login_attempts table.");
-		}
-		
-		mysqli_stmt_close($stmt);
-	}
-
-	// Prune Database login_attempts table by deleting records older than 7 days.
-	// Need to execute manually once in a while from the ARC panel
-	function pruneLoginAttemptsTable(mysqli $link): void {
-
-		$sql = "DELETE FROM login_attempts WHERE attempt_time < DATE_SUB(NOW(), INTERVAL 7 DAY)";
-		if (!mysqli_query($link, $sql)) 
-		{
-			throw new RuntimeException("Failed to prune login_attempts table.");
-		}
-	}
-
-
-
-	
-	
 	// Check CSRF token and regenerate it
 	function isCsrfTokenValid(): bool {
 
@@ -860,6 +747,8 @@
 			throw new RuntimeException('Failed to set rotated remember_token cookie');
 		}
 	}
+
+
 
 
 

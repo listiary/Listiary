@@ -8,6 +8,10 @@
 	require_once __DIR__ . "/_sessionlib.php";
 	set_exception_handler('catchEx');
 	
+	// More Presets
+	//startSecureSession();
+	$link = connectDb();
+	
 
 	// Logout this user on this browser
 	function logout_all(mysqli $link) {
@@ -82,3 +86,12 @@
 			invalidateRememberToken($link, $selector);
 		}
 	}
+	
+	
+	
+	// Perform log out
+	logout_all($link);
+	
+	// Redirect to login page
+	header("location: https://development.listiary.org/m.index.php");
+	exit;

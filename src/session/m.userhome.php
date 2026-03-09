@@ -24,14 +24,31 @@
 		}
 	}
 	
-	//restoreUserSession($link, 7);
+	// Fetch user data
+	$id = $_SESSION['id'];
+	$user_data = fetchUserData($link, $id);
+	$user_details = fetchUserDetailsArr($link, $id);
+	fetchUserDetails($link, $_SESSION['id']);			//redundant
 	
-	// Fetch user details
-	fetchUserDetails($link, $_SESSION['id']);
+	// Set UI - username element
+	$username = $user_data['username'];
+	$userstar = $usernametail = '';
+	$usernameColor = "black";
+	if($user_data['is_premium']) 
+	{
+		$userstar = '✦ ';
+		$usernametail = '&nbsp;&nbsp;&nbsp;&nbsp;';
+	}
+	$user_data['user_role'] = "developer";
+	if($user_data['user_role'] !== null)
+	{
+		if($user_data['user_role'] == 'developer') $usernameColor = "blue";
+		else if($user_data['user_role'] == 'contributor') $usernameColor = "green";
+		else if($user_data['user_role'] == 'moderator') $usernameColor = "red";
+	}
 	
 	// Get data from session into variables that will be showed on our page
 	$user_id = $_SESSION['id'];
-	$username = $_SESSION['username'];
 	$email = $_SESSION['email'];
 	$usercode = $_SESSION['usercode'];
 	$is_bot = $_SESSION['is_bot'];
@@ -77,7 +94,7 @@
 			<img src="<?php echo $userAvatar; ?>" alt="Avatar" class="avatar">
 
 			<!-- Username -->
-			<h1><?php echo htmlspecialchars($username); ?></h1>
+			<h1 style="color:<?php echo $usernameColor; ?>;"><?php echo $userstar . htmlspecialchars($user_data['username']) . $usernametail; ?></h1>
 			
 			<!-- Basic bio -->
 			<?php echo $bio; ?>
@@ -85,15 +102,13 @@
 
 			<!-- Lists -->
 			<?php echo $links; ?>
-			<br /><br /><br />
+			<br /><br /><br /><br />
 
 			<!-- Menu -->
-			<a href="<?php echo INDEX_URL; ?>"><strong>Back to Index</strong></a><br />
-			<a href="<?php echo rtrim(BASE_URL, '/') . '/session/m.user.php?id=' . $_SESSION['id']; ?>"><strong>View User Page</strong></a><br />
-			<br />
-			<a href="<?php echo INDEX_URL; ?>"><strong>Settings</strong></a><br />
-			<a href="<?php echo INDEX_URL; ?>"><strong>Edit Account</strong></a><br />
-			<a href="<?php echo INDEX_URL; ?>"><strong>Log Out</strong></a><br />
+			<a href="<?php echo rtrim(BASE_URL, '/') . '/session/m.userpreview.php?id=' . $_SESSION['id']; ?>"><strong>Preview</strong></a><br />
+			<a href="m.usersettings.php?id=<?php echo $_SESSION['id']; ?>"><strong>Settings</strong></a><br />
+			<a href="m.useredit.php?id=<?php echo $_SESSION['id']; ?>"><strong>Edit Account</strong></a><br />
+			<a href="php/_logout_device.php"><strong>Log Out</strong></a><br />
 		</div>
 	</body>
 </html>

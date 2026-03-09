@@ -1,16 +1,17 @@
 body {
-	font-family: Arial, sans-serif;
+	
 	background-color: #fff;
 	margin: 0;
-	padding: 30px;
-	padding-top: 50px;
 	color: #333;
 }
 
 .profile-container {
+	
+	font-family: Arial, sans-serif;
 	max-width: 480px;
 	margin: 0 auto;
 	text-align: center;
+	padding-bottom: 20px;
 }
 
 .avatar {
@@ -19,7 +20,6 @@ body {
 	border-radius: 50%;
 	background-color: #ddd;
 	display: inline-block;
-	margin-bottom: 1rem;
 	object-fit: cover;
 }
 
@@ -35,6 +35,7 @@ p {
 }
 
 .bio {
+	padding: 20px;
 	margin-top: 1rem;
 	font-size: 0.95rem;
 	color: #666;
