@@ -9,14 +9,13 @@ body {
 }
 
 .logo {
-	
 	padding-left: 30px;
-	padding-right 30px;
+	padding-right: 30px;
 }
 
 .logo img {
     width: 100%;        /* responsive width */
-    max-width: 400px;   /* cap at desktop size */
+    max-width: 140px;   /* cap at this size */
     height: auto;       /* maintain aspect ratio */
     margin-bottom: 15px;
 	margin-top: 0px;
@@ -24,9 +23,11 @@ body {
 
 
 .search-container {
-    width: 100%;
+    width: 90%;
     max-width: 600px;
     display: flex;
+	padding-left: 5%;
+	padding-right: 5%;
     margin: 20px auto 40px auto; /* centers it */
 }
 
@@ -34,7 +35,7 @@ body {
     flex: 1 1 auto;      /* allow shrinking */
     min-width: 0;        /* critical for small screens */
     padding: 8px 10px;
-    font-size: 13px;
+    font-size: 22px;
     border: 1px solid #ccc;
     border-radius: 6px 0 0 6px;
     outline: none;
@@ -78,7 +79,7 @@ body {
     color: #555;
 }
 
-
+/*
 .users-grid {
 	font-family: Arial, sans-serif;
     width: 90%;
@@ -87,14 +88,34 @@ body {
     gap: 8px 18px;
     padding: 20px 0 40px;
 	margin: auto;
+} */
+.users-grid {
+    width: 90%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
 }
 
 .user-item {
+    display: inline;
+}
+
+.user-item::after {
+    content: " • ";
+}
+
+.user-item:last-child::after {
+    content: "";
+}
+
+.user-item {
+	word-break: break-all;
     font-size: 18px;
     color: #333;
 }
 
 .user-item a {
+word-break: break-all;
 	font-size: 18px;
     color: #2b59ff;
     text-decoration: none;
@@ -113,4 +134,14 @@ body {
         padding: 4px 8px;
         font-size: 12px;
     }
+}
+
+.user-letter {
+    font-size: 36px;
+    color: #2e8b57;
+    font-style: italic;
+    text-align: center;
+    margin: 30px 0 12px 0;
+    /* border-bottom: 1px solid #dfe8df; */
+    padding-bottom: 4px;
 }

@@ -13,48 +13,37 @@
 	// Get users
 	$dummyUsers = getDummyAccountNames(74);
 	$realUsers = getRealUsers($link);
-	$users = [];
-	foreach ($dummyUsers as $name)
-	{
-		$r = random_int(1, 100);
-		$color = 'color:#ccc;';
-		if ($r <= 3) $color = 'color:blue;';
-		elseif ($r <= 8) $color = 'color:red;';      	// 3 + 5
-		elseif ($r <= 16) $color = 'color:green;';		// 8 + 8
-		elseif ($r <= 86) $color = 'color:black;';		// 16 + 70
-
-		$star = random_int(1, 100) <= 10;
-		$users[] = 
-		[
-			'username' => $name,
-			'star' => $star,
-			'id' => 0,
-			'style' => $color . ($star ? 'margin-left:-19px;' : '')
-		];
-	}
-	foreach ($realUsers as $user)
-	{
-		$star = $user['is_premium'];
-		$users[] = 
-		[
-			'username' => $user['username'],
-			'star' => $star,
-			'id' => $user['id'],
-			'style' => 'color:blue;' . ($star ? 'margin-left:-19px;' : '')
-		];
-	}
-
-	// Sort alphabetically by username
-	usort($users, function($a, $b)
-	{
-		return strcmp($a['username'], $b['username']);
-	});
-	
+	$users = getUserDataArrays($dummyUsers, $realUsers);	
 	//var_dump($users); die();
 	
+	// Get users grid
+	const USE_HEADINGS = false;
+	$html = getUsersHtml($users, USE_HEADINGS, 150);
+	
+	//search if the parameter is set
+	$search = getSearchParam();
+	if ($search !== "") 
+	{
+		echo '<script>document.addEventListener("DOMContentLoaded", () => {search();});</script>';
+	}
+
 	
 	
-	
+	// Get the search param from URL GET parameter 'search'
+	function getSearchParam(): string {
+
+		if (!isset($_GET['search'])) {
+			return "";
+		}
+
+		$search = trim($_GET['search']);
+
+		if (!preg_match('/^[a-z0-9]+$/i', $search)) {
+			return "";
+		}
+
+		return $search;
+	}
 
 	// Get random real-sounding account names for testing
 	function getDummyAccountNames(int $count): array {
@@ -89,6 +78,138 @@
 		mysqli_stmt_close($stmt);
 
 		return $accounts;
+	}
+
+	// Get the users structures that will be used to populate the page
+	function getUserDataArrays(array $dummyUsers, array $realUsers): array {
+		
+		$users = [];
+		foreach ($dummyUsers as $name)
+		{
+			$r = random_int(1, 100);
+			$color = 'color:#ccc;';
+			if ($r <= 3) $color = 'color:blue;';
+			elseif ($r <= 8) $color = 'color:red;';      	// 3 + 5
+			elseif ($r <= 16) $color = 'color:green;';		// 8 + 8
+			elseif ($r <= 86) $color = 'color:black;';		// 16 + 70
+
+			$star = random_int(1, 100) <= 10;
+			$star = false;
+			$users[] = 
+			[
+				'username' => $name,
+				'star' => $star,
+				'id' => 0,
+				'isreal' => false,
+				'style' => $color . ($star ? 'margin-left:-19px;' : '')
+			];
+		}
+		foreach ($realUsers as $user)
+		{
+			$star = $user['is_premium'];
+			$star = false;
+			$users[] = 
+			[
+				'username' => $user['username'],
+				'star' => $star,
+				'id' => $user['id'],
+				'isreal' => true,
+				'style' => 'color:blue;' . ($star ? 'margin-left:-19px;' : '')
+			];
+		}
+
+		// Sort alphabetically by username
+		usort($users, function($a, $b)
+		{
+			return strcmp($a['username'], $b['username']);
+		});
+		
+		return $users;
+	}
+
+	// Get html for users
+	function getUsersHtml(array $users, bool $useHeadings, int $useHeadingsOver): string {
+		
+		$html = '';
+		if($useHeadings === false || count($users) < $useHeadingsOver)
+		{
+			foreach ($users as $user)
+			{
+				$html .= '<div class="user-item"><a style="' . $user['style'] . '" href="';
+				if($user['isreal']) $html .= 'https://development.listiary.org/m.session/m.user.php?id=' . $user['id'] . '">';
+				else $html .= 'javascript:void(0);">';
+				$html .= ($user['star'] ? '✦ ' : '') . htmlspecialchars($user['username']) . '</a></div>';
+			}
+		}
+		else
+		{
+			// Group users by letter
+			$groups = [];
+			foreach ($users as $user) 
+			{
+				$letter = strtoupper(mb_substr($user['username'], 0, 1));
+				$groups[$letter][] = $user;
+			}
+			ksort($groups);
+
+			// Merge small groups
+			$finalGroups = [];
+			$currentGroup = [];
+			$startLetter = '';
+			$endLetter = '';
+			$count = 0;
+			foreach ($groups as $letter => $letterUsers) {
+
+				if ($startLetter === '') {
+					$startLetter = $letter;
+				}
+
+				$endLetter = $letter;
+				$currentGroup = array_merge($currentGroup, $letterUsers);
+				$count += count($letterUsers);
+
+				if ($count >= 20) {
+					$finalGroups[] = [
+						'start' => $startLetter,
+						'end' => $endLetter,
+						'users' => $currentGroup
+					];
+
+					$currentGroup = [];
+					$startLetter = '';
+					$endLetter = '';
+					$count = 0;
+				}
+			}
+			
+			// Catch leftover users
+			if (!empty($currentGroup)) {
+				$finalGroups[] = [
+					'start' => $startLetter,
+					'end' => $endLetter,
+					'users' => $currentGroup
+				];
+			}
+			
+			// Build the HTML
+			foreach ($finalGroups as $group) 
+			{
+				$title = $group['start'];
+				if ($group['start'] !== $group['end'])
+				{
+					$title .= '-' . $group['end'];
+				}
+				$html .= '<div class="user-letter">' . $title . '</div>';
+				foreach ($group['users'] as $user) 
+				{
+					$html .= '<div class="user-item"><a style="' . $user['style'] . '" href="';
+					if ($user['isreal']) $html .= 'https://development.listiary.org/m.session/m.user.php?id=' . $user['id'] . '">';
+					else $html .= 'javascript:void(0);">';
+					$html .= ($user['star'] ? '✦ ' : '') . htmlspecialchars($user['username']) . '</a></div>';
+				}
+			}
+		}
+		return $html;
 	}
 ?>
 <!DOCTYPE html>
@@ -159,22 +280,16 @@
 					<td colspan="10" id="LargeContainer" >
 					
 						<div class="logo" style="display: flex; justify-content: center;">
-							<a href="../m.index.php"><img src="img/listiary-logo.png" alt="Listiary Logo"></a>
+							<a href="../m.index.php"><img src="img/listiary-logo-small.png" alt="Listiary Logo"></a>
 						</div>
 						<div class="search-container">
-							<input id="searchInput" type="text" placeholder="Start typing a username ...">
-							<button onclick="search()">Search</button>
+							<input id="searchInput" type="text" placeholder="Start typing ..." value="<?= htmlspecialchars($search) ?>">
+							<button onclick="searchClick()"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.5" y2="16.5"></line></svg></button>
 						</div>
 						<div class="users-grid">
-							<?php foreach ($users as $user): ?>
-								<div class="user-item">
-									<a style="<?= $user['style'] ?>" 
-										href="https://development.listiary.org/session/m.user.php?id=<?= $user['id'] ?>">
-										<?= ($user['star'] ? '✦ ' : '') . htmlspecialchars($user['username']) ?>
-									</a>
-								</div>
-							<?php endforeach; ?>
+							<?php echo $html; ?>
 						</div>
+						<br><br><br>
 						<script>
 							// Optional: search while typing
 							document.getElementById("searchInput").addEventListener("keyup", search);
