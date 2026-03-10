@@ -1,5 +1,43 @@
 <?php
 
+
+	// APEARANCE										//index
+		// Dark theme/Light theme toggle
+		// Interface language
+		// Prefered language(s)
+		
+	// EDITOR											//editor
+		// Default edit message
+		
+	// SEARCH											//search
+
+	// PLUGINS											//plugins
+
+	// CPANEL											//arc panel
+
+	// MY BOTS											//bots
+		
+	// SECURITY										//session
+		// Change email
+		// Add recovery email(s)
+		// Active Sessions
+		// Security events
+		// Log out all ...
+		// Archive account ...
+		// Delete account ...
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//error_reporting(E_ALL);
 	//ini_set('display_errors', 1);
 

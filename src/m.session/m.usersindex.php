@@ -279,9 +279,9 @@
 				<tr>
 					<td colspan="10" id="LargeContainer" >
 					
-						<div class="logo" style="display: flex; justify-content: center;">
+						<!-- <div class="logo" style="display: flex; justify-content: center;">
 							<a href="../m.index.php"><img src="img/listiary-logo-small.png" alt="Listiary Logo"></a>
-						</div>
+						</div> -->
 						<div class="search-container">
 							<input id="searchInput" type="text" placeholder="Start typing ..." value="<?= htmlspecialchars($search) ?>">
 							<button onclick="searchClick()"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.5" y2="16.5"></line></svg></button>
