@@ -125,12 +125,11 @@
 			if($res)
 			{
 				// Redirect to login page
-				mysqli_stmt_close($stmt);
 				header("location: m.regsuccess.php");
+				exit;
 			}
 			else
 			{
-				mysqli_stmt_close($stmt);
 				throw new RuntimeException('Oops. Something went wrong.');
 			}
         } 
