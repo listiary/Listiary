@@ -29,3 +29,17 @@ Used Google Gemini to redesign the mobile login and register pages.
 
 // not working token - do not steal off github to hack
 https://development.listiary.org/session/m.verify.php?token=212ec4f758d84adc070c76d5d3083aae1eecf5ada39ad0f3895919ab7bab09a5&email=vchernev91%40abv.bg
+https://development.listiary.org/session/m.user.php?id=7
+https://development.listiary.org/session/m.regsuccess.php
+https://development.listiary.org/session/m.verify.php
+
+
+	// session_regenerate_id(true)
+	// CSRF protection on forms
+	// Rate limiting login attempts
+	// HTTPS-only session cookies
+	// Logout script that destroys session properly
+	
+	5. Options to logout all devices, change password
+	6. Have a page in the profile page that shows all user's contributions
+	7. Create documentation about the 'session' module
