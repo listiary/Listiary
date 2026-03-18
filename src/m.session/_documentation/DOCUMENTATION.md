@@ -27,4 +27,5 @@ This guards against potential future issues in the include chain where PHP resol
 Used Google Gemini to redesign the mobile login and register pages.
 
 
-https://development.listiary.org/session/m.verify.php?token=212ec4f758d84adc070c76d5d3083aae1eecf5ada39ad0f3895719ab7bab09a5&email=vchernev91%40abv.bg
+// not working token - do not steal off github to hack
+https://development.listiary.org/session/m.verify.php?token=212ec4f758d84adc070c76d5d3083aae1eecf5ada39ad0f3895919ab7bab09a5&email=vchernev91%40abv.bg

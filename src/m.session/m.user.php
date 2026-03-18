@@ -13,6 +13,15 @@
 	startSecureSession();
 	$link = connectDb();
 	
+	//get user link
+	$userUrl = 'm.login.php';
+	$userText = 'Log In';
+	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+	{
+		$userText = $_SESSION["username"];
+		$userUrl = "m.userhome.php";
+	}
+	
 
 	// Fetch user data
 	$id = getUserId();
@@ -212,6 +221,8 @@
 		
 
 			<!-- MenuMain -->
+			<a id="userlink" href="<?php echo $userUrl; ?>" class="MenuMain"><?php echo $userText; ?></a>
+			<hr id="MenuMainMiddleAnchor" style="margin: 22px;" class="MenuMain"/>
 			<a href="../m.index.php" class="MenuMain">Wiki Index</a>
 			<a href="m.usersindex.php" class="MenuMain">Users Index</a>
 			<a href="#" target="_blank" class="MenuMain">About</a>

@@ -1,0 +1,401 @@
+body {
+	
+	background-color: #fff;
+	margin: 0;
+	color: #333;
+}
+
+.profile-container {
+	
+	font-family: Arial, sans-serif;
+	max-width: 480px;
+	margin: 0 auto;
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.avatar {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	background-color: #ddd;
+	display: inline-block;
+	object-fit: cover;
+}
+
+
+
+
+
+
+
+.avatar-wrapper, .field-wrappar {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.avatar {
+	border: 1px solid #d0d7de;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: filter 0.2s ease;
+}
+.bio-span,
+.username-span,
+.email-span,
+.phone-span,
+.website-span,
+.fb-span,
+.xcom-span,
+.linkedin-span,
+.othermedia-span,
+.addr-span,
+.time-span {
+	border-bottom: 1px solid #d0d7de;
+    transition: filter 0.2s ease;
+	cursor: pointer;
+}
+
+
+
+
+/* Avatars and badges */
+.avatar-wrapper:hover .avatar {
+    filter: brightness(0.45); /* much darker on hover */
+}
+
+.avatar-badge {
+    position: absolute;
+    top: 70%;
+    left: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    font-family: "Times New Roman", serif !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #24292f;
+    background-color: rgba(255,255,255,0.95);
+    border-radius: 6px;
+    border: 1px solid #d0d7de;
+    transition: background-color 0.2s ease;
+}
+.field-badge {
+    position: absolute;
+    bottom: -3px;
+    left: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    font-family: "Times New Roman", serif !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #24292f;
+    transition: background-color 0.2s ease;
+}
+.field-badge2 {
+    position: absolute;
+    bottom: -6px;
+    left: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    font-family: "Times New Roman", serif !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #24292f;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover on badge */
+.avatar-badge:hover {
+    background-color: #e1e4e8;
+    cursor: pointer;
+}
+
+/* dark highlighting - disabled */
+.bio-span,
+.username-span,
+.email-span,
+.phone-span,
+.website-span,
+.fb-span,
+.xcom-span,
+.linkedin-span,
+.othermedia-span,
+.addr-span,
+.time-span {
+  transition: background-color 0.2s ease;
+  padding: 2px 4px; /* optional so the background is visible around text */
+}
+.bio-span:hover,
+.username-span:hover,
+.email-span:hover,
+.phone-span:hover,
+.website-span:hover,
+.fb-span:hover,
+.xcom-span:hover,
+.linkedin-span:hover,
+.othermedia-span:hover,
+.addr-span:hover,
+.time-span:hover {
+  /* background-color: #999; */
+}
+
+
+/* PAGE */
+h1 {
+	margin: 0.5rem 0;
+	font-size: 1.8rem;
+}
+
+p {
+	color: #555;
+	margin: 0.3rem 0;
+	font-size: 1rem;
+}
+
+.bio {
+	padding: 20px;
+	margin-top: 1rem;
+	font-size: 0.95rem;
+	color: #666;
+}
+
+
+.info-line {
+	color: #777;
+	/* whole thing grey */
+	font-weight: bold;
+	/* bold text */
+	font-style: italic;
+	/* italic text */
+	font-size: 0.95rem;
+
+	display: inline-flex;
+	/* make the flex container shrink to content */
+	align-items: center;
+	/* vertically align SVGs with text */
+	gap: 0.3em;
+	/* spacing between SVGs and text */
+
+	margin: 0 auto;
+	/* center the flex container inside parent */
+}
+
+.info-line svg {
+	vertical-align: middle;
+	/* ensure proper baseline alignment */
+	fill: currentColor;
+	/* make SVG match text color */
+}
+
+
+.btn {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 170px;
+	padding: 0.35em 0;
+	margin: 2px;
+	font-size: 0.9rem;
+
+	border-radius: 60px;
+	color: white;
+	text-decoration: none;
+	font-weight: 500;
+
+	cursor: pointer;
+	transition: background-color 0.2s ease, transform 0.05s ease;
+}
+
+.btn:hover {
+	filter: brightness(0.9);
+}
+
+.btn:active {
+	transform: translateY(0);
+}
+
+.btn--green {
+	color: black;
+	background-color: #99F0C6;
+}
+
+.btn--green:hover {
+	color: black;
+	background-color: #7ED9AD;
+}
+
+.btn--blue {
+	color: black;
+	background-color: #99D6FF;
+}
+
+.btn--blue:hover {
+	color: black;
+	background-color: #7FC2EB;
+}
+
+.btn--orange {
+	color: black;
+	background-color: #FFB3A7;
+}
+
+.btn--orange:hover {
+	color: black;
+	background-color: #E89A8E;
+}
+
+.btn--purple {
+	color: black;
+	background-color: #99B3FF;
+}
+
+.btn--purple:hover {
+	color: black;
+	background-color: #7F99E6;
+}
+
+
+/* modal */
+.loading-modal {
+	display: none; /* Hidden by default */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	z-index: 9999;
+}
+.loading-modal-content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 60vw;
+	max-width: 60vw;
+	max-height: 60vh;
+}
+
+
+
+.wrapper {
+	background-color: white;
+	width: 100%;
+	margin-top: -7vh;
+	max-width: 400px;
+	/* Limits width on desktop */
+	padding: 40px 30px;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 24px;
+	font-size: 28px;
+	color: #1877f2;
+	font-weight: bold;
+}
+
+.form-group {
+	margin-bottom: 5px;
+}
+
+label {
+	display: block;
+	margin-bottom: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #606770;
+}
+
+input[type="text"],
+input[type="password"] {
+	width: 92%;
+	padding: 14px;
+	font-size: 16px;
+	/* 16px prevents iOS zoom on focus */
+	border: 1px solid #dddfe2;
+	border-radius: 8px;
+	transition: border-color 0.2s;
+	background-color: #f5f6f7;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+	border-color: #1877f2;
+	outline: none;
+	background-color: #fff;
+	box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+}
+
+.is-invalid {
+	border-color: #dc3545 !important;
+	background-color: #fff8f8 !important;
+}
+
+.invalid-feedback {
+	color: #dc3545;
+	font-size: 13px;
+	margin-top: 6px;
+	display: block;
+}
+
+.btn-container {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 60px;
+}
+
+.btn {
+	width: 100%;
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+.btn-primary {
+	background-color: #1877f2;
+	color: white;
+}
+
+.btn-secondary {
+	background-color: #e4e6eb;
+	color: #4b4f56;
+}
+
+.btn:hover {
+	opacity: 0.9;
+}
+
+
+
+a {
+	color: #1877f2;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}

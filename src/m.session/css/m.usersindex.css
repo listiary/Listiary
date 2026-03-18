@@ -91,6 +91,7 @@ body {
 } */
 .users-grid {
     width: 90%;
+	max-width: 600px;
     margin: auto;
     font-family: Arial, sans-serif;
     line-height: 1.6;

@@ -88,7 +88,7 @@
 		 * They live in a separate table in the database. */
 		
 		// Fetch user details
-		$userSql = "SELECT avatar_path, avatar_shape, avatar_shape_radius, bio, city, country, timezone, phone1 
+		$userSql = "SELECT avatar_path, avatar_shape, avatar_shape_radius, bio, city, country, timezone, phone1, link_personal_website, link_personal_facebook, link_personal_xcom, link_personal_linkedin, link_personal_other
 					FROM account_details 
 					WHERE account_id = ? LIMIT 1";
 		$userStmt = mysqli_prepare($link, $userSql);
@@ -118,6 +118,11 @@
 		$_SESSION['country'] = $row['country'];
 		$_SESSION['timezone'] = $row['timezone'];
 		$_SESSION['phone1'] = $row['phone1'];
+		$_SESSION['link_personal_website'] = $row['link_personal_website'];
+		$_SESSION['link_personal_facebook'] = $row['link_personal_facebook'];
+		$_SESSION['link_personal_xcom'] = $row['link_personal_xcom'];
+		$_SESSION['link_personal_linkedin'] = $row['link_personal_linkedin'];
+		$_SESSION['link_personal_other'] = $row['link_personal_other'];
 	}
 
 	// Get User details and store them in an associative array
@@ -127,7 +132,7 @@
 		 * They live in a separate table in the database. */
 		
 		// Fetch user details
-		$userSql = "SELECT avatar_path, avatar_shape, avatar_shape_radius, bio, city, country, timezone, phone1 
+		$userSql = "SELECT avatar_path, avatar_shape, avatar_shape_radius, bio, city, country, timezone, phone1, link_personal_website, link_personal_facebook, link_personal_xcom, link_personal_linkedin, link_personal_other
 					FROM account_details 
 					WHERE account_id = ? LIMIT 1";
 		$userStmt = mysqli_prepare($link, $userSql);
@@ -157,7 +162,12 @@
 			"city" => $row['city'],
 			"country" => $row['country'],
 			"timezone" => $row['timezone'],
-			"phone1" => $row['phone1']
+			"phone1" => $row['phone1'],
+			"link_personal_website" => $row['link_personal_website'], 
+			"link_personal_facebook" => $row['link_personal_facebook'], 
+			"link_personal_xcom" => $row['link_personal_xcom'], 
+			"link_personal_linkedin" => $row['link_personal_linkedin'], 
+			"link_personal_other" => $row['link_personal_other']
 		];
 	}
 
@@ -1000,23 +1010,26 @@
 	// Open a connection to the DB
 	function connectDb(): mysqli {
 
-		// singleton object
 		static $connection = null;
 
 		if ($connection === null) 
 		{
-			//create connection
-			$connection = new mysqli(
-				DB_SERVER_PUBLIC,
-				DB_USERNAME_PUBLIC,
-				DB_PASSWORD_PUBLIC,
-				DB_NAME_PUBLIC
-			);
-			
-			//handle error
-			if ($connection->connect_error) 
+			try
 			{
-				throw new RuntimeException('Database connection failed: ' . $connection->connect_error);
+				$connection = new mysqli(
+					DB_SERVER_PUBLIC,
+					DB_USERNAME_PUBLIC,
+					DB_PASSWORD_PUBLIC,
+					DB_NAME_PUBLIC
+				);
+			} 
+			catch (mysqli_sql_exception $e) 
+			{
+				// Log safely (no password exposure)
+				error_log('Database connection failed: ' . $e->getMessage());
+
+				// Show generic message
+				throw new RuntimeException('Database connection failed.');
 			}
 		}
 
