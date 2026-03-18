@@ -1,0 +1,132 @@
+What sites are similar to github - in ethos, in design, in functionality. Not necessarily for code. Might be for other tasks people freely collaborate. I am interesting in ideas on how to create my wiki profile page
+
+---------------------------------------------------------------------------------------------
+
+
+
+
+
+You’re looking for “GitHub energy” 🌱⚙️
+Not just code hosting, but that crisp, transparent, fork-it-and-improve-it culture. The commit-log soul. The pull-request heartbeat.
+
+Here are platforms that echo GitHub’s ethos in different ecosystems:
+
+🌍 Knowledge & Wiki-Style Collaboration
+🧠 Wikipedia
+
+Ethos: Radical openness, version history, talk pages, consensus.
+Design DNA: Transparent edits, diff views, community governance.
+Use case: Canonical knowledge building.
+GitHub parallel: Every page has a public commit history. Drama happens in “Talk” instead of Issues.
+
+🧩 Miraheze
+
+Ethos: Community-run wiki hosting with freedom and customization.
+Design DNA: MediaWiki backbone, granular permissions.
+Use case: Niche collaborative knowledge bases.
+GitHub parallel: Like spinning up a repo, but for an entire wiki universe.
+
+🧬 Notion (public pages & shared workspaces)
+
+Ethos: Collaborative documents, living knowledge.
+Design DNA: Clean, modular, database-driven.
+Use case: Teams building shared “operating systems.”
+GitHub parallel: Feels like README.md meets wiki meets kanban.
+
+🧪 Research & Academic Collaboration
+📚 Open Science Framework
+
+Ethos: Open research, versioned files, transparent workflows.
+Design DNA: Project hubs with permissions and logs.
+GitHub parallel: Repos, but for experiments and datasets.
+
+📝 Overleaf
+
+Ethos: Collaborative writing with revision history.
+Design DNA: Git-style tracking under the hood.
+GitHub parallel: Pull requests, but for academic papers.
+
+🎨 Creative Collaboration
+🎬 Figma
+
+Ethos: Real-time collaborative creation.
+Design DNA: Version history, branching (yes, literally).
+GitHub parallel: Designers get their own PR universe.
+
+🎵 Soundtrap
+
+Ethos: Music as shared project.
+Design DNA: Track versions, collaborative editing.
+GitHub parallel: Commits, but they groove.
+
+🧩 Community Knowledge / Structured Q&A
+💬 Stack Overflow
+
+Ethos: Collective problem solving.
+Design DNA: Reputation, edits, community moderation.
+GitHub parallel: Issues tab, but crowdsourced.
+
+📖 BookStack
+
+Ethos: Structured documentation, self-hostable.
+Design DNA: Books → Chapters → Pages hierarchy.
+GitHub parallel: Like a well-organized docs repo.
+
+🌱 Open Collaboration Platforms (Non-Code)
+🗳️ Loomio
+
+Ethos: Transparent group decision making.
+Design DNA: Threads + formal proposals.
+GitHub parallel: Issues + voting baked in.
+
+🛠️ HackMD
+
+Ethos: Markdown-first collaborative editing.
+Design DNA: Clean, version-aware documents.
+GitHub parallel: Markdown repo with live co-editing.
+
+🌿 If You’re Designing Your Wiki Profile Page…
+
+You might think of it as:
+
+A personal repository of self.
+Not a résumé. Not a social feed. A living changelog of who you are.
+
+Borrow from GitHub’s design philosophy:
+
+🧾 1. README-Style Intro
+
+Short, clean, intention-revealing.
+What are you building in life right now?
+
+🛠️ 2. “Projects” Section
+
+Not jobs. Projects.
+Even life projects count.
+
+📊 3. Version History
+
+Add timestamps to updates. Show growth over time.
+Let evolution be visible.
+
+💬 4. Open Issues
+
+What questions are you exploring?
+What skills are you leveling up?
+
+🔀 5. Forkable Ideas
+
+Invite collaboration.
+“Currently researching X. Message me if you’re into it.”
+
+If you tell me:
+
+Is this page for a public wiki?
+
+Personal website?
+
+Community knowledge platform?
+
+Professional identity?
+
+I can help you architect it like a beautifully structured repo 🌌📁
