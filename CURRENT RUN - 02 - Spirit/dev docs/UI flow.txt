@@ -1,0 +1,39 @@
+The session module of Listiary deals with authentication and accounts.
+It has 3 major parts - the 'log in' part and the 'logged in' part, and the users index.
+This article examines the log in part - responsible for creating accounts and logging in.
+
+
+
+1. The Log In/Sign up button.
+
+	In the main menu, there is a button captioned "Log In/Sign up".
+	By clicking it, users are redirected to the login form.
+	However, if a user is logged in, this button shows his account name instead, and when clicked sends the user to his logged in profile page.
+	
+	```
+	m.index.php 		->			session/m.login.php
+	m.index.php 		->			session/m.userhome.php
+	```
+
+
+2. The log in page.
+
+	The log in page has an email and password fields, so that users can log in by entering an email and a password.
+	There is a check box captioned "Keep me logged in (for up to a year)". When checked, this will activate the persistent login mechanism.
+	The Login button tries to log the user in.
+	The Reset button clears all the fields.
+	Additionally, we have links to register or recover from a forgotten password by sending a reset password link to the users email.
+	If sign in is unsuccessful, an error message(s) appear on the login page.
+	If successful, the user is reddirected to the wiki index page.
+	There is also rate limiting on the number of failed attempts a user gets before he has to wait a set ammount of time.
+	
+	```
+	session/m.login.php 		->			m.index.php
+	session/m.login.php 		->			session/m.register.php
+	session/m.login.php 		->			session/m.forgotpass.php
+	```
+
+
+3. The register page.
+
+	

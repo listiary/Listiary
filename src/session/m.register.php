@@ -1,176 +1,198 @@
 <?php
 
-	//https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
+	// Presets
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+	require_once __DIR__ . "/php/_config.php";
+	require_once __DIR__ . "/php/_sessionlib.php";
+	require_once __DIR__ . "/php/_ratelimiters.php";
+	set_exception_handler('catchEx');
 	
-	//include config
-	require_once "_config.php";
+	// More Presets
+	startSecureSession();
+	$link = connectDb();
 
-	// Check connection
-	if(!$link) die("Connection failed: " . mysqli_connect_error());
-	//echo "Created connection to '" . $servername . "'<br />";
- 
-	// Define variables and initialize with empty values
-	$username = ""; 
-	$password = "";
-	$confirm_password = "";
-	$username_err = "";
-	$password_err = "";
-	$confirm_password_err = "";
- 
-	// Processing form data when form is submitted
-	if($_SERVER["REQUEST_METHOD"] == "POST")
-	{
-		// Validate username
-		if(empty(trim($_POST["username"])))
+	// Include secret key for usercode generation
+	require_once __DIR__ . "/php/_secret.php";
+	$secret_key = SECRET_KEY_1;
+
+    // Define variables and initialize with empty values
+    $username = "";
+	$email = "";
+    $password = "";
+    $confirm_password = "";
+    $username_err = "";
+	$email_err = "";
+    $password_err = "";
+    $confirm_password_err = "";
+
+    // Processing form data when form is submitted
+    if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+		// Verify CSRF token
+		if(isCsrfTokenValid() == false)
 		{
-			$username_err = "Please enter a username.";
-		} 
-		elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
+			http_response_code(403);
+			throw new RuntimeException('Invalid CSRF token.');
+		}
+		
+        // Validate username
+        if(empty(trim($_POST["username"])))
+        {
+            $username_err = "Please enter a username.";
+        }
+        elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
+        {
+            $username_err = "Username can only contain letters, numbers, and underscores.";
+        }
+		elseif(!preg_match('/^[a-zA-Z0-9_]{3,35}$/', $_POST["username"])) 
 		{
-			$username_err = "Username can only contain letters, numbers, and underscores.";
-		} 
-		else
+			$username_err = "Username can only contain letters, numbers, and underscores and be 3 to 35 symbols long.";
+		}
+
+		// Validate email
+		if(empty(trim($_POST["email"])))
+        {
+            $email_err = "Please enter an email address.";
+        }
+		else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) 
 		{
-			// Prepare a select statement
-			$sql = "SELECT id FROM users WHERE username = ?";
+			$email_err = "Please enter a valid email address.";
+		}
+
+        // Validate password
+        if(empty(trim($_POST["password"])))
+        {
+            $password_err = "Please enter a password.";
+        }
+        elseif(strlen(trim($_POST["password"])) < 12)
+        {
+            $password_err = "Password must have at least 12 characters.";
+        }
+        else
+        {
+            $password = trim($_POST["password"]);
+        }
+        
+        // Validate confirm password
+        if(empty(trim($_POST["confirm_password"])))
+        {
+            $confirm_password_err = "Please confirm password.";
+        }
+        else
+        {
+            $confirm_password = trim($_POST["confirm_password"]);
+            if(empty($password_err) && ($password != $confirm_password))
+            {
+                $confirm_password_err = "Password did not match.";
+            }
+        }
+		
+		
+		//log account creation rate-limiting event
+		//users should be limited at how many emails they might try
+		//but it should be a bigger number than the allowed successful registrations
+		//but for now, we won't be limiting that
+		
+		// Check if username taken
+		$isUsernameTaken = isUsernameTaken($link, $username);
+		if($isUsernameTaken == false) $username = trim($_POST["username"]);
+		else $username_err = "This username is already taken.";
+		
+		// Check if email taken
+		$isEmailTaken = isEmailTaken($link, $email);
+		if($isEmailTaken == false) $email = trim($_POST["email"]);
+		else $email_err = "This email is already taken.";
+		
+		// Check if too many accounts registrations on this IP
+		if(isIpBlockedForRegister($link))
+		{
+			$username_err = "Your IP adress has been blocked for too many registrations.";
+			$email_err = "Your IP adress has been blocked for too many registrations.";
+			$password_err = "Your IP adress has been blocked for too many registrations.";
+			$confirm_password_err = "Your IP adress has been blocked for too many registrations.";
+		}
+
+        // Check input errors before inserting in database
+        if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err))
+        {
+			createAccount($link, $username, $email, $password, 0);
 			
-			if($stmt = mysqli_prepare($link, $sql)){
-				// Bind variables to the prepared statement as parameters
-				mysqli_stmt_bind_param($stmt, "s", $param_username);
-				
-				// Set parameters
-				$param_username = trim($_POST["username"]);
-				
-				// Attempt to execute the prepared statement
-				if(mysqli_stmt_execute($stmt))
-				{
-					/* store result */
-					mysqli_stmt_store_result($stmt);
-					
-					if(mysqli_stmt_num_rows($stmt) == 1)
-					{
-						$username_err = "This username is already taken.";
-					} 
-					else
-					{
-						$username = trim($_POST["username"]);
-					}
-				} 
-				else
-				{
-					echo "Oops! Something went wrong. Please try again later.";
-				}
-
-				// Close statement
-				mysqli_stmt_close($stmt);
-			}
-		}
-		
-		// Validate password
-		if(empty(trim($_POST["password"])))
-		{
-			$password_err = "Please enter a password.";     
-		} 
-		elseif(strlen(trim($_POST["password"])) < 12)
-		{
-			$password_err = "Password must have atleast 12 characters.";
-		}
-		else
-		{
-			$password = trim($_POST["password"]);
-		}
-		
-		// Validate confirm password
-		if(empty(trim($_POST["confirm_password"])))
-		{
-			$confirm_password_err = "Please confirm password.";     
-		} 
-		else
-		{
-			$confirm_password = trim($_POST["confirm_password"]);
-			if(empty($password_err) && ($password != $confirm_password))
-			{
-				$confirm_password_err = "Password did not match.";
-			}
-		}
-		
-		// Check input errors before inserting in database
-		if(empty($username_err) && empty($password_err) && empty($confirm_password_err))
-		{
+			//log account creation rate-limiting event
+			recordRegistrationSuccess($link, $email);
 			
-			// Prepare an insert statement
-			$sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-			 
-			if($stmt = mysqli_prepare($link, $sql))
+			// send verification link
+			$res = sendVerificationEmail($link, $username, $email, $raw_token);
+			if($res)
 			{
-				// Bind variables to the prepared statement as parameters
-				mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-				
-				// Set parameters
-				$param_username = $username;
-				$param_password = password_hash($password, PASSWORD_BCRYPT); // Creates a password hash
-				
-				// Attempt to execute the prepared statement
-				if(mysqli_stmt_execute($stmt))
-				{
-					// Redirect to login page
-					header("location: login.php");
-				} 
-				else
-				{
-					echo "Oops! Something went wrong. Please try again later.";
-				}
-
-				// Close statement
-				mysqli_stmt_close($stmt);
+				// Redirect to login page
+				header("location: m.regsuccess.php");
+				exit;
 			}
-		}
-		
-		// Close connection
-		mysqli_close($link);
-	}
+			else
+			{
+				throw new RuntimeException('Oops. Something went wrong.');
+			}
+        } 
+    }	
 ?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- CRITICAL FOR MOBILE: This line makes it scale correctly on phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-	<!-- https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css -->
-    <link rel="stylesheet" href="register.styles.bootstrap.min.css">
-    <style>
-        body{ font: 70px sans-serif; }
-        .wrapper{ width: 100px; padding: 100px; }
-    </style>
+	<link rel="stylesheet" href="css/m.register.css">
 </head>
 <body>
-    <div class="wrapper" style="margin-left: auto; margin-right: auto; width: 100%;">
-		<h2 style="font: 70px sans-serif; text-align: center;">Sign Up</h2>
-		<br />
+    <div class="wrapper">
+        <h2>Create Account</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+		<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            
             <div class="form-group">
-                <label style="font: 50px sans-serif;">Username</label>
-                <input style="font: 70px sans-serif;"  type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                <label>Username</label>
+                <input type="text" name="username" 
+                       class="<?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" 
+                       value="<?php echo $username; ?>"
+                       placeholder="Choose a username">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
+            </div>
+			
+			<div class="form-group">
+                <label>Email address</label>
+                <input type="text" name="email" 
+                       class="<?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" 
+                       value="<?php echo $email; ?>"
+                       placeholder="Enter your email address">
+                <span class="invalid-feedback"><?php echo $email_err; ?></span>
+            </div>
+            
             <div class="form-group">
-                <label style="font: 50px sans-serif;">Password</label>
-                <input style="font: 70px sans-serif;" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <label>Password (minimum 12 characters)</label>
+                <input type="password" name="password" 
+                       class="<?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" 
+                       value="<?php echo $password; ?>"
+                       placeholder="Enter a password">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
+
             <div class="form-group">
-                <label style="font: 50px sans-serif;">Confirm Password</label>
-                <input style="font: 70px sans-serif;" type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" 
+                       class="<?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" 
+                       value="<?php echo $confirm_password; ?>"
+                       placeholder="Enter the password again">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
-			<br />
-            <div class="form-group" style="text-align: center;">
-                <input style="font: 70px sans-serif;" type="submit" class="btn btn-primary" value="Submit">
-                <input style="font: 70px sans-serif;" type="reset" class="btn btn-secondary ml-2" value="Reset">
+
+            <div class="btn-container">
+                <input type="submit" class="btn btn-primary" value="Sign Up">
+                <input type="reset" class="btn btn-secondary" value="Reset">
             </div>
-			<br />
-            <p style="text-align: center;">Already have an account? <a href="m.login.php">Login here</a>.</p>
+
+            <p>Already have an account? <a href="m.login.php">Login here</a>.</p>
         </form>
-    </div>    
+    </div>
 </body>
 </html>

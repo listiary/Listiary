@@ -1,39 +1,41 @@
 <?php
 
-	//https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
-
-	// Initialize the session
-	session_start();
+	// Presets
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+	require_once __DIR__ . "/php/_config.php";
+	require_once __DIR__ . "/php/_sessionlib.php";
+	require_once __DIR__ . "/php/_ratelimiters.php";
+	set_exception_handler('catchEx');
 	
+	// More Presets
+	startSecureSession();
+	$link = connectDb();
+
 	//try to get redirect params
-	$redirecturl = "https://development.worldinlists.net/m.index.php";
-	if(isset($_GET['domain']) == true)
-	{
-		$redirecturl = $redirecturl . "?domain=" . $_GET['domain'];
-		if(isset($_GET['article']) == true) 
-			$redirecturl = $redirecturl . "&article=" . $_GET['article'];
-	}
+	$redirecturl = getRedirectLink();
 
-		// echo("Redirect url here is: " . $redirecturl . "<br>");
-		// die();
-
-	// Check if the user is already logged in, if yes then redirect him to welcome page
-	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+	// If we logged in - redirect
+	// Else, try to log in from a remember_me cookie
+	// if successful - redirect, if not load the page further
+	// And if we are using POST, we will proceed to try and execute a login
+	if (!isSessionEmpty()) 
 	{
-			// echo("User logged in. Redirecting: " . $redirecturl . "<br>");
-			// die();
-			
-		header("location: " . $redirecturl);
+		header("Location: " . $redirecturl);
 		exit;
 	}
- 
-	//include config
-	require_once "_config.php";
+	else
+	{
+		$result = doRememberedLogin($link);
+		if($result === true)
+		{			
+			//redirect
+			header("Location: " . $redirecturl);
+			exit;
+		}
+	}
+	
+	
 
-	// Check connection
-	if(!$link) die("Connection failed: " . mysqli_connect_error());
-	//echo "Created connection to '" . $servername . "'<br />";
- 
 	// Define variables and initialize with empty values
 	$username = $password = "";
 	$username_err = $password_err = $login_err = "";
@@ -41,6 +43,13 @@
 	// Processing form data when form is submitted
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
+		// Verify CSRF token
+		if(isCsrfTokenValid() == false)
+		{
+			http_response_code(403);
+			throw new RuntimeException('Invalid CSRF token.');
+		}
+		
 		// Check if username is empty
 		if(empty(trim($_POST["username"])))
 		{
@@ -61,110 +70,91 @@
 			$password = trim($_POST["password"]);
 		}
 		
+		// Check if too many incorrect attempts have been made
+		$email = $_POST["username"];
+		if(isIpBlocked($link) || isEmailBlocked($link, $email))
+		{
+			$login_err = "Too many unsuccessful login attempts have been made. Wait a while.";
+			$username_err = "Too many unsuccessful login attempts have been made. Wait a while.";
+			$password_err = "Too many unsuccessful login attempts have been made. Wait a while.";
+		}
+		
 		// Validate credentials
 		if(empty($username_err) && empty($password_err))
 		{
-			// Prepare a select statement
-			$sql = "SELECT id, username, password FROM users WHERE username = ?";
-			
-			if($stmt = mysqli_prepare($link, $sql)){
-				// Bind variables to the prepared statement as parameters
-				mysqli_stmt_bind_param($stmt, "s", $param_username);
-				
-				// Set parameters
-				$param_username = $username;
-				
-				// Attempt to execute the prepared statement
-				if(mysqli_stmt_execute($stmt))
-				{
-					// Store result
-					mysqli_stmt_store_result($stmt);
-					
-					// Check if username exists, if yes then verify password
-					if(mysqli_stmt_num_rows($stmt) == 1)
-					{                    
-						// Bind result variables
-						mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-						if(mysqli_stmt_fetch($stmt))
-						{
-							if(password_verify($password, $hashed_password))
-							{
-								// Password is correct, so start a new session
-								session_start();
-								
-								// Store data in session variables
-								$_SESSION["loggedin"] = true;
-								$_SESSION["id"] = $id;
-								$_SESSION["username"] = $username;                            
-								
-								// Redirect user to welcome page
-								// echo("Redirect user to welcome page. Redirect url is: " . $redirecturl);
-								// die();
-								header("location: " . $redirecturl);
-							} 
-							else
-							{
-								// Password is not valid, display a generic error message
-								$login_err = "Invalid username or password.";
-							}
-						}
-					} 
-					else
-					{
-						// Username doesn't exist, display a generic error message
-						$login_err = "Invalid username or password.";
-					}
-				} 
-				else
-				{
-					echo "Oops! Something went wrong. Please try again later.";
-				}
+			// Verify password and username
+			$user = fetchUserCredentials($link, $_POST["username"]);
 
-				// Close statement
-				mysqli_stmt_close($stmt);
+			if ($user === null || !password_verify($password, $user['password_hash']))
+			{
+				$login_err = "Invalid username or password.";
+				$password_err = "Invalid username or password.";
+				$username_err = "Invalid username or password.";
+				recordFailedLoginAttempt($link, $email);
+			}
+			else
+			{
+				// Success - login
+				cleanupLoginAttempts($link, $email);
+				if (!empty($_POST['remember_me'])) 
+				{
+					executePersistentLogin($link, $user['id']);
+				}
+				restoreUserSession($link, $user['id']);
+				header("Location: " . $redirecturl);
+				exit;
 			}
 		}
-		
-		// Close connection
-		mysqli_close($link);
 	}
 ?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-	<!-- https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css -->
-    <link rel="stylesheet" href="register.styles.bootstrap.min.css">
-    <style>
-        body{ font: 70px sans-serif; }
-        .wrapper{ width: 100px; padding: 100px; }
-    </style>
+    <!-- CRITICAL FOR MOBILE: This line makes it scale correctly on phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+	<link rel="stylesheet" href="css/m.login.css">
 </head>
 <body>
-    <div class="wrapper" style="margin-left: auto; margin-right: auto; width: 100%;">
-		<h2 style="font: 70px sans-serif; text-align: center;">Sign In</h2>
+    <div class="wrapper">
+        <h2>Sign In</h2>
 		<br />
-		<?php if(!empty($login_err)){ echo '<div class="alert alert-danger">' . $login_err . '</div>';} ?>
-        <form action="" method="post">
-            <div class="form-group">
-                <label style="font: 50px sans-serif;">Username</label>
-                <input style="font: 70px sans-serif;" type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+		<span><?php if(!empty($login_err)){ echo '<div style="color: red; font-style: italic;">' . $login_err . '</div><br>';} ?></span>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+			<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            
+			<div class="form-group">
+                <label>Email address</label>
+                <input type="text" name="username" 
+                       class="<?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" 
+                       value="<?php echo $username; ?>"
+                       placeholder="email address">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
+            </div>
+            
             <div class="form-group">
-                <label style="font: 50px sans-serif;">Password</label>
-                <input style="font: 70px sans-serif;" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <label>Password</label>
+                <input type="password" name="password" 
+                       class="<?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" 
+                       value="<?php echo $password; ?>"
+                       placeholder="password">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
-			<br />
-            <div class="form-group" style="text-align: center;">
-                <input style="font: 70px sans-serif;" type="submit" class="btn btn-primary" value="Log in">
+			<div class="remember-me">
+				<input type="checkbox" name="remember_me" id="remember_me"
+					<?php echo (!empty($_POST['remember_me'])) ? 'checked' : ''; ?>>
+				<label for="remember_me">Keep me logged in (for up to a year)</label>
+			</div>
+
+            <div class="btn-container">
+                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="reset" class="btn btn-secondary" value="Reset">
             </div>
-			<br />
-            <p style="text-align: center;">Don't have an account? <a href="m.register.php">Register here</a>.</p>
+
+            <p style="text-align: center;">Don't have an account? <a href="m.register.php">Register here</a>.
+			<br/><a href="m.forgotpass.php">Forgot password</a></p>
         </form>
-    </div>    
+    </div>
 </body>
 </html>
