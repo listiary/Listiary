@@ -1,0 +1,3 @@
+Username must be a part of (prefix) e.g. "DemonOfReason.MyHomeAdmin.MyPhoneApps" to the personal and private names. It is so in the compiled json, and must be so in the new article creation tool. This is necessairy because we use unique names for oldver keeping
+
+Should namespaces contain that prefix too?
