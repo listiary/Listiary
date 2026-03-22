@@ -1,3 +1,0 @@
-FEATURE: {custom|underline} Underline custom decorator
-
-This custom decorator produces entries with an underline

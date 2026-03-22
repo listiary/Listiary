@@ -1,3 +1,0 @@
-FEATURE: {custom|striked} Striked custom decorator
-
-This custom decorator produces entries with a line-through effect
