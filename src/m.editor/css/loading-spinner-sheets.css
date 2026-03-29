@@ -1,0 +1,29 @@
+.loader {
+  position: relative;
+  width: 96px;   /* doubled from 48px */
+  height: 96px;  /* doubled from 48px */
+  background: #4fc3f7; /* sky blue */
+  transform: rotateX(65deg) rotate(45deg);
+  color: #fff;
+  animation: layers1 1s linear infinite alternate;
+}
+
+.loader:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55); /* softer highlight tint */
+  animation: layerTr 1s linear infinite alternate;
+}
+
+@keyframes layers1 {
+  0% { box-shadow: 0px 0px 0 0px rgba(79,195,247,0.0); }
+  90%, 100% {
+    box-shadow: 40px 40px 0 -4px rgba(79,195,247,0.6);
+  }
+}
+
+@keyframes layerTr {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, -50px) scale(1); }
+}

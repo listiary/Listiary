@@ -1,0 +1,31 @@
+.loader {
+  width: 28px;   /* doubled from 16px */
+  height: 28px;  /* doubled from 16px */
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+
+  background: #4fc3f7;
+  box-shadow: -48px 0 #4fc3f7, 48px 0 #4fc3f7; /* scaled from 24px */
+
+  box-sizing: border-box;
+  animation: shadowPulse 2s linear infinite;
+}
+
+@keyframes shadowPulse {
+  33% {
+    background: rgba(79,195,247,0.25);
+    box-shadow: -48px 0 #0288d1, 48px 0 #4fc3f7;
+  }
+
+  66% {
+    background: #0288d1;
+    box-shadow: -48px 0 #4fc3f7, 48px 0 rgba(79,195,247,0.25);
+  }
+
+  100% {
+    background: #4fc3f7;
+    box-shadow: -48px 0 rgba(79,195,247,0.25), 48px 0 #0288d1;
+  }
+}

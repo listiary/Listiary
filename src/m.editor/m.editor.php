@@ -202,15 +202,18 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="author" content="Demon of reason">
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/loading-spinner.css" />
 	<title>Listiary | Edit Article</title>
 </head>
 <body style="height:100%;">
 
 	<div id="loadingModal" class="loading-modal" style="display:none;">
 		<div class="loading-modal-content">
-			<img src="img/LoadingGifs/spin2.gif" alt="loading">
+			<span class="loader"></span>
+			<!-- <img src="img/LoadingGifs/spin2.gif" alt="loading"> -->
 		</div>
 	</div>
+
 
 	<!-- https://www.branchcms.com/learn/docs/overview/editor-v4/toolbar-buttons -->
 	<div id="sidenav" style="z-index: 999;">
