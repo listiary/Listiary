@@ -1,0 +1,51 @@
+//cd "/home/vchernev/Home/Major Projects/Listiary Describe/Listiary Wiki Farm/Listiary/installer"
+//clear
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+1list_files.php
+List all files in a selected directory on the local file system.
+
+usage (bash) - output to console                            php 1list_files.php "/path/to/directory"
+usage (bash) - output to file                               php 1list_files.php "/path/to/directory" > "output.txt"
+usage (bash) - append to file                               php 1list_files.php "/path/to/directory" >> "output.txt"
+usage (bash) - capture errors to file                       php 1list_files.php "/path/to/directory" 2> "errors.txt"
+usage (bash) - append errors to file                        php 1list_files.php "/path/to/directory" 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 1list_files.php "/path/to/directory" > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 1list_files.php "/path/to/directory" &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+1set_config.php
+Help you create a config file for your database, checking for invalid values
+by trying to establish a connection to the database for you. The output is a timestamped
+config file. If you want to use it, you need to remove the timestamp.
+
+usage (bash) - output to console                            php 1set_config.php
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+1create_tables.php
+Create the needed tables for the wiki in the database provided in the "_config.php" file.
+
+usage (bash) - output to console                            php 1create_tables.php
+usage (bash) - output to file                               php 1create_tables.php > "output.txt"
+usage (bash) - append to file                               php 1create_tables.php >> "output.txt"
+usage (bash) - capture errors to file                       php 1create_tables.php 2> "errors.txt"
+usage (bash) - append errors to file                        php 1create_tables.php 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 1create_tables.php > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 1create_tables.php &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+1wipe_database.php
+Delete all the contents from a database - as means to uninstall the wiki.
+
+usage (bash) - output to console                            php 1wipe_database.php
+usage (bash) - output to file                               php 1wipe_database.php > "output.txt"
+usage (bash) - append to file                               php 1wipe_database.php >> "output.txt"
+usage (bash) - capture errors to file                       php 1wipe_database.php 2> "errors.txt"
+usage (bash) - append errors to file                        php 1wipe_database.php 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 1wipe_database.php > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 1wipe_database.php &> "all_output.txt"
+
