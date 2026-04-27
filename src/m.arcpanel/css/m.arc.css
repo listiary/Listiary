@@ -6,7 +6,6 @@ body {
 }
 
 
-
 .btn {
 	display: inline-flex;
 	justify-content: center;
@@ -16,7 +15,7 @@ body {
 	margin: 2px;
 	font-size: 0.9rem;
 
-	border: 2px solid black;
+    border: 2px solid black;
 	border-radius: 0px 60px 60px 60px;
 	color: white;
 	text-decoration: none;
@@ -54,33 +53,3 @@ body {
 .btn--orange:hover { color: black; background-color: #E89A8E; }
 .btn--purple { color: black; background-color: #99B3FF; }
 .btn--purple:hover { color: black; background-color: #7F99E6; }
-
-
-
-
-.is-invalid {
-	border-color: #dc3545 !important;
-	background-color: #fff8f8 !important;
-}
-
-.invalid-feedback {
-	color: #dc3545;
-	font-size: 13px;
-	margin-top: 6px;
-	font-style: italic;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

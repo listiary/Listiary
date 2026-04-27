@@ -111,6 +111,7 @@
 	
 	padding: 8px 16px;
 	background-color: #007bff;
+	width: 6em;
 	color: white;
 	border: none;
 	border-radius: 4px;
@@ -231,3 +232,53 @@
     padding: 10px;
 	box-sizing: border-box;
 }
+
+
+.listiaryYesNoModalBody label.listiaryCheckboxWrapper {
+	
+	display: flex; 
+	align-items: center; 
+	gap: 10px;
+	margin-right: 5px;
+}
+.listiaryYesNoModalBody label.listiaryUpDownLabel {
+	
+	display: inline-flex; 
+	align-items: center; 
+	font-family: sans-serif; 
+	font-size: 12px;
+	font-weight: 600;
+	color: #606770;
+	user-select: none;
+}
+.listiaryYesNoModalBody input.listiaryUpDownInput {
+	
+	width: 31px;
+	text-align: center; 
+	color: #606770;
+	border: none; 
+	background: transparent; 
+	font-weight: bold; 
+	font-family: monospace; 
+	outline: none; 
+	pointer-events: none;
+}
+.listiaryYesNoModalBody div.listiaryUpDownControl {
+	
+	color: #606770; 
+	font-style: italic; 
+	font-family: monospace; 
+	font-size: 11px; 
+	display: flex; 
+	align-items: center; 
+	margin-left: -5px;
+}
+.listiaryYesNoModalBody span.listiaryUpDownControlTrigger {
+	
+	cursor: pointer; 
+	padding: 0 2px; 
+	font-weight: bold; 
+	color: #606770;
+}
+
+

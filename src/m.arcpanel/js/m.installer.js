@@ -1,9 +1,8 @@
+//step 2
 let step2ModalName = "setDbTablesModal";
 let step2Console = document.getElementById("step2Console");
 let step2Button = document.getElementById("step2Button");
 let failed = false;
-
-
 
 function step2_Init() {
 	
@@ -34,8 +33,6 @@ function step2_CloseModal() {
 		step2Button.onclick = execute_step21;
 	}
 }
-
-
 
 function step2_outputWelcomeMessage() {
 
@@ -108,8 +105,6 @@ async function step2_executePhp_CreateTables() {
     }
 }
 
-
-
 async function execute_step21() {
 	
 	step2Button.disabled = true;
@@ -145,3 +140,19 @@ async function execute_step22() {
 	}
     step2Button.disabled = false;
 }
+
+
+
+//step 3
+let step3ModalName = "settingsConfigModal";
+
+function step3_ShowModal() {
+	
+	showListiaryModal(step3ModalName);
+}
+function step3_CloseModal() {
+	
+	hideListiaryModal(step3ModalName);
+}
+
+

@@ -29,12 +29,19 @@
 	// $step3State = "inactive";	//inactive, active, open, succeeded
 	// $step4State = "inactive";	//inactive, active, open, succeeded
 	// $step5State = "inactive";	//inactive, active, open, succeeded
-	$step1State = "succeeded";		//inactive, active, open, succeeded
-	$step2State = "active";	//inactive, active, open, succeeded
-	$step3State = "inactive";	//inactive, active, open, succeeded
+		// $step1State = "succeeded";		//inactive, active, open, succeeded
+		// $step2State = "active";	//inactive, active, open, succeeded
+		// $step3State = "inactive";	//inactive, active, open, succeeded
+		// $step4State = "inactive";	//inactive, active, open, succeeded
+		// $step5State = "inactive";	//inactive, active, open, succeeded
+	$step1State = "active";		//inactive, active, open, succeeded
+	$step2State = "inactive";	//inactive, active, open, succeeded
+	$step3State = "active";	//inactive, active, open, succeeded
 	$step4State = "inactive";	//inactive, active, open, succeeded
 	$step5State = "inactive";	//inactive, active, open, succeeded
-	
+
+
+
 	//step 1 vars
 	$compilerUrl = "";
 	$wikiUrl = "";
@@ -212,7 +219,371 @@
 		$step2State = "active";
 	}
 
-	//step 2 vars
+	//step 3 vars
+	$allowSessionOverHttp = false;
+	$isProduction = false;
+
+	$maxLoginAttemptsPerIp = 10;
+	$maxLoginAttemptsPerEmail = 5;
+	$waitTimeLogin = 15;
+	$keepOldRecordsLogin = 7;
+	
+	$maxResetAttemptsPerIp = 10;
+	$maxResetAttemptsPerEmail = 5;
+	$waitTimeReset = 16;
+	$keepOldRecordsReset = 7;
+	
+	$maxRegisterSuccessesPerIp = 2;
+	$waitTimeRegister = 10080;
+	$keepOldRecordsRegister = 14;
+
+	//step 3 funcs
+	function setIsProductionDeployment(): void {
+
+		global $isProduction;
+
+		$isProduction = (
+			isset($_POST['isprod']) && $_POST['isprod'] === '1'
+		) ? 'true' : 'false';
+	}
+	function setIsHttpSessionAllowed(): void {
+	
+		global $allowSessionOverHttp;
+
+		$isDisallowed = isset($_POST['ishttpsesdisallowed']) 
+			&& $_POST['ishttpsesdisallowed'] === '1';
+
+		$allowSessionOverHttp = $isDisallowed ? 'false' : 'true';
+	}
+
+	function setMaxLoginAttemptsPerIp(): void {
+
+		global $maxLoginAttemptsPerIp;
+
+		if (isset($_POST['maxLoginAttemptsIp'])) {
+			$value = filter_input(INPUT_POST, 
+				'maxLoginAttemptsIp', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 5, 'max_range' => 50]]
+			);
+
+			if ($value !== false) 
+			{
+				$maxLoginAttemptsPerIp = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("maxLoginAttemptsIp must be an integer between 5 and 50.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("maxLoginAttemptsIp is not set.");
+		}
+	}
+	function setMaxLoginAttemptsPerEmail(): void {
+
+		global $maxLoginAttemptsPerEmail;
+
+		if (isset($_POST['maxLoginAttemptsEmail'])) {
+			$value = filter_input(INPUT_POST, 
+				'maxLoginAttemptsEmail', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 5, 'max_range' => 50]]
+			);
+
+			if ($value !== false) 
+			{
+				$maxLoginAttemptsPerEmail = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("maxLoginAttemptsEmail must be an integer between 5 and 50.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("maxLoginAttemptsEmail is not set.");
+		}
+	}
+	function setWaitTimeLogin(): void {
+
+		global $waitTimeLogin;
+
+		if (isset($_POST['waitTimeLogin'])) {
+			$value = filter_input(INPUT_POST, 
+				'waitTimeLogin', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 5, 'max_range' => 720]]
+			);
+
+			if ($value !== false) 
+			{
+				$waitTimeLogin = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("waitTimeLogin must be an integer between 5 and 720.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("waitTimeLogin is not set.");
+		}
+	}
+	function setKeepOldRecordsLogin(): void {
+
+		global $keepOldRecordsLogin;
+
+		if (isset($_POST['keepOldRecordsLogin'])) {
+			$value = filter_input(INPUT_POST, 
+				'keepOldRecordsLogin', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 5, 'max_range' => 731]]
+			);
+
+			if ($value !== false) 
+			{
+				$keepOldRecordsLogin = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("keepOldRecordsLogin must be an integer between 5 and 731.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("keepOldRecordsLogin is not set.");
+		}
+	}
+	
+	function setMaxResetAttemptsPerIp(): void {
+
+		global $maxResetAttemptsPerIp;
+
+		if (isset($_POST['maxResetAttemptsIp'])) {
+			$value = filter_input(INPUT_POST, 
+				'maxResetAttemptsIp', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 5, 'max_range' => 50]]
+			);
+
+			if ($value !== false) 
+			{
+				$maxResetAttemptsPerIp = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("maxResetAttemptsIp must be an integer between 5 and 50.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("maxResetAttemptsIp is not set.");
+		}
+	}
+	function setMaxResetAttemptsPerEmail(): void {
+
+		global $maxResetAttemptsPerEmail;
+
+		if (isset($_POST['maxResetAttemptsEmail'])) {
+			$value = filter_input(INPUT_POST, 
+				'maxResetAttemptsEmail', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 5, 'max_range' => 50]]
+			);
+
+			if ($value !== false) 
+			{
+				$maxResetAttemptsPerEmail = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("maxResetAttemptsEmail must be an integer between 5 and 50.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("maxResetAttemptsEmail is not set.");
+		}
+	}
+	function setWaitTimeReset(): void {
+
+		global $waitTimeReset;
+
+		if (isset($_POST['waitTimeReset'])) {
+			$value = filter_input(INPUT_POST, 
+				'waitTimeReset', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 16, 'max_range' => 1440]]
+			);
+
+			if ($value !== false) 
+			{
+				$waitTimeReset = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("waitTimeReset must be an integer between 16 and 1440.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("waitTimeReset is not set.");
+		}
+	}
+	function setKeepOldRecordsReset(): void {
+
+		global $keepOldRecordsReset;
+
+		if (isset($_POST['keepOldRecordsReset'])) {
+			$value = filter_input(INPUT_POST, 
+				'keepOldRecordsReset', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 1, 'max_range' => 731]]
+			);
+
+			if ($value !== false) 
+			{
+				$keepOldRecordsReset = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("keepOldRecordsReset must be an integer between 1 and 731.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("keepOldRecordsReset is not set.");
+		}
+	}
+	
+	function setMaxRegSuccessPerIp(): void {
+		
+		global $maxRegisterSuccessesPerIp;
+
+		if (isset($_POST['maxRegSuccessIp'])) {
+			$value = filter_input(INPUT_POST, 
+				'maxRegSuccessIp', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 1, 'max_range' => 10]]
+			);
+
+			if ($value !== false) 
+			{
+				$maxRegisterSuccessesPerIp = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("maxRegSuccessIp must be an integer between 1 and 10.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("maxRegSuccessIp is not set.");
+		}
+	}
+	function setWaitTimeRegSuccess(): void {
+		
+		global $waitTimeRegister;
+
+		if (isset($_POST['waitTimeRegSuccess'])) {
+			$value = filter_input(INPUT_POST, 
+				'waitTimeRegSuccess', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 1, 'max_range' => 10]]
+			);
+
+			if ($value !== false) 
+			{
+				$waitTimeRegister = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("waitTimeRegSuccess must be an integer between 1 and 10.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("waitTimeRegSuccess is not set.");
+		}
+	}
+	function setKeepOldRecordsRegister(): void {
+		
+		global $keepOldRecordsRegister;
+
+		if (isset($_POST['keepOldRecordsRegister'])) {
+			$value = filter_input(INPUT_POST, 
+				'keepOldRecordsRegister', 
+				FILTER_VALIDATE_INT,
+				['options' => ['min_range' => 1, 'max_range' => 731]]
+			);
+
+			if ($value !== false) 
+			{
+				$keepOldRecordsRegister = $value;
+			} 
+			else 
+			{
+				throw new InvalidArgumentException("keepOldRecordsRegister must be an integer between 1 and 731.");
+			}
+		}
+		else
+		{
+			throw new InvalidArgumentException("keepOldRecordsRegister is not set.");
+		}
+	}
+	
+	function writeSettingsConfig(): void {
+		
+		global $allowSessionOverHttp, $isProduction, 
+			$maxLoginAttemptsPerIp, $maxLoginAttemptsPerEmail, $waitTimeLogin, $keepOldRecordsLogin,
+			$maxResetAttemptsPerIp, $maxResetAttemptsPerEmail, $waitTimeReset, $keepOldRecordsReset,
+			$maxRegisterSuccessesPerIp, $waitTimeRegister, $keepOldRecordsRegister;
+		
+		//read config template
+		$path = __DIR__ . '/_installer_templates/_settings_config_template.php';
+		if (!is_readable($path)) throw new RuntimeException("Settings Config template not readable.");
+		$template = file_get_contents($path);
+		
+		//fill up values
+		$updated = str_replace('*ALLOW_SESSION_OVER_HTTP_VALUE*', $allowSessionOverHttp, $template);
+		$updated = str_replace('*IS_PRODUCTION_VALUE*', $isProduction, $updated);
+		
+		$updated = str_replace('*MAX_LOGIN_ATTEMPTS_PER_IP_VALUE*', $maxLoginAttemptsPerIp, $updated);
+		$updated = str_replace('*MAX_LOGIN_ATTEMPTS_PER_EMAIL_VALUE*', $maxLoginAttemptsPerEmail, $updated);
+		$updated = str_replace('*WAIT_TIME_LOGIN_VALUE*', $waitTimeLogin, $updated);
+		$updated = str_replace('*KEEP_OLD_RECORDS_VALUE*', $keepOldRecordsLogin, $updated);
+		$updated = str_replace('*MAX_RESET_ATTEMPTS_PER_IP_VALUE*', $maxResetAttemptsPerIp, $updated);
+		$updated = str_replace('*MAX_RESET_ATTEMPTS_PER_EMAIL_VALUE*', $maxResetAttemptsPerEmail, $updated);
+		$updated = str_replace('*WAIT_TIME_RESET_VALUE*', $waitTimeReset, $updated);
+		$updated = str_replace('*KEEP_OLD_RECORDS_RESETS_VALUE*', $keepOldRecordsReset, $updated);
+		$updated = str_replace('*MAX_REGISTER_SUCCESSES_PER_IP_VALUE*', $maxRegisterSuccessesPerIp, $updated);
+		$updated = str_replace('*WAIT_TIME_REGISTER_VALUE*', $waitTimeRegister, $updated);
+		$updated = str_replace('*KEEP_OLD_RECORDS_REGISTER_VALUE*', $keepOldRecordsRegister, $updated);
+
+		
+		//save config
+		$savepath = __DIR__ . '/_configs/_settings_config.php';
+		if (file_put_contents($savepath, $updated) === false)
+		{
+			throw new RuntimeException("Could not save config.");
+		}
+	}
+	function doStep3Success(): void {
+		
+		global 
+			$step1State, $step2State,
+			$compilerUrl, $wikiUrl, $sqlServerUrl, $sqlDbName, $sqlDbUser, $sqlDbPass,
+			$compilerUrl_err, $wikiUrl_err, $sqlServerUrl_err, $sqlDbName_err, $sqlDbUser_err, $sqlDbPass_err;
+		
+		//reflect success in the UI
+		$step1State = "succeeded";
+		$step2State = "succeeded";
+		$step3State = "succeeded";
+		$step4State = "active";
+	}
+
 
 	
 
@@ -249,9 +620,32 @@
 		}
 		
 		//handle DB table creator form (step 2)
-		if ($_POST["form_type"] === "createdbtables"){
+		if ($_POST["form_type"] === "setsettingsconfig"){
 
-		
+			$step3State = 'open';
+			
+			//validate inputs
+			setIsProductionDeployment();
+			setIsHttpSessionAllowed();
+			
+			setMaxLoginAttemptsPerIp();
+			setMaxLoginAttemptsPerEmail();
+			setWaitTimeLogin();
+			setKeepOldRecordsLogin();
+			
+			setMaxResetAttemptsPerIp();
+			setMaxResetAttemptsPerEmail();
+			setWaitTimeReset();
+			setKeepOldRecordsReset();
+			
+			setMaxRegSuccessPerIp();
+			setWaitTimeRegSuccess();
+			setKeepOldRecordsRegister();
+			
+			//if we havent thrown, proceed with writing
+			//we can also output error to a var, and test if this var is empty
+			writeSettingsConfig();
+			doStep3Success();
 		}
 	}
 ?>
@@ -400,16 +794,16 @@
 							else
 							{
 								echo '<br>';
-								echo '<button onclick="javascript:showListiaryModal(\'setSettingsModal\');" class="btn btn--orange">3. Set up various settings</button>';
+								echo '<button onclick="step3_ShowModal();" class="btn btn--orange">3. Set up various settings</button>';
 								echo '<br><br>'; 
 							}
 							
 							//state 4
-							if($step3State == "inactive")
+							if($step4State == "inactive")
 							{
 								echo '<button onclick="javascript:void(0);" class="btn btn--orange" disabled>4. Upload PHP files</button><br>';
 							}
-							else if($step3State == "succeeded")
+							else if($step4State == "succeeded")
 							{
 								echo '<button onclick="javascript:void(0);" class="btn btn--orange" disabled>✔ Upload PHP files</button><br>';
 							}
@@ -421,11 +815,11 @@
 							}
 							
 							//state 5
-							if($step3State == "inactive")
+							if($step5State == "inactive")
 							{
 								echo '<button onclick="javascript:void(0);" class="btn btn--orange" disabled>5. Visit your new wiki homepage</button><br>';
 							}
-							else if($step3State == "succeeded")
+							else if($step5State == "succeeded")
 							{
 								echo '<button onclick="javascript:void(0);" class="btn btn--orange" disabled>✔ Visit your new wiki homepage</button><br>';
 							}
@@ -539,6 +933,7 @@
 					<div class="listiaryConsoleModalBody">
 						<pre id="step2Console" class="listiaryConsoleModalConsoleBox"></pre>
 					</div>
+				</div>
 				
 				<!-- Action Buttons -->
 				<div class="listiaryConsoleModalButtonsWrapper">
@@ -547,8 +942,208 @@
 				</div>
 			</form>
 		</div>
-		
-		
-		
+
+		<!-- Set settings dialog modal box -->
+		<div <?php if($step3State != 'open') echo "style='display:none;'" ?> id="settingsConfigModal" class="listiaryYesNoModalWrapper">
+			<form class="listiaryYesNoModalCorpus" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+			<input type="hidden" name="form_type" value="setsettingsconfig">
+			<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+				
+				<!-- Header Bar -->
+				<div class="listiaryYesNoModalHeaderBar">
+					<h2>Settings Config</h2>
+					<span onclick="hideListiaryModal('settingsConfigModal');">&times;</span>
+				</div>
+				
+				<!-- The Content Area -->
+				<div id="modalInnerContent" class="listiaryYesNoModalInnerContent">
+					
+					<div class="listiaryYesNoModalBody">
+						<label class="listiaryCheckboxWrapper">
+							<input type="checkbox" 
+								name="isprod"
+								id="isProductionCheckBox"
+								value="1" checked />
+							<span>Production Mode Deployment</span>
+						</label>
+						<label class="listiaryCheckboxWrapper">
+							<input type="checkbox" 
+								name="ishttpsesdisallowed"
+								id="isHttpSessionAllowedCheckBox"
+								value="1" checked />
+							<span> Disallow Session over HTTP</span>
+						</label>
+						
+						<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+						<div style="flex-grow: 1;"></div>
+
+						<label class="listiaryUpDownLabel">
+							<span>Max login attempts per IP :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="maxLoginAttemptsIp" 
+								value="10" min="5" max="50" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Max login attempts per Email :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="maxLoginAttemptsEmail" 
+								value="5" min="5" max="50" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Wait time - login (minutes) :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="waitTimeLogin" 
+								value="15" min="5" max="720" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Keep old records (days) :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="keepOldRecordsLogin" 
+								value="7" min="1" max="731" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+
+						<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+						<div style="flex-grow: 1;"></div>
+
+						<label class="listiaryUpDownLabel">
+							<span>Max password reset attempts per IP :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="maxResetAttemptsIp" 
+								value="5" min="5" max="50" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Max password reset attempts per Email :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="maxResetAttemptsEmail" 
+								value="5" min="5" max="50" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Wait time - password reset (minutes) :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="waitTimeReset" 
+								value="16" min="16" max="1440" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Keep old records (days) :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="keepOldRecordsReset" 
+								value="7" min="1" max="731" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						
+						<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+						<div style="flex-grow: 1;"></div>
+						
+						<label class="listiaryUpDownLabel">
+							<span>Max register successes per IP :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="maxRegSuccessIp" 
+								value="2" min="1" max="10" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Wait time - register account (days) :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="waitTimeRegSuccess" 
+								value="1" min="1" max="10" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+						<label class="listiaryUpDownLabel">
+							<span>Keep old records (days) :</span>
+							<input class="listiaryUpDownInput" 
+								type="number" 
+								name="keepOldRecordsRegister" 
+								value="14" min="1" max="731" 
+								readonly />
+							<div class="listiaryUpDownControl">
+								[<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepDown()">&minus;</span>
+								<span>|</span>
+								<span class="listiaryUpDownControlTrigger" onclick="this.parentElement.previousElementSibling.stepUp()">&plus;</span>]
+							</div>
+						</label>
+
+					</div>
+
+					<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+					<div style="flex-grow: 1;"></div>
+				</div>
+
+				<!-- Action Buttons -->
+				<div class="listiaryYesNoModalButtonsWrapper">
+					<button class="buttonNo" type="button" onclick="hideListiaryModal('settingsConfigModal');">Cancel</button>
+					<button class="buttonYes" type="submit" name="form_settingsconfig">Save</button>
+				</div>
+			</form>
+		</div>
+
+
 	</body>
+
 </html>
