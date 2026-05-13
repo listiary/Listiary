@@ -98,6 +98,11 @@
 	
 	
 	
+	function verifyDescribeItemId($fileName) {
+		
+		if (preg_match('/^[\p{L}0-9._-]+$/u', $fileName)) return true;
+		return false;
+	}
 	function verifyDescribeFilename($fileName) {
 		
 		if (preg_match('/^[\p{L}0-9._-]+$/u', $fileName)) return true;
