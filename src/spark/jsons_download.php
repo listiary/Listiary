@@ -4,7 +4,7 @@
 	ini_set('display_errors', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/utils/commonlib.php";
-	require_once __DIR__ . "/tasks/DownloadFiles.php";
+	require_once __DIR__ . "/tasks/Jsons_Download.php";
 	set_exception_handler('catchEx');
 	
 	
@@ -44,7 +44,7 @@
 	}
 
 	// Execute the task
-	$output = DownloadFiles("/../_configs/config.php", -1);
+	$output = Jsons_Download("/../_configs/config.php", -1);
 	
 	// Output the log narrative
 	echo $output["log"];
@@ -61,12 +61,12 @@
 
 			// Construct the full path
 			// rtrim ensures we don't have double slashes
-			$fullPath = rtrim($destDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $fileName . ".ds";
+			$fullPath = rtrim($destDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $fileName . ".json";
 
 			// Write the file
 			if (file_put_contents($fullPath, $content) !== false) 
 			{
-				echo "Saved: {$fileName}.ds (" . strlen($content) . " bytes)" . NEW_LINE;
+				echo "Saved: {$fileName}.json (" . strlen($content) . " bytes)" . NEW_LINE;
 				$saveCount++;
 			} 
 			else 

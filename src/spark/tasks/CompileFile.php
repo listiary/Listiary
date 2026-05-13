@@ -54,7 +54,7 @@
     		$log .= "Fetching file - OK (" . strlen($content) . ") characters long." . NEW_LINE;
 
 			// compile data
-			$result = doPostRequest('https://bcm98vlf3b.execute-api.eu-north-1.amazonaws.com/', $content, $fileName);
+			$result = doPostRequest(COMPILER_URL, $content, $fileName);
 			//logPostResponse($result);
 
 			//check response
@@ -141,7 +141,7 @@
 				$log .= "Document saved - Ok." . NEW_LINE;
 				$log .= "SCRIPT SUCCEEDED";
 				mysqli_close($link);
-				return ["success" => false, "log" => $log, "result" => $data];
+				return ["success" => true, "log" => $log, "result" => $data];
 			}
 		}
 		catch (Throwable $ex) 
