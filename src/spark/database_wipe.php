@@ -4,7 +4,7 @@
 	ini_set('display_errors', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/utils/commonlib.php";
-	require_once __DIR__ . "/tasks/WipeDatabase.php";
+	require_once __DIR__ . "/tasks/Database_Wipe.php";
 	set_exception_handler('catchEx');
 	
 	// Grab the first argument from the command line: php z_ListFiles.php "wiki_one"
@@ -15,7 +15,7 @@
 	printBanner();
 	
 	// Execute the task
-	$output = WipeDatabase("/../_configs/config.php");
+	$output = Database_Wipe("/../_configs/config.php");
 	
 	// Output the log narrative
 	echo $output["log"];
