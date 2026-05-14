@@ -4,7 +4,7 @@
 	ini_set('display_errors', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/utils/commonlib.php";
-	require_once __DIR__ . "/tasks/DownloadFiles.php";
+	require_once __DIR__ . "/tasks/Files_Download.php";
 	set_exception_handler('catchEx');
 	
 	
@@ -44,7 +44,7 @@
 	}
 
 	// Execute the task
-	$output = DownloadFiles("/../_configs/config.php", -1);
+	$output = Files_Download("/../_configs/config.php", -1);
 	
 	// Output the log narrative
 	echo $output["log"];

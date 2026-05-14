@@ -4,7 +4,7 @@
 	ini_set('display_errors', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/utils/commonlib.php";
-	require_once __DIR__ . "/tasks/DeleteFile.php";
+	require_once __DIR__ . "/tasks/File_Delete.php";
 	set_exception_handler('catchEx');
 	
 	
@@ -53,7 +53,7 @@
 	}
 	
 	// Execute the task
-	$output = DeleteFile($fileName, "/../_configs/config.php");
+	$output = File_Delete($fileName, "/../_configs/config.php");
 	
 	// Output the log narrative
 	echo $output["log"];
