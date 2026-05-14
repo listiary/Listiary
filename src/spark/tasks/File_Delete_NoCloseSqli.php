@@ -7,7 +7,7 @@
 	set_exception_handler('catchEx');
 	
 	//Output the contents of a single file
-	function DeleteFileNoCloseSqli($fileName, $configRelativePath = "/_configs/config.php") {
+	function File_Delete_NoCloseSqli($fileName, $configRelativePath = "/_configs/config.php") {
 		
 		$log = "";
 		try 

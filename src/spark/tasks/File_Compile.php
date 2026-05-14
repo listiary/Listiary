@@ -10,7 +10,7 @@
 	//to command injections if we decide to do something with it later on
 	
 	//Output the contents of a single file
-	function CompileFile($fileName, $configRelativePath = "/_configs/config.php") {
+	function File_Compile($fileName, $configRelativePath = "/_configs/config.php") {
 		
 		$log = "";
 		$data = [];

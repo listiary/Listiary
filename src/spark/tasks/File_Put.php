@@ -10,7 +10,7 @@
 	//to command injections if we decide to do something with it later on
 	
 	//Upload a single file to the DB
-	function PutFile($fileName, $fileContents, $configRelativePath = "/_configs/config.php") {
+	function File_Put($fileName, $fileContents, $configRelativePath = "/_configs/config.php") {
 		
 		$log = "";
 		try 

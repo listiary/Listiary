@@ -9,7 +9,7 @@
 
 
 	// Test if our main config is properly configured and we have an empty DB
-	function TestDatabaseConfig($configRelativePath = "/utils/config.php"): array {
+	function Database_Test($configRelativePath = "/utils/config.php"): array {
 		
 		$log = "";
 		$data = [];

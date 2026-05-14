@@ -8,7 +8,7 @@
 
 	
 	//Nuke a database, deleting everything from it.
-	function WipeDatabase($configRelativePath = "/_configs/config.php"): array {
+	function Database_Wipe($configRelativePath = "/_configs/config.php"): array {
 		
 		$log = "";
 		try 

@@ -8,7 +8,8 @@
 	
 	
 	//List the files in the database
-	function DeleteFiles($configRelativePath = "/../_configs/config.php"): array {
+	//Set maxfiles to > 0 if you need to limit the number of files fetched
+	function Files_Download($configRelativePath = "/_configs/config.php", $maxFiles = -1): array {
 		
 		$log = "";
 		$data = [];
@@ -24,23 +25,34 @@
 			$link = connectDb();
 			$log .= "Connection OK" . NEW_LINE;
 			
-			// Delete files in database
-			$sql = "DELETE FROM `describe_documents`";
+			// Fetch files from database
+			$sql = "SELECT `filename`, `content` FROM `describe_documents`";
+			if ($maxFiles > 0)
+			{
+				$sql .= " LIMIT $maxFiles";
+			}
 			$result = mysqli_query($link, $sql);
 			if (!$result) 
 			{
-				$log .= "Error deleting files: " . mysqli_error($link) . NEW_LINE;
+				$log .= "Error fetching files: " . mysqli_error($link);
 				return ["success" => false, "log" => $log, "result" => null];
 			}
 			
-			// Get the number of rows that were successfully deleted
-			$deleted_count = mysqli_affected_rows($link);
-			$log .= "Successfully deleted $deleted_count files." . NEW_LINE;
-
+			//get results
+			$count = 0;
+			while ($row = mysqli_fetch_assoc($result)) 
+			{
+				$filename = $row['filename'];
+				$content = $row['content'];
+				$data[] = ["filename" => $filename, "content"  => $content ];
+				$count++;
+			}
+			$log .=  "Ok - fetched {$count} files." . NEW_LINE;
+	
 			// return
 			$log .= "SCRIPT SUCCEEDED";
 			mysqli_close($link);
-			return ["success" => true, "log" => $log, "result" => $deleted_count];
+			return ["success" => true, "log" => $log, "result" => $data];
 		}
 		catch (Throwable $ex) 
 		{

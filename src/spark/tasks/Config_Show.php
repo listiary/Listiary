@@ -9,7 +9,7 @@
 
 
 	// Test if our main config is properly configured and we have an empty DB
-	function ShowConfig($configRelativePath = "/utils/config.php"): array {
+	function Config_Show($configRelativePath = "/utils/config.php"): array {
 		
 		$log = "";
 		try 

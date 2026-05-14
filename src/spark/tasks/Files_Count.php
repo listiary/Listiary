@@ -8,7 +8,7 @@
 	
 	
 	//List the files in the database
-	function CountFiles($configRelativePath = "/../_configs/config.php"): array {
+	function Files_Count($configRelativePath = "/../_configs/config.php"): array {
 		
 		$log = "";
 		$data = [];

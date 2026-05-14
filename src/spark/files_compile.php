@@ -4,7 +4,7 @@
 	ini_set('display_errors', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/utils/commonlib.php";
-	require_once __DIR__ . "/tasks/Files_Compile.php";
+	require_once __DIR__ . "/tasks/CompileFiles.php";
 	set_exception_handler('catchEx');
 	
 	
@@ -23,7 +23,7 @@
 	printBanner();
 
 	// Execute the task
-	$output = Files_Compile("/../_configs/config.php");
+	$output = CompileFiles("/../_configs/config.php");
 	
 	// Output the log narrative
 	echo $output["log"];

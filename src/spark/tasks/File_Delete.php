@@ -6,14 +6,10 @@
 	require_once __DIR__ . "/../utils/commonlib.php";
 	set_exception_handler('catchEx');
 	
-	//Warning - returning the data from a user file can be vulnerable
-	//to command injections if we decide to do something with it later on
-	
 	//Output the contents of a single file
-	function FetchFile($fileName, $configRelativePath = "/_configs/config.php") {
+	function File_Delete($fileName, $configRelativePath = "/_configs/config.php") {
 		
 		$log = "";
-		$data = [];
 		try 
 		{
 			//check filename
@@ -36,38 +32,31 @@
 			
 			//get file contents
 			$nameEscaped = mysqli_real_escape_string($link, $fileName);
-			$sql = "SELECT `filename`, `content` FROM `describe_documents` WHERE `filename` = '$nameEscaped';";
+			$sql = "DELETE FROM `describe_documents` WHERE `filename` = '$nameEscaped';";
 			$result = mysqli_query($link, $sql);
 			if (!$result) 
 			{
-				$log .= "Error fetching file: " . mysqli_error($link) . NEW_LINE;
+				$log .= "Error deleting file: " . mysqli_error($link) . NEW_LINE;
 				$log .= "SCRIPT FAILED";
 				mysqli_close($link);
 				return ["success" => false, "log" => $log, "result" => null];
 			}
 			
 			//report
-			if ($row = mysqli_fetch_assoc($result))
+			$deletedRows = mysqli_affected_rows($link);
+			if ($deletedRows === 0)
 			{
-				//fetch
-				$filename = $row['filename'];
-				$content  = $row['content'];
-				
-				//output
-				$data["filename"] = $filename;
-				$data["content"] = $content;
-
-				//return
-				$log .= "SCRIPT SUCCEEDED";
-				mysqli_close($link);
-				return ["success" => false, "log" => $log, "result" => $data];
-			}
-			else
-			{
-				$log .= "File '$nameEscaped' not found in database." . NEW_LINE;
+				$log .= "No file named '$nameEscaped' was found in the database." . NEW_LINE;
 				$log .= "SCRIPT FAILED";
 				mysqli_close($link);
 				return ["success" => false, "log" => $log, "result" => null];
+			}
+			else
+			{
+				$log .= "Ok - deleted $deletedRows rows.";
+				$log .= "SCRIPT SUCCEEDED";
+				mysqli_close($link);
+				return ["success" => false, "log" => $log, "result" => $deletedRows];
 			}
 		}
 		catch (Throwable $ex) 

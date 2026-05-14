@@ -9,7 +9,7 @@
 	
 	//List the files in the database
 	//Set maxfiles to > 0 if you need to limit the number of files fetched
-	function ListFiles($configRelativePath = "/_configs/config.php", $maxFiles = -1): array {
+	function Files_List($configRelativePath = "/_configs/config.php", $maxFiles = -1): array {
 		
 		$log = "";
 		$data = [];

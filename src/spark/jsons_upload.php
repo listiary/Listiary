@@ -4,7 +4,7 @@
 	ini_set('display_errors', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/utils/commonlib.php";
-	require_once __DIR__ . "/tasks/File_Put_NoCloseSqli.php";
+	require_once __DIR__ . "/tasks/PutJsonNoCloseSqli.php";
 	set_exception_handler('catchEx');
 	
 	
@@ -81,7 +81,7 @@
 		}
 		try 
 		{
-			$output = File_Put_NoCloseSqli($dbFileName, $content, "/../_configs/config.php");
+			$output = PutJsonNoCloseSqli($dbFileName, $content, "/../_configs/config.php");
 			if($output["success"] == true) 
 			{
 				echo "[Success] File uploaded." . NEW_LINE;

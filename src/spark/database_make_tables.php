@@ -4,7 +4,7 @@
 	ini_set('display_errors', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	require_once __DIR__ . "/utils/commonlib.php";
-	require_once __DIR__ . "/tasks/Database_MakeTables.php";
+	require_once __DIR__ . "/tasks/MakeTables.php";
 	set_exception_handler('catchEx');
 	
 	// Grab the first argument from the command line: php z_ListFiles.php "wiki_one"
@@ -15,7 +15,7 @@
 	printBanner();
 	
 	// Execute the task
-	$output = Database_MakeTables("/../_configs/config.php", "/../utils/installer_sqls");
+	$output = MakeTables("/../_configs/config.php", "/../utils/installer_sqls");
 	
 	// Output the log narrative
 	echo $output["log"];

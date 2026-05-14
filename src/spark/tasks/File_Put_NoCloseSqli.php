@@ -10,7 +10,7 @@
 	//to command injections if we decide to do something with it later on
 	
 	//Upload a single file to the DB
-	function PutJsonNoCloseSqli($fileName, $fileContents, $configRelativePath = "/_configs/config.php") {
+	function File_Put_NoCloseSqli($fileName, $fileContents, $configRelativePath = "/_configs/config.php") {
 		
 		$log = "";
 		try 
@@ -61,7 +61,7 @@
 			//put file contents
 			$nameEscaped = mysqli_real_escape_string($link, $fileName);
 			$contentEscaped = mysqli_real_escape_string($link, $fileContents);
-			$sql = "INSERT INTO `compiled_documents` (`filename`, `content`) VALUES ('$nameEscaped', '$contentEscaped')";
+			$sql = "INSERT INTO `describe_documents` (`filename`, `content`) VALUES ('$nameEscaped', '$contentEscaped')";
 
 			//check result
 			$result = mysqli_query($link, $sql);

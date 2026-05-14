@@ -8,7 +8,7 @@
 
 	
 	//Make the needed tables for listiary on an empty DB
-	function MakeTables($configRelativePath = "/_configs/config.php", $sqlRelativePath = "/utils/installer_sqls"): array {
+	function Database_MakeTables($configRelativePath = "/_configs/config.php", $sqlRelativePath = "/utils/installer_sqls"): array {
 		
 		$log = "";
 		try 
