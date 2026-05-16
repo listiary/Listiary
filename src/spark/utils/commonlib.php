@@ -108,6 +108,12 @@
 		if (preg_match('/^[\p{L}0-9._-]+$/u', $fileName)) return true;
 		return false;
 	}
+	function verifyDescribeNamespace($namespace) {
+		
+		//same as filename, but first or last symbol cannot be dots
+		if (preg_match('/^(?!\.)[\p{L}0-9._-]+(?<!\.)$/u', $namespace)) return true;
+		return false;
+	}
 	function verifyDescribeFilenameLatin($fileName) {
 		
 		if (preg_match('/^[a-zA-Z0-9._-]+$/', $fileName)) return true;
