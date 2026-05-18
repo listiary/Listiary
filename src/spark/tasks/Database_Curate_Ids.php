@@ -42,6 +42,16 @@
 				return ["success" => false, "log" => $log, "result" => null];
 			}
 
+			//empty table
+			$sql = "TRUNCATE TABLE housekeeping_itemid_filename";
+			if (!mysqli_query($link, $sql))
+			{
+				$log .= "Error: " . mysqli_error($link) . NEW_LINE;
+				echo "XX (failed)" . NEW_LINE;
+			}
+			echo "Empty table - Ok." . NEW_LINE;
+			$log .= "Empty table - Ok." . NEW_LINE;
+
 			// Iterate through rows
 			echo "--- IMMEDIATE OUTPUT ---" . NEW_LINE;
 			while ($row = mysqli_fetch_assoc($filesFetchResult))
