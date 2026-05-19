@@ -1,0 +1,100 @@
+//cd "/home/vchernev/Home/Major Projects/Listiary Describe/Listiary Wiki Farm/Listiary/installer"
+//clear
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+2upload_files.php
+Upload all the files from a given directory to the database specified in the "_config.php".
+
+usage (bash) - output to console                            php 2upload_files.php "/path/to/directory"
+usage (bash) - output to file                               php 2upload_files.php "/path/to/directory" > "output.txt"
+usage (bash) - append to file                               php 2upload_files.php "/path/to/directory" >> "output.txt"
+usage (bash) - capture errors to file                       php 2upload_files.php "/path/to/directory" 2> "errors.txt"
+usage (bash) - append errors to file                        php 2upload_files.php "/path/to/directory" 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2upload_files.php "/path/to/directory" > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2upload_files.php "/path/to/directory" &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+2upload_file.php
+Upload a single file to the database specified in the "_config.php".
+
+usage (bash) - output to console                            php 2upload_file.php "/path/to/directory"
+usage (bash) - output to file                               php 2upload_file.php "/path/to/directory" > "output.txt"
+usage (bash) - append to file                               php 2upload_file.php "/path/to/directory" >> "output.txt"
+usage (bash) - capture errors to file                       php 2upload_file.php "/path/to/directory" 2> "errors.txt"
+usage (bash) - append errors to file                        php 2upload_file.php "/path/to/directory" 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2upload_file.php "/path/to/directory" > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2upload_file.php "/path/to/directory" &> "all_output.txt"
+usage (bash) - output to console                            php 2upload_file.php "/path/to/directory" "name.in.database"
+usage (bash) - output to file                               php 2upload_file.php "/path/to/directory" "name.in.database" > "output.txt"
+usage (bash) - append to file                               php 2upload_file.php "/path/to/directory" "name.in.database" >> "output.txt"
+usage (bash) - capture errors to file                       php 2upload_file.php "/path/to/directory" "name.in.database" 2> "errors.txt"
+usage (bash) - append errors to file                        php 2upload_file.php "/path/to/directory" "name.in.database" 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2upload_file.php "/path/to/directory" "name.in.database" > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2upload_file.php "/path/to/directory" "name.in.database" &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+2download_files.php
+Download all the files from the database (from the "_config.php") to a local directory.
+
+usage (bash) - output to console                            php 2download_files.php "/path/to/directory"
+usage (bash) - output to file                               php 2download_files.php "/path/to/directory" > "output.txt"
+usage (bash) - append to file                               php 2download_files.php "/path/to/directory" >> "output.txt"
+usage (bash) - capture errors to file                       php 2download_files.php "/path/to/directory" 2> "errors.txt"
+usage (bash) - append errors to file                        php 2download_files.php "/path/to/directory" 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2download_files.php "/path/to/directory" > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2download_files.php "/path/to/directory" &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+2download_file.php
+Download a selected file from the database (from the "_config.php") to a local directory.
+
+usage (bash) - output to console                            php 2download_file.php "name.in.database" "/path/to/directory"
+usage (bash) - output to file                               php 2download_file.php "name.in.database" "/path/to/directory" > "output.txt"
+usage (bash) - append to file                               php 2download_file.php "name.in.database" "/path/to/directory" >> "output.txt"
+usage (bash) - capture errors to file                       php 2download_file.php "name.in.database" "/path/to/directory" 2> "errors.txt"
+usage (bash) - append errors to file                        php 2download_file.php "name.in.database" "/path/to/directory" 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2download_file.php "name.in.database" "/path/to/directory" > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2download_file.php "name.in.database" "/path/to/directory" &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+2delete_files.php
+Delete all the files from the database (One that we connect to in our "_config.php").
+
+usage (bash) - output to console                            php 2delete_files.php
+usage (bash) - output to file                               php 2delete_files.php > "output.txt"
+usage (bash) - append to file                               php 2delete_files.php >> "output.txt"
+usage (bash) - capture errors to file                       php 2delete_files.php 2> "errors.txt"
+usage (bash) - append errors to file                        php 2delete_files.php 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2delete_files.php > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2delete_files.php &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+2delete_file.php
+Delete a file from the database (One that we connect to in our "_config.php").
+
+usage (bash) - output to console                            php 2delete_file.php "name.in.database"
+usage (bash) - output to file                               php 2delete_file.php "name.in.database" > "output.txt"
+usage (bash) - append to file                               php 2delete_file.php "name.in.database" >> "output.txt"
+usage (bash) - capture errors to file                       php 2delete_file.php "name.in.database" 2> "errors.txt"
+usage (bash) - append errors to file                        php 2delete_file.php "name.in.database" 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2delete_file.php "name.in.database" > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2delete_file.php "name.in.database" &> "all_output.txt"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+2list_files.php
+List all the files in the database (One that we connect to in our "_config.php").
+
+usage (bash) - output to console                            php 2list_files.php
+usage (bash) - output to file                               php 2list_files.php > "output.txt"
+usage (bash) - append to file                               php 2list_files.php >> "output.txt"
+usage (bash) - capture errors to file                       php 2list_files.php 2> "errors.txt"
+usage (bash) - append errors to file                        php 2list_files.php 2>> "errors.txt"
+usage (bash) - capture output and errors to file            php 2list_files.php > "all_output.txt" 2>&1
+usage (bash 4+) - capture output and errors to file         php 2list_files.php &> "all_output.txt"
