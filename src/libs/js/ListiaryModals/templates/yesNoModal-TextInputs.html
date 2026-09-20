@@ -1,0 +1,60 @@
+<!-- Yes/No dialog modal box -->
+<div id="mainConfigModal" class="listiaryYesNoModalWrapper">
+	<div class="listiaryYesNoModalCorpus">
+		
+		<!-- Header Bar -->
+		<div class="listiaryYesNoModalHeaderBar">
+			<h2>Database Config</h2>
+			<span onclick="hideListiaryModal('[ADD MODAL ID HERE]');">&times;</span>
+		</div>
+		
+		<!-- The Content Area -->
+		<div id="modalInnerContent" class="listiaryYesNoModalInnerContent">
+			<div class="listiaryYesNoModalBody">
+				<label for="describeCompilerUrlInput">Describe Compiler</label>
+				<input 
+					type="text" name="compilerurl"
+					id="describeCompilerUrlInput" 
+					placeholder="AWS microservice url here" />
+				<label for="wikiHomeUrlInput">Wiki home</label>
+				<input 
+					type="text" name="wikiurl"
+					id="wikiHomeUrlInput" 
+					placeholder="your wiki home url here" />
+				
+				<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+				<div style="flex-grow: 1;"></div>
+				
+				<label for="sqlServerNameInput">Sql Server</label>
+				<input 
+					type="text" name="dbdns"
+					id="sqlServerNameInput" 
+					placeholder="your sql server name" />
+				<label for="sqlDatabaseNameInput">Sql Database Name</label>
+				<input 
+					type="text" name="dbname"
+					id="sqlDatabaseNameInput" 
+					placeholder="your empty sql database name" />
+				<label for="sqlDatabaseUserNameInput">Sql Database User</label>
+				<input 
+					type="text" name="dbuser"
+					id="sqlDatabaseUserNameInput" 
+					placeholder="your sql database username" />
+				<label for="sqlDatabasePassInput">Sql Database Password</label>
+				<input 
+					type="password" name="dbpass"
+					id="sqlDatabasePassInput" 
+					placeholder="your sql database password" />
+			</div>
+
+			<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+			<div style="flex-grow: 1;"></div>
+		</div>
+
+		<!-- Action Buttons -->
+		<div class="listiaryYesNoModalButtonsWrapper">
+			<button class="buttonNo" type="button" onclick="hideListiaryModal('[ADD MODAL ID HERE]');">Cancel</button>
+			<button class="buttonYes" type="button" onclick='hideListiaryModal("[ADD MODAL ID HERE]");'>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+		</div>
+	</div>
+</div>
