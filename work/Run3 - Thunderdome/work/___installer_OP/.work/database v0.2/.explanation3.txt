@@ -1,0 +1,53 @@
+1. Main data
+There are 2 tables - `describe_documents` and `compiled_documents`, that hold the main data in a listiary wiki. 
+`describe_documents` holds the Describe source files, and `compiled_documents` - the compiled versions of those files in JSON.
+There are also indexes for each of those tables - `idx_filename`, so that we can quickly search by filename.
+
+```
+describe_documents
+  .id
+  .filename
+  .content
+  .submitted_at
+  
+compiled_documents
+  .id
+  .filename
+  .content
+  .submitted_at
+```
+
+
+
+
+
+2. Housekeeping
+`housekeeping_itemid_filename` table links Describe item ids to filenames they are defined in.
+`housekeeping_filename_related` table links files to files needed when loading them.
+
+```
+housekeeping_itemid_filename
+	.filename
+    .item_id
+
+housekeeping_filename_related
+    .filename
+    .related_filename
+```
+
+
+
+
+
+3. Accounts
+The `accounts` table stores the information for the user accounts, as the name suggests.
+
+```
+accounts
+  .id
+  .username
+  .usercode
+  .password_hash
+  .is_bot
+  .created_at
+```

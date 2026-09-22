@@ -1,0 +1,138 @@
+body {
+	
+	background-color: #fff;
+	margin: 0;
+	color: #333;
+}
+
+.profile-container {
+	
+	font-family: Arial, sans-serif;
+	max-width: 480px;
+	margin: 0 auto;
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.avatar {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	background-color: #ddd;
+	display: inline-block;
+	object-fit: cover;
+}
+
+h1 {
+	margin: 0.5rem 0;
+	font-size: 1.8rem;
+}
+
+p {
+	color: #555;
+	margin: 0.3rem 0;
+	font-size: 1rem;
+}
+
+.bio {
+	padding: 20px;
+	margin-top: 1rem;
+	font-size: 0.95rem;
+	color: #666;
+}
+
+
+.info-line {
+	color: #777;
+	/* whole thing grey */
+	font-weight: bold;
+	/* bold text */
+	font-style: italic;
+	/* italic text */
+	font-size: 0.95rem;
+
+	display: inline-flex;
+	/* make the flex container shrink to content */
+	align-items: center;
+	/* vertically align SVGs with text */
+	gap: 0.3em;
+	/* spacing between SVGs and text */
+
+	margin: 0 auto;
+	/* center the flex container inside parent */
+}
+
+.info-line svg {
+	vertical-align: middle;
+	/* ensure proper baseline alignment */
+	fill: currentColor;
+	/* make SVG match text color */
+}
+
+
+.btn {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 170px;
+	padding: 0.35em 0;
+	margin: 2px;
+	font-size: 0.9rem;
+
+	border-radius: 60px;
+	color: white;
+	text-decoration: none;
+	font-weight: 500;
+
+	cursor: pointer;
+	transition: background-color 0.2s ease, transform 0.05s ease;
+}
+
+.btn:hover {
+	filter: brightness(0.9);
+}
+
+.btn:active {
+	transform: translateY(0);
+}
+
+.btn--green {
+	color: black;
+	background-color: #99F0C6;
+}
+
+.btn--green:hover {
+	color: black;
+	background-color: #7ED9AD;
+}
+
+.btn--blue {
+	color: black;
+	background-color: #99D6FF;
+}
+
+.btn--blue:hover {
+	color: black;
+	background-color: #7FC2EB;
+}
+
+.btn--orange {
+	color: black;
+	background-color: #FFB3A7;
+}
+
+.btn--orange:hover {
+	color: black;
+	background-color: #E89A8E;
+}
+
+.btn--purple {
+	color: black;
+	background-color: #99B3FF;
+}
+
+.btn--purple:hover {
+	color: black;
+	background-color: #7F99E6;
+}

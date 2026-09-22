@@ -1,0 +1,109 @@
+The workflow you are describing is called an Integrated Setup Wizard. 
+Instead of forcing the user to run a separate tool, your main index.php simply checks if the system is "born" yet.
+------------------------------------------------------------------------------------------------------------------------------------
+The "Detection" Logic
+The very first thing your index.php (or your framework's entry point) should do is check for a configuration file (e.g., arc-config.php).
+If the file exists: Load the panel and show the login screen.
+If the file DOES NOT exist: Redirect the user to /install/wizard.php.
+This creates a seamless experience: the user uploads the ZIP, visits their URL, and is immediately greeted by the setup screen.
+------------------------------------------------------------------------------------------------------------------------------------
+You can absolutely skip the "separate installer app" and have the ARC Panel run its own installer. In fact, this is the industry standard for user-friendly PHP software.
+The workflow you are describing is called an Integrated Setup Wizard. Instead of forcing the user to run a separate tool, your main index.php simply checks if the system is "born" yet.
+Here is how the "big players" do it and how you should structure yours.
+1. The "Detection" Logic
+The very first thing your index.php (or your framework's entry point) should do is check for a configuration file (e.g., arc-config.php).
+If the file exists: Load the panel and show the login screen.
+If the file DOES NOT exist: Redirect the user to /install/wizard.php.
+This creates a seamless experience: the user uploads the ZIP, visits their URL, and is immediately greeted by the setup screen.
+2. The "Ownership Challenge" (Crucial Security)
+Since anyone who finds the URL could technically "install" your panel and become the admin, you need a way to prove the person in the browser is the same person who uploaded the files.
+The "Security Token" Method:
+In your ZIP, include a file called SECURITY_TOKEN.txt containing a random string (or tell the user to create one).
+The first step of the installer asks the user to: "Please open SECURITY_TOKEN.txt in your FTP and paste the code here."
+Alternatively, use the MediaWiki method: The installer generates a local file during setup and says, "I've created a file called 'LocalSettings.php'. You must manually download it and upload it to your server to complete the installation." > Why this works: Only the person with FTP/File Manager access can see or move these files, preventing a "random" visitor from hijacking the install.
+------------------------------------------------------------------------------------------------------------------------------------
+For a Wiki Farm, you almost certainly need a Master SQL Database for the ARC Panel. 
+While it adds five minutes of setup for the user, it prevents hours of headaches for you as a developer later.
+Why a Database beats a Config file for ARC:FeatureConfig File (.php)ARC Master DatabaseAdmin AccountsHard to manage multiple admins or permissions.Easy to add/remove/suspend admins.Action LogsWriting to a file is slow and risky (file locking).Instant, searchable history of who did what.Wiki RegistryYou’d have to parse a massive array to find Wiki #42.SELECT * FROM wikis WHERE status = 'active'.Themes/SettingsRequires file-write permissions on every save.Standard SQL update; much more "elegant."
+2. The Hybrid Approach (The Industry Gold Standard)
+You don't store everything in the DB. You use a tiny config file to "unlock" the database.
+arc-config.php (The Key): This is a tiny file generated during installation. It contains only the credentials to connect to the ARC Master Database.
+The ARC Master DB (The Brain): Once the panel connects, it pulls everything else from SQL:
+users table: Master admin credentials (hashed passwords!).
+wikis table: A list of every wiki in the farm, their DB credentials, and their URL.
+settings table: Theme choices, panel name, maintenance mode toggle.
+audit_log table: "Admin X deleted Wiki Y on Tuesday."
+------------------------------------------------------------------------------------------------------------------------------------
+Folder Management
+Can we create the folder? Yes, using PHP’s mkdir(). However, the parent directory must be writable by the web server (usually www-data or the user account).
+The Directory Browser: Building a full file explorer is overkill. Instead, ask for the Absolute Path (e.g., /var/www/vhosts/wiki1/) but provide a "Detect Current Path" button that shows where ARC is currently installed to give them a hint.
+Empty Folder? It’s best to require an empty folder or let ARC create a new one. If the folder isn't empty, show a warning: "This folder contains files. Overwrite?"
+------------------------------------------------------------------------------------------------------------------------------------
+The "URL vs. Folder" Validation (The Loopback Test)
+How do you know if the URL actually points to that folder? You use a Challenge-Response check:
+Drop a "Ping" file: ARC creates a temporary file in the new folder: deploy_test_123.txt.
+Request the file: ARC then uses cURL to try and visit http://user-wiki-url.com/deploy_test_123.txt.
+The Result: * If it returns 200 OK, the domain and folder are correctly linked.
+If it returns 404 or Connection Refused, the DNS or folder path is wrong.
+------------------------------------------------------------------------------------------------------------------------------------
+Domain Handling
+Unless your users are on a Virtual Private Server (VPS) where ARC has "root" access, do not try to handle the domain/vhost for them. * Standard PHP scripts cannot edit Nginx or Apache config files.
+The ARC approach: Tell the user: "Please ensure your domain's Document Root is set to this folder. Click 'Verify' once your DNS has propagated."
+------------------------------------------------------------------------------------------------------------------------------------
+Step 6: The "Grand Opening" (Health Check)
+Don't just hand them a link and wish them luck. Use a Pre-Flight Check.
+The Final Modal should look like this:
+Step 6.1: Connection Test: ARC pings the new wiki's index page.
+Step 6.2: Permission Check: ARC confirms the wiki can "write" to its own images folder.
+Step 6.3: Clean Up: ARC deletes the installer/temporary files from the new wiki's directory.
+The "OK" Finish: Instead of a simple "Finish," provide a "Launch Wiki Dashboard" button and a "Return to ARC Panel" button.
+------------------------------------------------------------------------------------------------------------------------------------
+Refined Installer Workflow SummaryStepUI ActionARC "Under the Hood" Action5. DeployUser enters /path/to/wiki.mkdir + copy core files (or create symlinks).5.1 Link TestUser clicks "Verify Connection."ARC drops test.txt and fetches it via the Wiki URL.5.2 CleanupProgress bar finishes.ARC deletes sensitive setup files from the new folder.6. Finalize"Success!" message with two links.ARC updates its Master DB: status = 'active'.
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Listiary ARC full version - PolyArc
+
+1. User downloads ListiaryArc.zip and uploads the contents to a folder in their hosting.
+2. User opens the url pointing to that folder in a browser.
+	- The ARC panel checks if it runs in an installed state or initial state.
+	- If in initial state, it tries to install itself, if successful, prompts user to register a master account.
+	- If in installed state, the panel asks the user to log in to continue.
+3. Inside ARC UI, there is a list of wikis that panel owns. You can select one, or select to add a new one.
+	- If a wiki selected, we see the tools we can use on it, not the installer.
+	- If add a new one is selected, we are send to the wiki installer tool.
+	- In the future, there will be the option to select (add an existing wiki) as well.
+
+
+Listiary ARC - Add New (installer)
+
+A UI of steps, each getting active after the last one succeeded. Each one user clicks and opens a modal window.
+1. Select a name for the wiki (optionally add a logo icon)
+2. Set main config - the wiki home URL, Describe compiler microservice URL, database server and credentials
+	- database server and credentials will be autofilled the second time.
+	- the installer will create a new database or use an existing one if empty.
+3. Create tables 
+	- In a console modal, you click next, and see the process of creating the tables in verbose output in few lines
+	- If successful, prompts you to click finish to go to the next step
+4. Set up settings
+	- In a modal with tabs or collapsible groups, user selects various settings
+	- In checkboxes and up/down fields, that are preset.
+	- Each field has an info sign, that pops up another modal on top, explaining the setting or adds info text in cursive on the main modal, next to the option.
+	- The installer writes that second config - the settings config.
+5. Deploy wiki
+	- User 
+	
+
+Listiary ARC short version
+
+1. User downloads Listiary.zip uploads the contents to a folder in their hosting.
+2. User opens the url pointing to that folder in a browser.
+	- The wiki's index.php and all browseable files include a script used to detect wether the wiki has been installed and the arc panel has been installed.
+	- This works by checking if configs are bresent - like _db_config.php, _settings_config.php and arcpanel/php/_config.php
+3. If neither is installed - run arc installer
+If only arc installed - run wiki installer
+If both installed - we see the screen with our wiki logo and available tools.
+	
+	
