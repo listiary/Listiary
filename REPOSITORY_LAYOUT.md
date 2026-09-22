@@ -1,49 +1,58 @@
-# admin
-The admin panel in Listiary
+### Directories<br>
 
-# contact
-The contact pages in Listiary
+`/.git`<br>
+The git folder.<br>
+<br>
 
-# docs
-Special pages in listiary - like Cookie consent, Terms of Use, etc.
+`/.github`<br>
+Documents related to GitHub workflows, policies, etc.<br>
+Importantly, `FUNDING.yml`, that sets the URLs for the '♡Sponsor' button.<br>
+We also have pull request and issue templates.<br>
+<br>
 
-# editor
-The editor module in Listiary
-
-# index, m.index
-The main module of Listiary. M is the mobile version.
-
-# installer
-The installer and database administration scripts for Listiary in a CLI PHP form factor.
-
-# search
-The search module for Listiary.
-
-# session
-The session and cookie functionality in Listiary are in thes module.
-
-# sources
-Collection of JSON files that can be used as data sources for listiary, via the local file loader plugin. For debugging purposes.
-
-
+`/.vscode`<br>
+A Visual Studio Code special folder.
+Importantly, containing the JSON config for debugging PHP in VS Code.
 <br><br>
-# !documentation
-This folder contains various documentation documents and articles.
 
-### `Changelog`
-Bugs, Features, Tests - doocuments about the development process.
+`/assets`<br>
+Assets of the project - logos, favicons and screenshots.<br>
+<br>
 
-### `Recaps`
-Drafts on past tasks - like lists of CLI commands used to perform a task, some time ago.
-For example - a list of URLs and CLI commands I used to set up Jeckyll.
+`/docs`<br>
+The main documentation lives on the documentation website. 
+This directory is used as a workspace for developing new documentation.<br>
+<br>
 
+`/release`<br>
+Different version release archives.<br>
+At the moment of writing - it is empty, as we have no releases.<br>
+<br>
 
+`/src`<br>
+The project's current, up to date, official source code.<br>
+Various folders contain all the different modules.<br>
+<br>
+
+```
+/work
+/work/Run1 - Pillars of history
+/work/Run2 - Spirit
+/work/Run3 - Thunderdome
+```
+Files related to ongoing or past development.<br>
+I'm experimenting with a new development workflow where we start each "run" in its own branch, under a specific code name. Each run is designed to tackle a distinct set of features, usually tied to a single module. For example, `Pillars of history` was a run dedicated to the article edit history, `Spirit` focused on the session/authentication and account modules, and `Thunderdome` birthed the Spark framework.<br>
 <br><br>
-# !work
-This folder contains different files that have been worked on in the past and could be useful for future work.
 
-### `favicon`
-The favicons for the pages in the project
 
-### `logo`
-The listiary project logo
+### Documents<br>
+
+```
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+README.md
+REPOSITORY_LAYOUT.md
+```
+<br><br>
