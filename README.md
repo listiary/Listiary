@@ -13,24 +13,37 @@ _Simplifying the world, one list at a time_
 
 Listiary is an experimental wiki project built around lists rather than articles. The basic idea is simple: lists are treated as their own kind of object, not as formatting inside text. That decision shapes most of the system, from how content is written to how it changes over time.
 
-## About  
-Listiary is an experimental wiki project built around lists rather than articles. The basic idea is simple: lists are treated as their own kind of object, not as formatting inside text. That decision shapes most of the system, from how content is written to how it changes over time.
+## About
 
-***Distributed and sustainable*** – Users choose servers and content to load, giving Listiary a decentralized model – similar to Mastodon. This flexibility makes a huge difference in terms of moderation and long-term sustainability, compared to rigid centralized platforms.
+Listiary is a free and open-source wiki engine built around nested lists. Beyond its core purpose, it explores a number of design choices that differ from those of conventional wiki platforms. These choices are intentional: Listiary is a platform for experimenting with different approaches to creating, organizing, and sharing knowledge.
 
-***Bot-fed content*** – Oracles watch data streams, automated agents post to PHP staging pools, and curator bots log information, so users can enjoy journal style lists while the wiki writes itself in real time.
+Below are some of its most prominent design principles, divided into core foundations and experimental features.
 
-***Security through simplicity*** - Listiary is a custom platform implemented in plain JavaScript and PHP, without dependencies that could introduce vulnerabilities or maintenance overhead.
+### Core foundations
 
-***A language for lists*** – Listiary has its own language, called Describe Markup Language (or simply Describe). The Describe Markup Language (DML) compiler utilizes ANTLR 4 in C#, and is a powerful, flexible, tested and documented tool in its own right. Describe is intuitive – anyone can write in it without formal trainig, allowing rich, interactive lists to be created by anyone.
+**Language for Lists** – Listiary has its own small language for writing lists, called Describe. It is designed to be readable and consistent, without feeling like programming.
 
-***Extensible via plugins*** – Developers can write and submit their own add-ons, and users can enable different add-ons to customize their experience. Think music players, fonts and styles, etc.
+**Plain Tech Stack** – Listiary is built with vanilla JavaScript and PHP, with minimal use of self-hosted libraries. This keeps the platform lightweight, reduces external dependencies, and makes its code easier to audit.
 
-***Flexible monetization*** – Listiary is free for all, but paid users will be able to host private wikis on our domain, similar to the GitHub Enterprise Cloud and many other platforms, which improves long-term sustainability without compromising the mission of the wiki.
+**FOSS** – Both Listiary and Describe are free and open source, licensed under AGPL v3.
 
-***Interactive editing*** – Users can customize, edit, highlight, and sort public or personal lists, with versioned drafts saved for later, fork their own versions, and even share them on social media if they like.
+### Experimental features
 
-***Tailored to lists*** – Lists stick out like a sore thumb on many wiki platforms, because large, wide, awkward lists don't fit neatly inside text, or software templates made for presenting text. Listiary lets complex lists shine in elegant and convenient ways – You can have checkbox lists, timed lists that change color or text when they expire, and much, much more endlessly-sortable goodness.
+**Personal Tool** – Listiary can be used for personal as well as public knowledge. Think of it as an encyclopedia and a notebook, built on top of the same system.
+
+**Extensible** – Listiary supports plugins, including a selection of ready-made ones. Admins can enable or disable them per wiki instance, as well as develop their own.
+
+**Bot-Derived Content** – Wiki admins can run bots that gather information from reputable sources and create articles. Such content can be designated with a low-trust level, reflecting its automated origin and allowing it to be evaluated accordingly.
+
+**Distributed and Sustainable** – Users choose which servers and content to load, giving Listiary a decentralized model. Its architecture is designed with client-side federation, high availability, and asynchronous data synchronization in mind. This flexibility opens up different possibilities for moderation, resilience, and long-term sustainability beyond rigid, centralized platforms.
+
+**Interactive Editing** – Users can customize, edit, highlight, and sort public or personal lists. They can save versioned drafts, fork lists into their own versions, and share them on social media.
+
+**Importable and Exportable** – Listiary does not aim to be the ultimate personal list-making app. Instead, it aims to be a capable list-making tool built on top of a knowledge system. Interoperability matters, so importing and exporting content are priorities wherever possible.
+
+**Forkable Content** – Listiary adopts the GitHub mentality for lists: every list can become the starting point for another. Users can make their own edits, maintain multiple versions, and let them evolve independently.
+
+**Liquid Trust** – Listiary uses a flexible, layered trust model. Users can write freely, while articles receive evolving trust assessments rather than relying on a rigid, binary distinction between trusted and untrusted content.
 
 ***Learn more*** – You can visit the official documentation to learn more:<br />
 [Project Listiary - Official Documentation](https://documentation.listiary.org/listiary/)<br />
