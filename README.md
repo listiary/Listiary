@@ -15,7 +15,7 @@ Listiary is a wiki built from nested lists on various topics. From movie recomme
 It’s a flexible, open-source tool for building structured wikis of lists on any topic.
 
 ## About  
-Listiary is a custom wiki platform built for writing lists. Unlike traditional wikis, which focus on free-form text, Listiary is designed from the ground up for structured, interactive, and dynamic lists.
+Listiary is an experimental wiki project built around lists rather than articles. The basic idea is simple: lists are treated as their own kind of object, not as formatting inside text. That decision shapes most of the system, from how content is written to how it changes over time.
 
 ***Distributed and sustainable*** – Users choose servers and content to load, giving Listiary a decentralized model – similar to Mastodon. This flexibility makes a huge difference in terms of moderation and long-term sustainability, compared to rigid centralized platforms.
 
