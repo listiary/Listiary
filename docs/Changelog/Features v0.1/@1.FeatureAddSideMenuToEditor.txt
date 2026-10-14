@@ -1,3 +1,0 @@
-FEATURE: Add side menu button to editor
-
-Add a functional button that opens a side menu with a close button that closes it

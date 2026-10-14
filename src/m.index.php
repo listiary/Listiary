@@ -4,7 +4,7 @@
 	session_start();
 
 	$text = "Log in/Sign up";
-	$url = "session/m.login.php?domain=public";
+	$url = "m.session/m.login.php?domain=public";
 	if(isset($_GET['article']) == true) $url .= "&article=" . $_GET['article'];
 	$username = "";
 
@@ -16,8 +16,8 @@
 	// Check if the user is logged in, otherwise redirect to login page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
 	{
-		$text = $_SESSION["username"];//"My profile";
-		$url = "session/user.php";
+		$text = $_SESSION["username"];
+		$url = "m.session/m.userhome.php";
 		$username = $_SESSION['username'];
 	}
 
@@ -68,11 +68,13 @@
 
 		<!-- MenuMain -->
 		<a id="userlink" href="<?php echo $url; ?>" class="MenuMain"><?php echo $text; ?></a><!-- <a href="javascript:void(0);">Settings</a> -->
-		<a id="modelink_personal" href="javascript:personalClick('<?php echo $username; ?>');" class="MenuMain">public mode</a>
+		<!-- <a id="modelink_personal" href="javascript:personalClick('<?php echo $username; ?>');" class="MenuMain">public mode</a>
 		<a id="modelink_private" href="javascript:privateClick('<?php echo $usercode; ?>');" style="display:none;" class="MenuMain">personal mode</a>
 		<a id="modelink_normative" href="javascript:normativeClick();" style="display:none;" class="MenuMain">private mode</a>
-		<a id="modelink_public" href="javascript:publicClick();" style="display:none;" class="MenuMain">normative mode</a>
+		<a id="modelink_public" href="javascript:publicClick();" style="display:none;" class="MenuMain">normative mode</a> -->
 		<hr id="MenuMainMiddleAnchor" style="margin: 22px;" class="MenuMain"/>
+		<a href="m.index.php" class="MenuMain">Wiki Index</a>
+		<a href="m.session/m.usersindex.php" class="MenuMain">Users Index</a>
 		<a href="#" target="_blank" class="MenuMain">About</a>
 		<a href="https://forums.listiary.org/" target="_blank" class="MenuMain">Forums</a>
 		<a href="contact/mobile/contact.php" class="MenuMain">Contact us</a>

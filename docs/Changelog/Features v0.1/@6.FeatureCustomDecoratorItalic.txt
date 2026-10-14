@@ -1,3 +1,0 @@
-FEATURE: {custom|italic} Italic custom decorator
-
-This custom decorator produces entries with an italic font

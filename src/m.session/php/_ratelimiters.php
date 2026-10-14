@@ -199,7 +199,7 @@
 	function isEmailBlockedForResetRequest(mysqli $link, string $email): bool {
 		
 		$sql = "SELECT COUNT(*) FROM " . TablePasswordResetResends::$tableName . 
-			" WHERE " . TablePasswordResetResends::$email " = ?" . 
+			" WHERE " . TablePasswordResetResends::$email . " = ?" . 
 			" AND " . TablePasswordResetResends::$sendTime . " > DATE_SUB(NOW(), INTERVAL " . WAIT_TIME_RESET . " MINUTE)";
 		
 		$stmt = mysqli_prepare($link, $sql);
@@ -216,7 +216,7 @@
 	function cleanupResetAttempts(mysqli $link, string $email): void {
 		
 		$sql = "DELETE FROM " . TablePasswordResetResends::$tableName . 
-			" WHERE " . TablePasswordResetResends::$email " = ?";
+			" WHERE " . TablePasswordResetResends::$email . " = ?";
 		
 		if (!$stmt = mysqli_prepare($link, $sql))
 		{

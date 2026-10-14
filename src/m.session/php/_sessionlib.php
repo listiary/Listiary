@@ -787,7 +787,7 @@
 		// Hash the token as stored in the DB
 		$hashed_token = hash('sha256', $token);
 		
-		$sql = "SELECT " TableAccounts::$email
+		$sql = "SELECT " . TableAccounts::$email .
 				" FROM " . TableAccounts::$tableName .
 				" WHERE " . TableAccounts::$verificationToken . " = ?" .
 				" LIMIT 1";
@@ -888,8 +888,8 @@
 
 		$hashed_token = hash('sha256', $token);
 
-		$sql = "SELECT " . TablePasswordResets::$email
-				" FROM " . TablePasswordResets::$tableName
+		$sql = "SELECT " . TablePasswordResets::$email .
+				" FROM " . TablePasswordResets::$tableName .
 				" WHERE " . TablePasswordResets::$token . " = ?" .
 				" AND " . TablePasswordResets::$expiresAt . " >= NOW()" .
 				" LIMIT 1";
@@ -1231,7 +1231,7 @@
 			$newTokenHash = hash('sha256', $newToken);
 
 			// Update database
-			$sql = "UPDATE " TablePersistentLogins::$tableName .
+			$sql = "UPDATE " . TablePersistentLogins::$tableName .
 					" SET " . TablePersistentLogins::$tokenHash . " = ?, " . 
 						TablePersistentLogins::$expiresAt . " = NOW() + INTERVAL 1 YEAR" .
 					" WHERE " . TablePersistentLogins::$userId . " = ?" . 

@@ -1,3 +1,0 @@
-FEATURE: {custom|bgcolor|CSS_VALUE} Bgcolor custom decorator
-
-This custom decorator produces entries with a specific background color

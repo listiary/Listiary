@@ -4,7 +4,7 @@ define('ALLOW_SESSION_OVER_HTTP', false);
 define('IS_PRODUCTION', false);
 
 /* URLs */
-define('COMPILER_URL', '[REDACTED]');
+define('COMPILER_URL', 'https://bcm98vlf3b.execute-api.eu-north-1.amazonaws.com/');
 define('BASE_URL', 'https://development.listiary.org/');
 define('INDEX_URL', 'https://development.listiary.org/m.index.php');
 
@@ -30,27 +30,27 @@ define('INDEX_URL', 'https://development.listiary.org/m.index.php');
 
 
 /* public */
-define('DB_SERVER_PUBLIC', '[REDACTED]');
-define('DB_USERNAME_PUBLIC', '[REDACTED]');
-define('DB_PASSWORD_PUBLIC', '[REDACTED]');
-define('DB_NAME_PUBLIC', '[REDACTED]');
+define('DB_SERVER_PUBLIC', 'web.jumphosting03.com');
+define('DB_USERNAME_PUBLIC', 'historic_sppL6Lj');
+define('DB_PASSWORD_PUBLIC', 'lxTLmR4V_Q7xVfumZlGDo88B');
+define('DB_NAME_PUBLIC', 'historic_listiary_development');
 
 /* personal */
-define('DB_SERVER_PERSONAL', '[REDACTED]');
-define('DB_USERNAME_PERSONAL', '[REDACTED]');
-define('DB_PASSWORD_PERSONAL', '[REDACTED]');
-define('DB_NAME_PERSONAL', '[REDACTED]');
+define('DB_SERVER_PERSONAL', 'web.jumphosting03.com');
+define('DB_USERNAME_PERSONAL', 'historic_sppL6Lj');
+define('DB_PASSWORD_PERSONAL', 'lxTLmR4V_Q7xVfumZlGDo88B');
+define('DB_NAME_PERSONAL', 'historic_listiary_development');
 
 /* private */
-define('DB_SERVER_PRIVATE', '[REDACTED]');
-define('DB_USERNAME_PRIVATE', '[REDACTED]');
-define('DB_PASSWORD_PRIVATE', '[REDACTED]');
-define('DB_NAME_PRIVATE', '[REDACTED]');
+define('DB_SERVER_PRIVATE', 'web.jumphosting03.com');
+define('DB_USERNAME_PRIVATE', 'historic_sppL6Lj');
+define('DB_PASSWORD_PRIVATE', 'lxTLmR4V_Q7xVfumZlGDo88B');
+define('DB_NAME_PRIVATE', 'historic_listiary_development');
 
 /* documentation */
-define('DB_SERVER_DOCUMENTATION', '[REDACTED]');
-define('DB_USERNAME_DOCUMENTATION', '[REDACTED]');
-define('DB_PASSWORD_DOCUMENTATION', '[REDACTED]');
-define('DB_NAME_DOCUMENTATION', '[REDACTED]');
+define('DB_SERVER_DOCUMENTATION', 'web.jumphosting03.com');
+define('DB_USERNAME_DOCUMENTATION', 'historic_sppL6Lj');
+define('DB_PASSWORD_DOCUMENTATION', 'lxTLmR4V_Q7xVfumZlGDo88B');
+define('DB_NAME_DOCUMENTATION', 'historic_listiary_development');
 
 ?>
