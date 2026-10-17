@@ -1,0 +1,14 @@
+maintree 0.1 
+The basic version - does nothing special
+
+maintree 0.2
+Does not allow entries to spillover - adds max width and elypsis overflow "..."
+Has DrawMobile method that chooses the shortest versions from shortver array
+
+maintree 0.3
+Elypsis overflow mode actually works now.
+Has added overflow modes.
+
+maintree 0.4
+Links only overflow mode implemented.
+Refactoring done.
