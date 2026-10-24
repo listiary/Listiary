@@ -1,0 +1,12 @@
+index scripts 0.1
+The basic prototype version 1
+Contains the public, personal, private and normative menu show functions.
+
+
+m index scripts 0.1
+The basic prototype version 1. For mobile media.
+Contains the public, personal, private and normative menu show functions.
+
+m index scripts 0.2
+The basic prototype version 1, but with more submenues. For mobile media.
+Contains the public, personal, private and normative menu show functions.
