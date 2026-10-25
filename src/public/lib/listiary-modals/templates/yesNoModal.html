@@ -1,0 +1,29 @@
+<!-- Yes/No dialog modal box -->
+<div id="[ADD MODAL ID HERE]" class="listiaryYesNoModalWrapper">
+	<div class="listiaryYesNoModalCorpus">
+		
+		<!-- Header Bar -->
+		<div class="listiaryYesNoModalHeaderBar">
+			<h2>Database Config</h2>
+			<span onclick="hideListiaryModal([ADD MODAL ID HERE]);">&times;</span>
+		</div>
+		
+		<!-- The Content Area -->
+		<div id="modalInnerContent" class="listiaryYesNoModalInnerContent">
+			<div class="listiaryYesNoModalBody">
+				
+				<!-- [ADD CONTENT HERE] -->
+				
+			</div>
+
+			<!-- GAP 1: Pushes the text paragraphs away from the editor -->
+			<div style="flex-grow: 1;"></div>
+		</div>
+
+		<!-- Action Buttons -->
+		<div class="listiaryYesNoModalButtonsWrapper">
+			<button class="buttonNo" type="button" onclick="hideListiaryModal([ADD MODAL ID HERE]);">Cancel</button>
+			<button class="buttonYes" type="button" onclick='[ADD JS HERE] hideListiaryModal([ADD MODAL ID HERE]);'>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+		</div>
+	</div>
+</div>

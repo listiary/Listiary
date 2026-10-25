@@ -1,0 +1,29 @@
+<!-- Create DB dialog modal box -->
+<div <?php if($step2State != 'open') echo "style='display:none;'" ?> id="setDbTablesModal" class="listiaryConsoleModalWrapper">
+	<form class="listiaryConsoleModalCorpus" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+	<input type="hidden" name="form_type" value="createdbtables">
+	<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+	
+		<!-- Header Bar -->
+		<div class="listiaryConsoleModalHeaderBar">
+			<h2>Database Tables</h2>
+			<span onclick="hideListiaryModal('setDbTablesModal');">&times;</span>
+		</div>
+		
+		<!-- The Content Area -->
+		<div id="modalInnerContent" class="listiaryConsoleModalInnerContent">
+			
+			<div class="listiaryConsoleModalBody">
+				<pre id="consoleOutput" class="listiaryConsoleModalConsoleBox">
+This is Listiary Console Modal
+Run now >
+				</pre>
+			</div>
+		
+		<!-- Action Buttons -->
+		<div class="listiaryConsoleModalButtonsWrapper">
+			<button class="buttonNo" type="button" onclick="hideListiaryModal('setDbTablesModal');">Cancel</button>
+			<button class="buttonYes" type="submit" name="form_dbconfig">&nbsp;&nbsp;&nbsp;Run&nbsp;&nbsp;&nbsp;</button>
+		</div>
+	</form>
+</div>

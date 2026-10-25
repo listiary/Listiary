@@ -1,0 +1,20 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^demo\.listiary\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.demo\.listiary\.com$
+RewriteRule ^(.*)$ "https\:\/\/demo\.listiary\.org\/$1" [R=301,L]
+RewriteCond %{HTTP_HOST} ^demo\.listiary\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.demo\.listiary\.net$
+RewriteRule ^(.*)$ "https\:\/\/demo\.listiary\.org\/$1" [R=301,L]
+
+#----------------------------------------------------------------cp:ppd
+# Section managed by cPanel: Password Protected Directories     -cp:ppd
+# - Do not edit this section of the htaccess file!              -cp:ppd
+#----------------------------------------------------------------cp:ppd
+AuthType Basic
+AuthName "Protected dev environment"
+AuthUserFile "/home/historic/.htpasswds/listiary.demo/passwd"
+Require valid-user
+#----------------------------------------------------------------cp:ppd
+# End section managed by cPanel: Password Protected Directories -cp:ppd
+#----------------------------------------------------------------cp:ppd

@@ -1,0 +1,55 @@
+.wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	min-width: 400px;
+
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	min-height: 100vh;
+}
+.upload-button {
+	
+	width: 100%;
+	margin-bottom: 20px;
+	margin-top: -10px;
+	color: #818181; background-color: #ccc; 
+	font-style: italic;
+	border: 1px dashed #818181;
+}
+.centered {
+	text-align: center;
+}
+.left {
+	text-align: left;
+}
+.width100 {
+	width: 100%;
+}
+.flex-gap {
+	flex-grow: 1;
+	margin-top:20px;
+}
+.lastp {
+	text-align: left;
+	margin-bottom: 40px;
+}
+.black-link {
+	color:black;
+	font-style: italic;
+}
+.black-link-bold {
+	color:black;
+	text-align: left;
+	font-weight: bold;
+	font-style: italic;
+}
+p {
+	text-align: left;
+}
+h2 {
+	text-align: left;
+	font-weight: bold;
+}

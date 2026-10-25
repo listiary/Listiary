@@ -1,0 +1,79 @@
+body {
+	
+	background-color: #fff;
+	margin: 0;
+	color: #333;
+}
+
+
+.btn {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
+	margin-bottom: 10px;
+	padding-left: 0px;
+	padding-right: 0px;
+	font-size: 1.2rem;
+	
+	background-image: linear-gradient(to right, white 50%, white 50%); 
+	background-size: 100% 60%; 
+	background-position: 0px 85%;
+	background-repeat: no-repeat;
+
+
+	border: 0px;
+	color: white;
+	text-decoration: none;
+	font-weight: 500;
+
+	cursor: pointer;
+	transition: background-color 0.2s ease, transform 0.05s ease;
+}
+.btn:hover { 
+	background-image: linear-gradient(to right, silver 50%, silver 50%); 
+	background-size: 100% 60%; 
+	background-position: 0px 85%;
+	background-repeat: no-repeat;
+}
+.btn:active { transform: translateY(0); }
+.btn:disabled,
+.btn[aria-disabled="true"] {
+
+	color: #aaa;
+	background-image: linear-gradient(to right, white 50%, white 50%); 
+	background-size: 100% 60%; 
+	background-position: 0px 85%;
+	background-repeat: no-repeat;
+	
+	cursor: not-allowed;
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+.btn:disabled:hover,
+.btn[aria-disabled="true"]:hover {
+	filter: none;
+	background-color: #aaa;
+}
+.btn:disabled:active,
+.btn[aria-disabled="true"]:active {
+	transform: none;
+}
+
+.btn--white { color: black; background-color: #FFF; }
+.btn--white:hover { color: black; background-color: #FFF; }
+
+
+
+.is-invalid {
+	border-color: #dc3545 !important;
+	background-color: #fff8f8 !important;
+}
+
+.invalid-feedback {
+	color: #dc3545;
+	font-size: 13px;
+	margin-top: 6px;
+	font-style: italic;
+}

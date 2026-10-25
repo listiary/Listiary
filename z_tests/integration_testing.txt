@@ -1,0 +1,182 @@
+We are performing basic integration testing here.
+Unit-testing is a different layer.
+UI testing in different browsers and resolutions is a different layer.
+This protocol is for fast and dirty testing, so we can answer if everything looks like working properly - not trying to catch every bug.
+----------------------------------------------------------------------------------------------------------------------------------------
+1. Page loads: Open the demo URL successfully.
+2. Source inspection: Check the browser's developer tools for visible errors, particularly in the Console and Network panels.
+3. Desktop appearance: Verify that the page renders and looks reasonable in the current browser.
+4. Mobile appearance: Use the inspector's device emulation, switch to the mobile layout, and verify that the page still renders and looks reasonable.
+The goal is to catch obvious integration failures quickly, not to prove the absence of bugs.
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+m.privacy-policy.php
+	open the page in browser: https://demo.listiary.org/m.privacy-policy.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	
+m.terms-of-service.php
+	open the page in browser: https://demo.listiary.org/m.terms-of-service.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+m.report-bug.php
+	open the page in browser: https://demo.listiary.org/m.report-bug.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+m.contact.php
+	open the page in browser: https://demo.listiary.org/m.contact.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+m.donate.php
+	open the page in browser: https://demo.listiary.org/m.donate.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+privacy-policy.php
+	open the page in browser: https://demo.listiary.org/privacy-policy.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+terms-of-service.php
+	open the page in browser: https://demo.listiary.org/terms-of-service.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+report-bug.php
+	open the page in browser: https://demo.listiary.org/report-bug.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+contact.php
+	open the page in browser: https://demo.listiary.org/contact.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+donate.php
+	open the page in browser: https://demo.listiary.org/donate.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+admin.php
+	open the page in browser: https://demo.listiary.org/admin.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	verify the link to installer.php in the menu works.
+	
+installer.php
+	open the page in browser: https://demo.listiary.org/installer.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	make sure "modal 0" opens when clicked on the link for "step 0"
+	more (we can perform further tests to walk through an installation process) ...
+
+m.admin.php
+	open the page in browser: https://demo.listiary.org/m.admin.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	verify the link to installer.php in the menu works.
+	
+m.installer.php
+	open the page in browser: https://demo.listiary.org/m.installer.php
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	make sure "modal 0" opens when clicked on the link for "step 0"
+	more (we can perform further tests to walk through an installation process) ...
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+codeviewer.php
+	open the page in browser: https://demo.listiary.org/codeviewer.php?article=radiowatch&domain=public&itemid=radiowatch.rnode
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	look through the menus.
+
+m.codeviewer.php
+	open the page in browser: https://demo.listiary.org/m.codeviewer.php?article=radiowatch&domain=public&itemid=radiowatch.rnode
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	look through the menus.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+editor.php
+	Not tested
+
+editor-new.php
+	Not tested
+
+m.editor.php
+	open the page in browser: https://demo.listiary.org/m.editor.php?article=radiowatch.life.tobuy&domain=public&itemid=radiowatch.life.tobuy.rnode
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+	look through the menus.
+	perform an edit, and see it go through.
+
+m.editor-new.php
+	Not tested
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+index.php 
+	open the page in browser: https://demo.listiary.org/index.php?article=radiowatch.rnode
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+m.index.php 
+	open the page in browser: https://demo.listiary.org/m.index.php?article=radiowatch.rnode
+	inspect it to make sure there are no errors in the source inspector.
+	verify it looks reasonably good in our browser (scroll to the bottom).
+	look at the mobile version in the inspector, and verify it looks reasonably good in our browser as well (scroll to the bottom).
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+forgotpass.php
+login.php
+register.php
+regsuccess.php
+resetpass.php
+useredit.php
+userhome.php
+userpreview.php
+usersettings.php
+verify.php
+user.php
+usersindex.php
+
+m.forgotpass.php
+m.login.php
+m.register.php
+m.regsuccess.php
+m.resetpass.php
+m.useredit.php
+m.userhome.php
+m.userpreview.php
+m.usersettings.php
+m.verify.php
+m.user.php
+m.usersindex.php
+

@@ -1,0 +1,120 @@
+/* page */
+html, body {
+
+    height:100%;
+    width:100%;
+    margin:0;
+}
+#skeleton {
+	
+	width:100%; 
+	background-color:white; 
+	height:100%; 
+	border: 0px solid black; 
+	border-collapse: collapse; 
+	table-layout: fixed; 
+
+	/* position: absolute; 
+	background-color:gray; */
+}
+#SmallTopContainer, #LargeTopContainer {
+	
+	background-color:#99B3FF; 
+	
+	vertical-align: top; 
+	padding-bottom:0px;
+
+	/* background-color:white; 
+	width:100%; 
+	vertical-align: top; 
+	padding-top: 10px; 
+	padding-left: 30px; padding-bottom: 10px;
+	*/
+}
+#SmallContainer {
+	
+	background-color:white; 
+	width: 10%; 
+	max-width:20%; 
+	vertical-align: top; 
+	padding-top:0px; 
+	border-right: 0px dotted black;
+}
+#LargeContainer {
+	
+	background-color:white; 
+	width:100%; 
+	vertical-align: top; 
+	padding-left: 0px; 
+	padding-right: 0px;
+	padding-top: 0px;
+
+	/* background-color:white; 
+	width:100%; 
+	vertical-align: top; 
+	padding:30px; padding-top: 0px;
+	*/		
+}
+
+
+/* modal */
+.loading-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.loading-modal-content {
+  margin-left: 45%;
+  margin-top: 15%;
+  width: 10%;
+}
+
+
+/* sidenav */
+#sidenav-trigger {
+	
+	color: #818181;
+	font-size: 30px; 
+	cursor:pointer; 
+	position: absolute; 
+	z-index: 1; 
+	top: 0; right: 0; 
+	padding-top: 7px; 
+	padding-right: 15px;
+	/* margin-top: 25px; */
+	/* margin-right: 20px; */
+}
+#sidenav {
+	
+	display: none;
+	height: 100%; width: 0;
+	position: fixed; 
+	z-index: 1; 
+	top: 0; right: 0;
+	background-color: #ccc; 
+	overflow-x: hidden; 
+	transition: 0.5s; 
+	padding-top: 60px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+	/* margin-right: 22px; */
+	/* margin-top: 31px; */
+	/* height: 396px; */
+}
+#sidenav a {
+	
+	padding: 8px 8px 0px 20px; 
+	text-decoration: none; 
+	font-size: 21px;
+	color: #818181; 
+	display: block; 
+	transition: 0.3s;
+}
